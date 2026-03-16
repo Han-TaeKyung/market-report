@@ -1,0 +1,36 @@
+name: Notion → GitHub Pages 배포
+
+on:
+  schedule:
+    - cron: '30 0 * * 1-5'   # KST 09:30 월~금 (UTC 00:30)
+  workflow_dispatch:           # 수동 실행 버튼
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Fetch from Notion & build HTML
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        run: python fetch_notion.py
+
+      - name: Deploy to GitHub Pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html archive/ || true
+          git diff --staged --quiet || git commit -m "보고서 배포 $(date '+%Y-%m-%d')"
+          git push
