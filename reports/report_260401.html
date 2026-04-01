@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>모닝 브리핑 | 2026.04.01</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #21262d;
+    --border: #30363d;
+    --up: #00C896;
+    --down: #FF4D6D;
+    --neutral: #6b7a99;
+    --accent: #4C9AFF;
+    --warn: #F5A623;
+    --red-badge: #FF4D6D;
+    --text: #e6edf3;
+    --text2: #8b949e;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans KR', sans-serif; font-size: 14px; line-height: 1.6; }
+  .mono { font-family: 'DM Mono', monospace; }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 50%, #0d1117 100%); padding: 24px 20px 16px; border-bottom: 1px solid var(--border); }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; }
+  .header-title { font-size: 26px; font-weight: 900; letter-spacing: -1px; }
+  .header-title span { color: var(--accent); }
+  .header-date { color: var(--text2); font-size: 12px; font-family: 'DM Mono', monospace; margin-top: 4px; }
+  .risk-banner { margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .risk-item { background: rgba(255,77,109,0.12); border: 1px solid rgba(255,77,109,0.35); border-radius: 6px; padding: 8px 14px; font-size: 12px; display: flex; align-items: center; gap: 7px; }
+  .risk-item .icon { font-size: 14px; }
+  .risk-item strong { color: #ff8fa3; }
+
+  /* TAB BAR */
+  .tab-bar { position: sticky; top: 0; z-index: 100; background: var(--bg2); border-bottom: 1px solid var(--border); display: flex; padding: 0 16px; gap: 4px; }
+  .tab-btn { background: none; border: none; color: var(--text2); padding: 12px 18px; font-size: 13px; font-family: 'Noto Sans KR', sans-serif; font-weight: 500; cursor: pointer; border-bottom: 2px solid transparent; transition: all .2s; white-space: nowrap; }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-content { display: none; padding: 20px 16px; max-width: 1200px; margin: 0 auto; }
+  .tab-content.active { display: block; }
+
+  /* SECTION TITLE */
+  .section-title { font-size: 15px; font-weight: 700; color: var(--text); margin: 28px 0 14px; display: flex; align-items: center; gap: 8px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .section-title .badge { font-size: 10px; padding: 2px 7px; border-radius: 99px; background: rgba(76,154,255,0.15); color: var(--accent); font-weight: 500; }
+
+  /* GRID */
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  @media (max-width: 900px) { .grid4 { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .grid4, .grid3, .grid2 { grid-template-columns: 1fr; } }
+
+  /* CARD */
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .card-label { font-size: 11px; color: var(--text2); font-weight: 500; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .card-value { font-size: 22px; font-weight: 700; font-family: 'DM Mono', monospace; }
+  .card-change { font-size: 12px; font-family: 'DM Mono', monospace; margin-top: 3px; }
+  .card-sub { font-size: 11px; color: var(--text2); margin-top: 4px; }
+  .up { color: var(--up); }
+  .down { color: var(--down); }
+  .neutral { color: var(--neutral); }
+
+  /* INDEX CARD LARGE */
+  .idx-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+  .idx-name { font-size: 11px; color: var(--text2); font-weight: 600; text-transform: uppercase; margin-bottom: 6px; }
+  .idx-val { font-size: 20px; font-weight: 700; font-family: 'DM Mono', monospace; }
+  .idx-chg { font-size: 13px; font-family: 'DM Mono', monospace; margin-top: 4px; }
+
+  /* NEWS LIST */
+  .news-list { display: flex; flex-direction: column; gap: 10px; }
+  .news-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+  .news-item .news-num { display: inline-block; background: var(--accent); color: #fff; font-size: 10px; font-weight: 700; border-radius: 4px; padding: 1px 6px; margin-right: 7px; }
+  .news-item .news-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+  .news-item .news-body { font-size: 12px; color: var(--text2); line-height: 1.6; }
+  .news-item .news-source { font-size: 11px; color: #4C9AFF; margin-top: 5px; }
+  .news-item.war { border-left: 3px solid var(--down); }
+  .news-item.caution { border-left: 3px solid var(--warn); }
+
+  /* BADGE */
+  .badge-high { background: rgba(255,77,109,0.15); color: #ff8fa3; border: 1px solid rgba(255,77,109,0.3); padding: 2px 8px; border-radius: 99px; font-size: 10px; font-weight: 700; }
+  .badge-mid { background: rgba(245,166,35,0.15); color: #f5c842; border: 1px solid rgba(245,166,35,0.3); padding: 2px 8px; border-radius: 99px; font-size: 10px; font-weight: 700; }
+  .badge-low { background: rgba(0,200,150,0.12); color: var(--up); border: 1px solid rgba(0,200,150,0.25); padding: 2px 8px; border-radius: 99px; font-size: 10px; font-weight: 700; }
+
+  /* TABLE */
+  .tbl { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .tbl th { background: var(--bg3); color: var(--text2); padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--border); font-weight: 600; font-size: 11px; }
+  .tbl td { padding: 8px 10px; border-bottom: 1px solid rgba(48,54,61,0.5); }
+  .tbl tr:last-child td { border-bottom: none; }
+  .tbl-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+
+  /* SECTOR CARD */
+  .sector-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .sector-name { font-size: 13px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; }
+  .sector-stocks { font-size: 11px; color: var(--text2); margin-bottom: 8px; }
+  .sector-reason { font-size: 12px; color: var(--text); line-height: 1.5; }
+  .supply-bar { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 11px; }
+  .supply-track { flex: 1; height: 5px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+  .supply-fill { height: 100%; border-radius: 3px; }
+
+  /* EXPERT BOX */
+  .expert-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 10px; border-left: 3px solid var(--accent); }
+  .expert-name { font-size: 11px; color: var(--accent); font-weight: 700; margin-bottom: 6px; }
+  .expert-view { font-size: 13px; color: var(--text); line-height: 1.65; }
+
+  /* TRUMP BOX */
+  .trump-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 10px; }
+  .trump-date { font-size: 11px; color: var(--warn); font-family: 'DM Mono', monospace; margin-bottom: 5px; }
+  .trump-quote { font-size: 13px; color: var(--text); line-height: 1.65; }
+  .trump-context { font-size: 12px; color: var(--text2); margin-top: 5px; }
+
+  /* FOOTER */
+  .footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 16px 20px; margin-top: 40px; text-align: center; font-size: 11px; color: var(--text2); }
+  .war-label { display: inline-block; background: rgba(255,77,109,0.12); color: #ff8fa3; border: 1px solid rgba(255,77,109,0.3); border-radius: 4px; font-size: 10px; padding: 1px 7px; margin-right: 6px; font-weight: 700; }
+  .progress-bar { width: 100%; background: var(--bg3); height: 8px; border-radius: 4px; overflow: hidden; margin-top: 6px; }
+  .progress-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--warn), var(--down)); }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">📊 <span>모닝 브리핑</span></div>
+      <div class="header-date">2026.04.01 (수) KST | 미국증시: 3/31 화요일 마감 기준 | 한국증시: 4/1 오전장 기준</div>
+    </div>
+  </div>
+  <div class="risk-banner">
+    <div class="risk-item">
+      <span class="icon">🔴</span>
+      <div><strong>미·이란 전쟁 D+32</strong> — 이란 페제시키안 "조건부 종전 의향" 발언. 4/6 공격유예 시한 임박. 협상 국면 진입 여부 주목</div>
+    </div>
+    <div class="risk-item">
+      <span class="icon">🟢</span>
+      <div><strong>뉴욕증시 급등 반전</strong> — 이란 페제시키안 대통령 "조건부 종전 의향" 발언에 나스닥 +3.83%, S&P500 +2.91%, 다우 +2.49% 폭등. 필라델피아 반도체 +6%↑</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('macro', event)">🌐 글로벌 매크로</button>
+  <button class="tab-btn" onclick="switchTab('market', event)">📈 증시 시황</button>
+  <button class="tab-btn" onclick="switchTab('iran', event)">🔴 이란전쟁 특집</button>
+</div>
+
+<!-- ============ TAB 1: MACRO ============ -->
+<div id="tab-macro" class="tab-content active">
+
+  <div class="section-title">📡 글로벌 매크로 지표 <span class="badge">실시간</span></div>
+
+  <div style="font-size:13px; color:var(--warn); margin-bottom:12px;">
+    ⚡ 미·이란 전쟁 지속으로 에너지 시장 극도 불안. WTI 2022년 7월 이후 처음으로 $100 돌파
+  </div>
+
+  <p style="font-size:12px;color:var(--text2);margin-bottom:14px;">▶ 통화 & 환율</p>
+  <div class="grid4">
+    <div class="card">
+      <div class="card-label">달러인덱스 DXY</div>
+      <div class="card-value neutral">100.5</div>
+      <div class="card-change up">▲ 0.55pt (6일 연속 상승)</div>
+      <div class="card-sub">안전자산 선호 + 이란 리스크</div>
+    </div>
+    <div class="card">
+      <div class="card-label">원/달러 환율</div>
+      <div class="card-value down mono">1,530+</div>
+      <div class="card-change down">▲ 장중 1,530 돌파 (2009.03 이후 17년만)</div>
+      <div class="card-sub">전쟁 장기화 우려에 원화 급약세</div>
+    </div>
+    <div class="card">
+      <div class="card-label">달러/엔 환율</div>
+      <div class="card-value neutral mono">160.3</div>
+      <div class="card-change down">▲ 엔화 약세 지속</div>
+      <div class="card-sub">BOJ 정책 불확실 + 달러 강세</div>
+    </div>
+    <div class="card">
+      <div class="card-label">유로/달러</div>
+      <div class="card-value neutral mono">~1.08</div>
+      <div class="card-change neutral">— 소폭 변동</div>
+      <div class="card-sub">ECB 동향 주시</div>
+    </div>
+  </div>
+
+  <p style="font-size:12px;color:var(--text2);margin:16px 0 10px;">▶ 원자재</p>
+  <div class="grid4">
+    <div class="card">
+      <div class="card-label">WTI 원유</div>
+      <div class="card-value down mono">$102.88</div>
+      <div class="card-change down">▲ 2022년 7월 이후 처음 $100 돌파</div>
+      <div class="card-sub">호르무즈 봉쇄 + 이란 공급 차질</div>
+    </div>
+    <div class="card">
+      <div class="card-label">브렌트유</div>
+      <div class="card-value down mono">$113.55</div>
+      <div class="card-change down">▲ 스태그플레이션 우려 고조</div>
+      <div class="card-sub">52주 고점 $119.50 근접</div>
+    </div>
+    <div class="card">
+      <div class="card-label">금 GOLD</div>
+      <div class="card-value up mono">$4,619</div>
+      <div class="card-change up">▲ 전쟁 불확실성에 안전자산 급등</div>
+      <div class="card-sub">지정학 프리미엄 최고치 경신</div>
+    </div>
+    <div class="card">
+      <div class="card-label">구리 (닥터코퍼)</div>
+      <div class="card-value neutral mono">$5.46/lb</div>
+      <div class="card-change up">▲ +1.62% (경기선행 소폭 회복)</div>
+      <div class="card-sub">공급망 우려 vs 수요 둔화</div>
+    </div>
+  </div>
+
+  <p style="font-size:12px;color:var(--text2);margin:16px 0 10px;">▶ 미국 국채 금리</p>
+  <div class="grid3">
+    <div class="card">
+      <div class="card-label">미 10년물 국채</div>
+      <div class="card-value down mono">4.43%</div>
+      <div class="card-change down">▲ +0.04%p (장기물 주도 상승)</div>
+      <div class="card-sub">에너지 인플레 우려에 금리 상승압</div>
+    </div>
+    <div class="card">
+      <div class="card-label">미 2년물 국채</div>
+      <div class="card-value neutral mono">3.91%</div>
+      <div class="card-change neutral">▲ +0.02%p</div>
+      <div class="card-sub">연내 인상 가능성 > 인하 가능성</div>
+    </div>
+    <div class="card">
+      <div class="card-label">장단기 금리차</div>
+      <div class="card-value neutral mono">+0.52%p</div>
+      <div class="card-change down">▲ 역전 해소 → 장기물 상승 주도</div>
+      <div class="card-sub">전쟁 인플레 기대 반영</div>
+    </div>
+  </div>
+
+  <div class="section-title">🏛️ 국가별 통화·재정 정책</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-label">🇺🇸 Fed (연준)</div>
+      <div style="font-size:12px;line-height:1.7;margin-top:4px;">
+        파월 의장 3/30 하버드 강연: <span style="color:var(--warn);">"에너지 가격 충격은 빠르게 발생·소멸하는 경향"</span>이라며 선제 금리 인상보단 관망 기조 강조. 연내 금리 <strong>인상 가능성 > 인하</strong>로 기울어짐. 3/31 보먼 부의장·굴스비 시카고 연은 총재 발언 예정.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">🇰🇷 한국은행</div>
+      <div style="font-size:12px;line-height:1.7;margin-top:4px;">
+        신현송 한은 총재 후보자, 취임 첫날 "환율 레벨 자체에 큰 의미 부여 말아야"라며 시장 달래기. 달러 유동성 지표 양호 강조. 정부는 공공부문 에너지 절약 강화방안·차량 5부제 지속. <span style="color:var(--down);">비상경제 대응체계 전환</span>.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">🌍 지정학 리스크</div>
+      <div style="font-size:12px;line-height:1.7;margin-top:4px;">
+        <span class="badge-high">HIGH</span> 미·이란 전쟁 D+32 — 호르무즈 사실상 봉쇄<br>
+        <span class="badge-high">HIGH</span> 후티 참전 — 홍해 물류 재차 위협<br>
+        <span class="badge-mid">MID</span> 이스라엘, 미국 협상과 무관하게 독자 공습 지속<br>
+        <span class="badge-mid">MID</span> 카타르 LNG 단지 공격 여파 — 글로벌 LNG 공급 불안<br>
+        <span class="badge-low">LOW</span> 파키스탄 중재 협상 진행 — 직접 대화 성사 가능성
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">📅 이번 주 경제 캘린더</div>
+      <div style="font-size:12px;line-height:1.7;margin-top:4px;">
+        <strong>3/31(오늘)</strong> — 미 JOLTS 구인·이직, 시카고 PMI, 소비자신뢰지수<br>
+        <strong>4/1(수)</strong> — ADP 민간고용, ISM 제조업 PMI, 소매판매, 한국 3월 수출입<br>
+        <strong>4/2(목)</strong> — 신규 실업수당 청구, 무역수지<br>
+        <strong>4/3(금)</strong> — 🌟 미국 3월 <strong>비농업 고용보고서</strong> (뉴욕증시 성금요일 휴장)<br>
+        <strong>4/7(화)</strong> — 삼성전자 잠정실적 발표
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">📊 실물 경제 지표</div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead>
+        <tr><th>지표</th><th>최신치</th><th>전월/전년</th><th>평가</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>미국 실업률 (전망)</td><td>4.5%</td><td>4.4%</td><td><span class="down">소폭 악화 예상</span></td></tr>
+        <tr><td>미국 비농업고용 (3월 전망)</td><td>+48,000명</td><td>-92,000명</td><td><span class="up">파업 일회성 요인 소멸</span></td></tr>
+        <tr><td>미국 ISM 제조업 PMI (3월)</td><td>예상 50이상</td><td>수축권</td><td><span class="warn" style="color:var(--warn);">경기회복 핵심 변수</span></td></tr>
+        <tr><td>WTI 유가 (에너지 충격)</td><td>$102.88</td><td>$65~70대</td><td><span class="down">스태그플레이션 경고</span></td></tr>
+        <tr><td>한국 2월 PPI (생산자물가)</td><td>YoY +2.4%</td><td>+1.8%</td><td><span class="down">에너지 반영 상승</span></td></tr>
+        <tr><td>WGBI 한국국채 편입</td><td>4월부터 시작</td><td>—</td><td><span class="up">패시브 자금 유입 기대</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-title">🏭 산업·기술 트렌드</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-label">🤖 AI·반도체</div>
+      <div style="font-size:12px;line-height:1.7;margin-top:4px;">
+        구글 <strong>'터보퀀트'</strong> 기술 발표 — AI의 KV캐시 데이터 압축으로 메모리 사용량 절감 주장 → 반도체주 단기 급락. 그러나 증권가 분석: "딥시크 사례처럼 저비용 효율화는 총수요 확대로 귀결." 과도한 우려 평가. SUPER MICRO AI 서버 中 불법 수출 혐의로 주가 -33%.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">⚡ 에너지·공급망</div>
+      <div style="font-size:12px;line-height:1.7;margin-top:4px;">
+        호르무즈 봉쇄로 글로벌 원유 20%, LNG 20%, 비료 50% 공급 차질. 카타르 라스라판 LNG 단지 공격으로 아시아 LNG 수급 비상. UAE 호르무즈 대체 송유관 화재 발생. IEA 비축유 방출 긴급회의 개최. 한국석유공사·UAE 간 원유 200만배럴 긴급 입고.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ TAB 2: MARKET ============ -->
+<div id="tab-market" class="tab-content">
+
+  <div class="section-title">📊 주요 지수 한눈에 보기 <span class="badge">3/31 미국마감 | 4/1 한국오전</span></div>
+  <div class="grid4" style="margin-bottom:10px;">
+    <div class="idx-card">
+      <div class="idx-name">S&P 500</div>
+      <div class="idx-val up mono">6,531</div>
+      <div class="idx-chg up">▲ +2.91% (이란 종전 기대 랠리)</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;">3월 월간 -5.3% (2022년 이후 최악 월간)</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-name">나스닥</div>
+      <div class="idx-val up mono">21,593</div>
+      <div class="idx-chg up">▲ +3.83% 급등 — M7 동반 강세</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;">NVIDIA +5.56% / META +3% / MS +3.1%</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-name">다우존스</div>
+      <div class="idx-val up mono">46,341</div>
+      <div class="idx-chg up">▲ +2.49% (+1,125pt) — 5월 이후 최대 일간 상승</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;">Caterpillar +6.03% / Boeing +5.16%</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-name">필라델피아 반도체</div>
+      <div class="idx-val up mono">SOX</div>
+      <div class="idx-chg up">▲ +6%대 급등 — 반도체 강력 반등</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;">이란 협상 기대 + 리스크온 전환</div>
+    </div>
+  </div>
+  <div class="grid4">
+    <div class="idx-card">
+      <div class="idx-name">코스피 (4/1 오전장)</div>
+      <div class="idx-val up mono">5,300.52</div>
+      <div class="idx-chg up">▲ +248.06p (+4.91%) 오전 9시12분 기준</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;">개장 직후 매수 사이드카 발동 (9시7분)</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-name">코스피 개장가</div>
+      <div class="idx-val up mono">5,330.04</div>
+      <div class="idx-chg up">▲ +277.58p (+5.49%) 시초가</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;">미국 급등 + 이란 종전 기대 직격 반영</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-name">원/달러 환율</div>
+      <div class="idx-val up mono">1,508.5원</div>
+      <div class="idx-chg up">▼ -21.6원 (전일 1,530대 → 안정)</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;">이란 협상 기대에 원화 강세 전환</div>
+    </div>
+    <div class="idx-card">
+      <div class="idx-name">코스닥 (4/1 오전)</div>
+      <div class="idx-val up mono">동반 급등</div>
+      <div class="idx-chg up">▲ 코스피200 선물 +5.19% 연동</div>
+      <div style="font-size:11px;color:var(--text2);margin-top:4px;">반도체·이차전지 동반 급등 출발</div>
+    </div>
+  </div>
+
+  <div class="section-title">🇺🇸 미국 증시 시황 (3월 31일 화요일 마감) <span class="badge">급등 마감</span></div>
+  <div class="card" style="margin-bottom:14px;">
+    <div style="background:rgba(0,200,150,0.08);border:1px solid rgba(0,200,150,0.2);border-radius:8px;padding:12px;margin-bottom:14px;">
+      <strong style="color:var(--up);">📈 핵심 트리거:</strong> 이란 대통령 페제시키안 "미국·이스라엘의 추가 공격이 없을 경우 전쟁을 끝낼 준비가 됐다" 발언 → 대규모 안도 랠리 발생
+    </div>
+    <p style="font-size:13px;line-height:1.8;">
+      뉴욕증시가 <strong>이란 페제시키안 대통령의 조건부 종전 의향 발언</strong>에 일제히 폭등 마감. <span class="up"><strong>다우 +2.49%(+1,125pt)</strong></span> — 5월 이후 최대 일간 상승. <span class="up"><strong>S&P500 +2.91%</strong></span>, <span class="up"><strong>나스닥 +3.83%</strong></span>. 필라델피아 반도체 지수 <strong>+6%대 급등</strong>. M7(매그니피센트7) 전 종목 동반 강세. 다만 월간 기준으로는 S&P500이 <span class="down"><strong>-5.3%</strong></span>로 2022년 이후 최악의 한 달을 기록. 브렌트유는 쿠웨이트 유조선 피격에 $118로 마감하며 유가는 여전히 고공행진 지속.
+    </p>
+    <hr class="divider">
+    <div class="news-list">
+      <div class="news-item" style="border-left:3px solid var(--up);">
+        <div class="news-title">이란 페제시키안 대통령 "조건부 종전 의향" — 증시 폭등 트리거</div>
+        <div class="news-body">이란 대통령이 미국·이스라엘의 추가 공격 중단을 조건으로 전쟁 종식 준비가 됐다고 밝히며 시장에 대규모 안도 랠리. S&P500·나스닥 각각 3% 수준 급등. 투자자들이 중동 분쟁 완화 가능성에 위험선호 심리 일시 회복.</div>
+        <div class="news-source">📌 디지털데일리 / Trading Economics (2026.03.31)</div>
+      </div>
+      <div class="news-item" style="border-left:3px solid var(--up);">
+        <div class="news-title">M7 동반 강세 — NVIDIA +5.56%, META +3%, MS +3.1%, Amazon +5%↑</div>
+        <div class="news-body">기술주 전반 대규모 매수세 유입. 위험선호 심리 회복에 이란 전쟁 우려로 급락했던 빅테크가 일제히 반등. 필라델피아 반도체 지수 +6%대 급등하며 반도체 섹터도 강력 반등.</div>
+        <div class="news-source">📌 Trading Economics / 디지털데일리 (2026.03.31)</div>
+      </div>
+      <div class="news-item" style="border-left:3px solid var(--up);">
+        <div class="news-title">캐터필러 +6.03%, 보잉 +5.16% — 다우 5월 이후 최대 일간 상승</div>
+        <div class="news-body">산업재·경기민감주도 동반 급등. 전쟁 완화 기대에 경기 회복 베팅 심리가 살아나며 다우가 1,125pt 상승, 5월 이후 최대 일간 상승폭 기록.</div>
+        <div class="news-source">📌 Trading Economics (2026.03.31)</div>
+      </div>
+      <div class="news-item war">
+        <div class="news-title">⚠️ 월간 성적표는 참담 — S&P500 3월 -5.3% (2022년 이후 최악)</div>
+        <div class="news-body">하루 급등에도 불구하고 3월 한 달 전체로는 이란 전쟁 충격에 S&P500 -5.3%, 나스닥도 대폭 하락하며 2022년 이후 최악의 월간 성과 기록. 유가(브렌트 $118)는 여전히 고공행진.</div>
+        <div class="news-source">📌 Trading Economics (2026.03.31 월간 결산)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">🇰🇷 한국 증시 시황 (4월 1일 오전장) <span class="badge">매수 사이드카 발동</span></div>
+  <div class="card" style="margin-bottom:14px;">
+    <div style="background:rgba(0,200,150,0.08);border:1px solid rgba(0,200,150,0.2);border-radius:8px;padding:12px;margin-bottom:14px;">
+      <strong style="color:var(--up);">🚀 코스피 시초가 +5.49%(5,330) 급등 → 오전 9시7분 매수 사이드카 발동!</strong><br>
+      <span style="font-size:12px;color:var(--text2);">미국 나스닥 +3.83% 반영 + 이란 페제시키안 대통령 "조건부 종전 의향" 직격. 원/달러 환율 -21.6원 급락(1,508.5원)으로 안정.</span>
+    </div>
+    <p style="font-size:13px;line-height:1.8;">
+      코스피가 4월 첫 거래일인 1일 <strong style="color:var(--up);">시초가 5,330.04(+5.49%)</strong>로 강하게 출발, 개장 직후인 오전 9시7분 <strong>매수 사이드카가 발동</strong>됐다. 오전 9시12분 기준 코스피는 <span class="up"><strong>+4.91%(5,300.52)</strong></span> 수준에서 거래 중. 이번 전쟁 국면에서 매수 사이드카 발동은 <strong>4번째</strong>. 미국 S&P500 +2.91%·나스닥 +3.83% 급등과 이란 페제시키안 대통령 조건부 종전 발언이 이중 호재로 작용. 원/달러 환율도 전일 장중 1,530원 돌파에서 <strong>1,508.5원(-21.6원)</strong>으로 급락 안정세.
+    </p>
+    <div style="margin:10px 0;">
+      <div style="font-size:12px;color:var(--text2);margin-bottom:8px;">📊 4/1 오전 투자주체별 수급 (오전 9시12분 기준)</div>
+      <div class="grid3">
+        <div class="card" style="padding:10px;">
+          <div class="card-label">외국인</div>
+          <div class="down" style="font-size:15px;font-weight:700;">▼ -845억 순매도</div>
+          <div class="card-sub">급등에도 여전히 매도 기조</div>
+        </div>
+        <div class="card" style="padding:10px;">
+          <div class="card-label">개인</div>
+          <div class="up" style="font-size:15px;font-weight:700;">▲ +181억 순매수</div>
+          <div class="card-sub">저가 매수 지속</div>
+        </div>
+        <div class="card" style="padding:10px;">
+          <div class="card-label">기관</div>
+          <div class="up" style="font-size:15px;font-weight:700;">▲ +622억 순매수</div>
+          <div class="card-sub">기관 적극 참여</div>
+        </div>
+      </div>
+    </div>
+    <hr class="divider">
+    <div class="news-list">
+      <div class="news-item" style="border-left:3px solid var(--up);">
+        <div class="news-title">매수 사이드카 발동 — 코스피200 선물 +5.19% 급등 (오전 9시7분)</div>
+        <div class="news-body">이번 이란전쟁 국면 들어 4번째 매수 사이드카. 프로그램 매수 집중으로 발동. 코스피 3/31 5,052.46에서 4/1 시초가 5,330.04로 갭업 출발.</div>
+        <div class="news-source">📌 한국거래소 공시 / 미주중앙일보 (2026.04.01 오전)</div>
+      </div>
+      <div class="news-item" style="border-left:3px solid var(--up);">
+        <div class="news-title">원/달러 환율 1,508.5원 — 전일 1,530대 돌파에서 급반전</div>
+        <div class="news-body">이란 종전 기대에 원화 강세 전환. 개장가 1,508.5원으로 전일 대비 -21.6원 하락. 고환율 스태그플레이션 우려 일부 완화.</div>
+        <div class="news-source">📌 미주중앙일보 / 연합뉴스 (2026.04.01)</div>
+      </div>
+      <div class="news-item caution">
+        <div class="news-title">⚠️ 외국인은 여전히 순매도 — 급등에도 매도 기조 유지</div>
+        <div class="news-body">오전 9시12분 기준 외국인 -845억 순매도. 급등 속에서도 외국인은 매도세 지속. 지난 9거래일 연속 순매도 기조가 완전히 해소되지 않은 상태. 협상 타결 여부 확인 전까지 관망 지속.</div>
+        <div class="news-source">📌 국민일보 / 한국거래소 (2026.04.01)</div>
+      </div>
+      <div class="news-item" style="border-left:3px solid var(--up);">
+        <div class="news-title">반도체·이차전지 시총 상위주 동반 급등 출발</div>
+        <div class="news-body">뉴욕 필라델피아 반도체 지수 +6% 급등 반영. 삼성전자·SK하이닉스 갭업 출발. LG에너지솔루션·현대차 등 시총 상위 종목 동반 상승. 4/7 삼성전자 잠정실적 발표도 추가 기대 요인.</div>
+        <div class="news-source">📌 한국경제 / 연합뉴스 (2026.04.01)</div>
+      </div>
+    </div>
+  </div>
+    <div style="margin:10px 0;">
+      <div style="font-size:12px;color:var(--text2);margin-bottom:8px;">📊 투자주체별 수급 (3/31)</div>
+      <div class="grid3">
+        <div class="card" style="padding:10px;">
+          <div class="card-label">외국인</div>
+          <div class="down" style="font-size:15px;font-weight:700;">▼ -3조8,473억</div>
+          <div class="card-sub">9거래일 연속 순매도</div>
+        </div>
+        <div class="card" style="padding:10px;">
+          <div class="card-label">개인</div>
+          <div class="up" style="font-size:15px;font-weight:700;">▲ +2조4,403억</div>
+          <div class="card-sub">저가 매수 지지</div>
+        </div>
+        <div class="card" style="padding:10px;">
+          <div class="card-label">기관</div>
+          <div class="up" style="font-size:15px;font-weight:700;">▲ +1조249억</div>
+          <div class="card-sub">일부 저가 매수</div>
+        </div>
+      </div>
+    </div>
+    <hr class="divider">
+    <div class="news-list">
+      <div class="news-item war">
+        <div class="news-title">코스피 5,000선 사수 기로 — 전쟁 쇼크 + 터보퀀트 이중 악재</div>
+        <div class="news-body">코스피 12개월 선행 PER 8.26배(5,460선 기준)로 역사적 저평가 구간 진입. 코스닥도 2% 안팎 동반 약세.</div>
+      </div>
+      <div class="news-item war">
+        <div class="news-title">삼성전자 '17만원' 붕괴 · SK하이닉스 '80만원' 위태</div>
+        <div class="news-body">이란 공급망 우려 + 구글 메모리 수요 절감 기술로 국내 대형 반도체주 급락. 외국인 집중 매도.</div>
+      </div>
+      <div class="news-item caution">
+        <div class="news-title">원/달러 1,530원 돌파 — 2009년 이후 17년만 최고치</div>
+        <div class="news-body">고환율·고유가 동시 진행으로 스태그플레이션 공포. 환율 상승은 수출기업 일부 유리하지만 수입 에너지 비용 급증으로 상쇄.</div>
+      </div>
+      <div class="news-item">
+        <div class="news-title">WGBI 편입 4월 시작 · 삼성전자 잠정실적 4/7 예정 — 잠재 호재</div>
+        <div class="news-body">세계국채지수 편입으로 외국인 패시브 채권 자금 유입 기대. 삼성전자 잠정실적이 반도체 우려 완화 계기 될지 주목.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">🔬 섹터별 동향</div>
+  <div class="grid3">
+    <div class="sector-card">
+      <div class="sector-name">💾 반도체 <span class="down">▼ -5~7%</span></div>
+      <div class="sector-stocks">삼성전자 -4.22% / SK하이닉스 -5.42% / NVIDIA -하락 / Micron -7%</div>
+      <div class="sector-reason">구글 터보퀀트 메모리 수요 절감 우려 + 이란 공급망 위기. 단, 증권가 "과도한 우려" 평가.</div>
+      <div class="supply-bar">
+        <span style="font-size:10px;color:var(--text2);">외국인</span>
+        <div class="supply-track"><div class="supply-fill" style="width:15%;background:var(--down);"></div></div>
+        <span style="color:var(--down);font-size:11px;">▼ 순매도 우세</span>
+      </div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-name">🛢️ 에너지·정유 <span class="up">▲ 강세</span></div>
+      <div class="sector-stocks">S-OIL / GS칼텍스 / 국내 정유주 단기 수혜</div>
+      <div class="sector-reason">WTI $102.88 돌파로 정유주 단기 수혜. 단 항공·물류 섹터는 연료비 급등에 급락.</div>
+      <div class="supply-bar">
+        <span style="font-size:10px;color:var(--text2);">외국인</span>
+        <div class="supply-track"><div class="supply-fill" style="width:60%;background:var(--up);"></div></div>
+        <span style="color:var(--up);font-size:11px;">▲ 일부 순매수</span>
+      </div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-name">💊 바이오 <span class="up">▲ 강세</span></div>
+      <div class="sector-stocks">삼성바이오로직스 / 셀트리온 / HLB / 알테오젠</div>
+      <div class="sector-reason">전쟁 위험 회피로 내수·방어 성격 바이오 상대적 강세. 길리어드-아셀릭스 10조 인수 소식에 관련주 급등.</div>
+      <div class="supply-bar">
+        <span style="font-size:10px;color:var(--text2);">외국인</span>
+        <div class="supply-track"><div class="supply-fill" style="width:45%;background:var(--up);"></div></div>
+        <span style="color:var(--up);font-size:11px;">▲ 일부 순매수</span>
+      </div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-name">🚗 자동차 <span class="down">▼ 약세</span></div>
+      <div class="sector-stocks">현대차 -5.15% / 기아 하락 / 테슬라 하락</div>
+      <div class="sector-reason">환율 1,530원 돌파로 수출 일부 유리하나 글로벌 경기 침체 우려로 수요 감소 전망 악재 더 크게 반영.</div>
+      <div class="supply-bar">
+        <span style="font-size:10px;color:var(--text2);">외국인</span>
+        <div class="supply-track"><div class="supply-fill" style="width:20%;background:var(--down);"></div></div>
+        <span style="color:var(--down);font-size:11px;">▼ 순매도</span>
+      </div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-name">🏦 금융·은행 <span class="up">▲ 미국 상대강세</span></div>
+      <div class="sector-stocks">JPMorgan +1%↑ / BofA +1%↑ / 국내 KB금융 소폭 상승</div>
+      <div class="sector-reason">채권금리 안정화 속 미국 은행주 매수세. 국내는 고금리 환경에 이자이익 기대감 유지.</div>
+      <div class="supply-bar">
+        <span style="font-size:10px;color:var(--text2);">외국인</span>
+        <div class="supply-track"><div class="supply-fill" style="width:50%;background:var(--neutral);"></div></div>
+        <span style="color:var(--neutral);font-size:11px;">▶ 혼조</span>
+      </div>
+    </div>
+    <div class="sector-card">
+      <div class="sector-name">🚀 방산·우주 <span class="up">▲ 강세</span></div>
+      <div class="sector-stocks">한화에어로스페이스 / 현대로템 / LIG넥스원</div>
+      <div class="sector-reason">전쟁 장기화로 글로벌 방산 수요 폭증. 한국 방산주 외국인 순매수 유입. 이스라엘 국방예산 14조원 증액.</div>
+      <div class="supply-bar">
+        <span style="font-size:10px;color:var(--text2);">외국인</span>
+        <div class="supply-track"><div class="supply-fill" style="width:70%;background:var(--up);"></div></div>
+        <span style="color:var(--up);font-size:11px;">▲ 순매수 강세</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title">📉 기술적 분석</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-label">코스피 기술적 분석</div>
+      <div style="font-size:12px;line-height:1.8;margin-top:6px;">
+        지지: <span class="mono up">5,000p</span> (심리적 마지노선) / 저항: <span class="mono">5,300p</span><br>
+        이란 전쟁 발발 이후 -19% 하락권. PER 8.26배 역사적 저평가. 외국인 9연속 매도로 수급 악화. 4/1 한국 수출지표 + 삼성 잠정실적(4/7) 반등 트리거 여부 주목.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">S&P500 기술적 분석</div>
+      <div style="font-size:12px;line-height:1.8;margin-top:6px;">
+        지지: <span class="mono up">6,300p</span> / 저항: <span class="mono">6,600p</span><br>
+        200일 이동평균선 이탈. 고점 대비 -9.3%로 공식 조정권 직전. 나스닥·다우는 이미 조정 진입. VIX 30 이상 → 단기 반등 가능성 있으나 이란 협상 결과가 분수령.
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============ TAB 3: 이란전쟁 특집 ============ -->
+<div id="tab-iran" class="tab-content">
+
+  <div style="background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.25);border-radius:10px;padding:16px;margin-bottom:20px;">
+    <div style="font-size:16px;font-weight:900;color:#ff8fa3;margin-bottom:8px;">🔴 미·이란 전쟁 현황판 — D+32일 (2026.02.28 개전)</div>
+    <div style="font-size:13px;color:var(--text);line-height:1.7;">
+      미국·이스라엘의 이란 선제공습으로 시작된 전쟁이 한 달을 넘어서며 <strong>협상 vs 지상전 갈림길</strong>에 섰다. 트럼프의 에너지시설 공격 유예 시한(4/6)이 임박한 가운데, 이란은 미국의 15개항 조건을 거부하며 강경 입장 고수 중.
+    </div>
+    <div style="display:flex;gap:14px;margin-top:12px;flex-wrap:wrap;">
+      <div style="text-align:center;">
+        <div class="mono" style="font-size:22px;font-weight:700;color:var(--down);">D+32</div>
+        <div style="font-size:11px;color:var(--text2);">전쟁 경과일</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="mono" style="font-size:22px;font-weight:700;color:var(--warn);">5일</div>
+        <div style="font-size:11px;color:var(--text2);">공격유예 시한까지(4/6)</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="mono" style="font-size:22px;font-weight:700;color:var(--down);">$102.88</div>
+        <div style="font-size:11px;color:var(--text2);">WTI(배럴)</div>
+      </div>
+      <div style="text-align:center;">
+        <div class="mono" style="font-size:22px;font-weight:700;color:var(--down);">$3.2T</div>
+        <div style="font-size:11px;color:var(--text2);">글로벌 시총 증발</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;">
+      <div style="font-size:11px;color:var(--text2);margin-bottom:4px;">협상 진전도</div>
+      <div class="progress-bar"><div class="progress-fill" style="width:25%;"></div></div>
+      <div style="font-size:11px;color:var(--text2);margin-top:3px;">▶ 간접 접촉 단계 (파키스탄 중재) — 직접 대화 미성사</div>
+    </div>
+  </div>
+
+  <div class="section-title">📰 핵심 뉴스 TOP 10 <span class="badge">3월 31일 기준</span></div>
+  <div class="news-list">
+    <div class="news-item war">
+      <div class="news-title"><span class="war-label">뉴스1</span>이란 외교부 "31일간 미국과 단 한 번의 협상도 없었다"</div>
+      <div class="news-body">바가이 이란 외교부 대변인은 3/31 엑스(X)를 통해 "파키스탄을 통해 미국 측 협상안을 '전달받았을 뿐'"이라며 공식 협상을 전면 부인. 미국의 낙관적 협상 발언에 정면 반박하며 국제유가 급반등.</div>
+      <div class="news-source">📌 서울신문 / 이란 외교부 공식 발표 (2026.03.31)</div>
+    </div>
+    <div class="news-item war">
+      <div class="news-title"><span class="war-label">뉴스2</span>미 국방부, 이란 내 지상 작전 준비 — 하르그섬 점령·해안 기습 검토</div>
+      <div class="news-body">특수부대·보병 혼합 형태의 기습 작전 준비 중. 해병대 5,000명·제82공수사단 2,000명 중동 이동 중. USS 트리폴리함 병력 3,500명 이미 도착. 트럼프 대통령은 아직 최종 결정 미정.</div>
+      <div class="news-source">📌 YTN / 워싱턴포스트 인용 (2026.03.29)</div>
+    </div>
+    <div class="news-item caution">
+      <div class="news-title"><span class="war-label">뉴스3</span>트럼프, 4/6까지 이란 발전소·에너지시설 공격 유예 시한 연장</div>
+      <div class="news-body">3/21 48시간 최후통첩 → 3/23 5일 유예 → 3/26 4/6 오후 6시로 최종 10일 연장. 호르무즈 해협은 여전히 사실상 봉쇄 중. 협상 결렬 시 전력·유전·하르그섬·담수화시설 전면 공격 위협.</div>
+      <div class="news-source">📌 연합뉴스 / 트루스소셜 트럼프 발언 (2026.03.26)</div>
+    </div>
+    <div class="news-item war">
+      <div class="news-title"><span class="war-label">뉴스4</span>후티 반군 공식 참전 — 홍해 물류 위협 다시 고조</div>
+      <div class="news-body">예멘 후티 반군이 이스라엘을 향해 미사일 발사하며 참전 공식화. 이란 군부·헤즈볼라와 조율 하에 발사됐다고 밝혀. 호르무즈(원유) + 홍해(컨테이너) 동시 봉쇄 우려로 글로벌 공급망 비상.</div>
+      <div class="news-source">📌 KBS / 외신 종합 (2026.03.28~31)</div>
+    </div>
+    <div class="news-item war">
+      <div class="news-title"><span class="war-label">뉴스5</span>이란, NPT(핵확산금지조약) 탈퇴 검토 — 핵무장 선언 가능성</div>
+      <div class="news-body">이란이 IAEA가 미국·이스라엘을 제재하지 않는다는 불만으로 NPT 탈퇴를 검토 중. 탈퇴 시 핵무기 개발에 법적 제약 소멸 → 중동 핵확산 도미노 최대 리스크로 부상.</div>
+      <div class="news-source">📌 MBC뉴스 / 외신 인용 (2026.03.31)</div>
+    </div>
+    <div class="news-item caution">
+      <div class="news-title"><span class="war-label">뉴스6</span>파키스탄 중재로 미·이란 첫 직접 대화 이번 주 성사 가능성</div>
+      <div class="news-body">위트코프 중동 특사, "이번 주 파키스탄에서 첫 직접 회담" 시사. 독일 외무장관도 "양측 만날 준비 완료" 확인. 그러나 이스라엘은 협상 와중에도 이란 핵시설(혼다브 중수로·부셰르 원전) 추가 폭격.</div>
+      <div class="news-source">📌 MBC / KBS / G7 외무장관 발언 (2026.03.29~31)</div>
+    </div>
+    <div class="news-item war">
+      <div class="news-title"><span class="war-label">뉴스7</span>카타르 라스라판 LNG 단지 공격 — 글로벌 LNG 공급 비상</div>
+      <div class="news-body">세계 LNG의 20%를 공급하는 카타르 라스라판 단지가 공격 피해를 입으며 아시아 LNG 시장에 비상. 카타르 에너지장관 "전쟁 지속 시 세계 경제 무너질 것" 경고. 한국·일본 등 LNG 의존국 직격.</div>
+      <div class="news-source">📌 카타르 공식 발표 / 딜로이트 보고서 인용 (2026.03.06)</div>
+    </div>
+    <div class="news-item caution">
+      <div class="news-title"><span class="war-label">뉴스8</span>전쟁 한 달 체크 — 백악관 "계산해 보라" (종전 일정 불명확)</div>
+      <div class="news-body">트럼프 발 "4~6주 내 종전" 예언이 D+32일이 된 지금도 이행되지 않자, 백악관은 "오늘은 30일차이니 국방부가 얼마나 더 걸릴지 계산해 보라"며 명확한 시한 제시 거부. 미 국내 반전 시위도 900만명 규모로 확산.</div>
+      <div class="news-source">📌 서울신문 / AFP·로이터 (2026.03.30~31)</div>
+    </div>
+    <div class="news-item war">
+      <div class="news-title"><span class="war-label">뉴스9</span>WTI $100 돌파 — 이란 공급 차질 + 호르무즈 봉쇄 현실화</div>
+      <div class="news-body">WTI 5월 인도분 $102.88, 브렌트유 $113.55. 2022년 7월 이후 최고. 호르무즈 봉쇄로 세계 원유 20% 공급 차질. UAE 대체 송유관(하브샨-후자이라)마저 화재 발생. 러시아산 원유는 역설적으로 $113로 급등.</div>
+      <div class="news-source">📌 머니투데이 / 블룸버그 (2026.03.31)</div>
+    </div>
+    <div class="news-item caution">
+      <div class="news-title"><span class="war-label">뉴스10</span>미국 협상안 15개항 vs 이란 요구 5개항 — 입장차 극심</div>
+      <div class="news-body">미국 요구: 핵무기·농축 중단, 우라늄 IAEA 반납, 미사일 능력 제한, 호르무즈 재개방, 대리세력 지원 중단 등 15개항. 이란 요구: 전쟁 피해 배상, 호르무즈 통제권 유지, 경제 제재 완전 해제 등 5개항. 간극이 너무 커 협상 타결 불투명.</div>
+      <div class="news-source">📌 MBC / 연합뉴스 / 이스라엘 채널12 인용 (2026.03.24~31)</div>
+    </div>
+  </div>
+
+  <div class="section-title">🎓 전문가 중동 전쟁 전망 분석</div>
+
+  <div class="expert-box">
+    <div class="expert-name">장지향 아산정책연구원 지역연구센터장 (YTN 출연)</div>
+    <div class="expert-view">
+      "이란 전쟁에서 가장 중요한 변수는 지상군 투입 여부다. 노 킹스 시위가 100만명 수준이지만 트럼프가 군사작전을 변경할 가능성은 낮다. 핵심은 이번 주부터 시작되는 미·이란 협상 결과다. 트럼프는 <strong>11월 중간선거 전인 '여름 이전(2Q)'에 전쟁을 반드시 끝내야 하는 압박</strong>을 받고 있다. 지상전 수렁에 빠지는 것은 중간선거와 공화당 대선에 치명적이기 때문에 최악의 시나리오로 본다."
+    </div>
+  </div>
+
+  <div class="expert-box">
+    <div class="expert-name">마이라브 존스자인 국제위기그룹(ICG) 이스라엘 담당 선임 분석가</div>
+    <div class="expert-view">
+      "미국과 이스라엘만이 이 전쟁에서 패배하고 있는 것이 아니다. 이것은 <strong>제2차 세계대전 이후 서방의 가장 큰 전략적 실패 중 하나</strong>이며, 중동 지역 지정학과 세계 경제에 가장 중대한 결과를 초래할 것이라는 사실이 점점 더 분명해지고 있다. 미국은 원래의 전략 목표를 달성하는 데 한참 미치지 못하고 있으며 오히려 새로운 문제만 야기했다."
+    </div>
+  </div>
+
+  <div class="expert-box">
+    <div class="expert-name">정해창 대신증권 연구원 (금융시장 전망)</div>
+    <div class="expert-view">
+      "트럼프 행정부가 협상 신호와 지상군 중동 이동이라는 상반된 행동을 병행하며 <strong>고도의 심리전</strong>을 펴고 있다. 실제 경제 펀더멘털을 위협하는 것은 충돌 자체가 아닌 '에너지 공급망 봉쇄'이다. 이란이 비적대국 선박의 통행을 허용하려는 움직임을 보여 <strong>최악의 상황은 면할 수 있을 것</strong>이다. 유가가 배럴당 $100 위로 치솟지 않는다면 인플레이션이나 통화정책에 대한 시장의 우려도 점차 잦아들 것이다."
+    </div>
+  </div>
+
+  <div class="expert-box">
+    <div class="expert-name">김종민 삼성증권 연구원 (한국 증시 영향)</div>
+    <div class="expert-view">
+      "국제 정세는 여전히 예측하기 어려운 상황으로, 미국과 이란의 협상이 난항을 겪으며 <strong>전쟁 장기화 및 인플레이션 재점화 우려</strong>가 확산하고 있다. 터보퀀트 이슈로 글로벌 메모리 반도체 피크아웃 우려까지 불거지며 한국 증시 역시 큰 폭의 변동성을 보였다. 그러나 현재 코스피 PER 8.26배는 역사적 저평가 구간으로 <strong>중장기적 저가 매수 기회</strong>라는 판단이다."
+    </div>
+  </div>
+
+  <div class="expert-box">
+    <div class="expert-name">딜로이트 글로벌 수석 이코노미스트 Ira Kalish 박사 (매크로 경제)</div>
+    <div class="expert-view">
+      "분석가들은 특히 <strong>호르무즈 해협 같은 주요 해상 운송로의 폐쇄</strong>와 가스·석유 시설에 대한 공격으로 인한 혼란이 지속될 경우, 전 세계적인 인플레이션 상승과 경기 침체의 위험이 있다고 전망한다. 유엔 세계식량계획은 비료 공급 차질로 글로벌 식료품 가격이 장기적으로 상당히 상승할 것이라고 경고했다. 이는 2022년 식량 위기를 연상시키는 수준이다."
+    </div>
+  </div>
+
+  <div class="section-title">💬 트럼프 이란·중동 전쟁 주요 발언 정리</div>
+
+  <div class="trump-box">
+    <div class="trump-date">2026.03.31</div>
+    <div class="trump-quote">이란 외교부 대변인이 협상을 부인하자 트루스소셜 통해: "협상이 결렬되면 이란 내 발전소와 석유 시설 등 <strong>모두 파괴한 뒤 철군</strong>할 것"</div>
+    <div class="trump-context">→ 이란 강경 부인에 즉각적인 위협 수위 재상향. 시장 급락 야기.</div>
+  </div>
+
+  <div class="trump-box">
+    <div class="trump-date">2026.03.30 (현지시간)</div>
+    <div class="trump-quote">"미국과 이란이 지난 이틀간 중동에서의 적대행위를 완전히, 전면적으로 해결하기 위해 <strong>매우 좋고 생산적인 대화</strong>를 나눴다. 합의가 이뤄질 가능성이 매우 높다고 본다."</div>
+    <div class="trump-context">→ 트루스소셜 발표 후 뉴욕증시 장초반 상승세 출발. 그러나 이란 즉각 부인으로 효과 반감.</div>
+  </div>
+
+  <div class="trump-box">
+    <div class="trump-date">2026.03.26</div>
+    <div class="trump-quote">"이란이 호르무즈 해협을 재개방하지 않으면 발전소를 파괴하겠다는 최후통첩 시한을 <strong>4월 6일까지로 10일 연장</strong>. 담수화 시설까지 공격 대상이 될 수 있다."</div>
+    <div class="trump-context">→ 2차 시한 연장. 시장은 '확전 vs 협상' 기대와 실망을 반복하는 패턴에 진입.</div>
+  </div>
+
+  <div class="trump-box">
+    <div class="trump-date">2026.03.21</div>
+    <div class="trump-quote">"이란이 사실상 봉쇄 중인 <strong>호르무즈 해협을 48시간 안에 개방하지 않으면 발전소들을 공격하겠다</strong>"</div>
+    <div class="trump-context">→ 1차 최후통첩. 이후 5일 → 10일로 두 차례 연장. 이란은 거부.</div>
+  </div>
+
+  <div class="trump-box">
+    <div class="trump-date">2026.03.23 (발언)</div>
+    <div class="trump-quote">"이번에는 그들(이란)이 진지하게 임하고 있다. <strong>합의가 이뤄질 가능성이 매우 높다</strong>고 본다. 이란 발전소·에너지 인프라에 대한 공격을 5일간 보류한다."</div>
+    <div class="trump-context">→ 이날 발표로 다우·나스닥 1.38%, S&P500 1.15% 급반등. 유가는 10% 급락.</div>
+  </div>
+
+  <div class="trump-box">
+    <div class="trump-date">2026.03.09</div>
+    <div class="trump-quote">"전쟁은 곧 끝날 것이다. 우리는 <strong>4~6주 내에 마무리</strong>할 것이다."</div>
+    <div class="trump-context">→ 개전 10일째 '단기전 자신감' 발언. 현재 D+32일이 지난 상황에서 당초 시한 초과.</div>
+  </div>
+
+  <div class="trump-box">
+    <div class="trump-date">2026.03.06</div>
+    <div class="trump-quote">"이란과의 합의는 <strong>'무조건 항복' 외에는 없을 것</strong>"</div>
+    <div class="trump-context">→ 강경 발언 이후 협상론으로 선회. 트럼프의 '갈짓자' 외교 패턴 반복.</div>
+  </div>
+
+  <div class="trump-box">
+    <div class="trump-date">최근 (협상 관련)</div>
+    <div class="trump-quote">"나는 절박함과는 <strong>정반대</strong>다. 절박한 쪽은 이란이다." / "호르무즈 해협을 <strong>트럼프 해협</strong>이라고 부르겠다."</div>
+    <div class="trump-context">→ 협상 압박을 받는다는 지적에 반박. 해협 명칭 변경 검토 보도도 등장하며 강경 이미지 유지 시도.</div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div>⚠️ 본 보고서는 웹 검색 기반 정보로 작성되었으며, 실시간 데이터가 아닙니다. 투자 의사결정에 직접 활용하지 마시고 반드시 전문가 상담 후 판단하시기 바랍니다.</div>
+  <div style="margin-top:6px;">📅 작성: 2026.04.01 (수) KST | 미국증시: 3/31(화) 마감 기준 | 한국증시: 4/1(수) 오전장 기준 | 이란전쟁 D+32</div>
+  <div style="margin-top:6px;">출처: 연합뉴스, 한국경제, 아주경제, 머니투데이, YTN, KBS, MBC, 서울신문, CBC뉴스, KB증권, 삼성증권, 딜로이트, 위키백과, 투자닷컴, 뉴시스</div>
+</div>
+
+<script>
+function switchTab(name, event) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  if (event && event.currentTarget) event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>
