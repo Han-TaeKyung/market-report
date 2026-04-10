@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>모닝 마켓 브리핑 | 2026.04.10</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg2: #161b22;
+    --bg3: #1c2230;
+    --border: #30363d;
+    --up: #00C896;
+    --down: #FF4D6D;
+    --neutral: #6b7a99;
+    --accent: #4C9AFF;
+    --warn: #F5A623;
+    --text: #e6edf3;
+    --text2: #8b949e;
+    --gold: #FFD700;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans KR', sans-serif; font-size: 14px; line-height: 1.6; }
+  
+  /* HEADER */
+  .header { background: linear-gradient(135deg, #0d1117 0%, #1a1f2e 50%, #0d1117 100%); padding: 24px 20px 18px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+  .header::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(ellipse at center, rgba(76,154,255,0.05) 0%, transparent 60%); pointer-events: none; }
+  .header-top { display: flex; justify-content: space-between; align-items: flex-start; max-width: 1200px; margin: 0 auto; }
+  .header-title { font-size: 28px; font-weight: 900; letter-spacing: -0.5px; background: linear-gradient(90deg, #4C9AFF, #00C896); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .header-sub { font-size: 12px; color: var(--text2); margin-top: 4px; font-family: 'DM Mono', monospace; }
+  .header-date { text-align: right; }
+  .header-date .date-main { font-size: 16px; font-weight: 700; color: var(--text); }
+  .header-date .date-sub { font-size: 11px; color: var(--text2); margin-top: 2px; font-family: 'DM Mono', monospace; }
+
+  /* RISK BANNER */
+  .risk-banner { max-width: 1200px; margin: 14px auto 0; display: flex; gap: 10px; flex-wrap: wrap; }
+  .risk-item { display: flex; align-items: center; gap: 8px; background: rgba(245,166,35,0.08); border: 1px solid rgba(245,166,35,0.3); border-radius: 8px; padding: 8px 14px; font-size: 12px; flex: 1; min-width: 200px; }
+  .risk-item.critical { background: rgba(255,77,109,0.08); border-color: rgba(255,77,109,0.3); }
+  .risk-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--warn); flex-shrink: 0; animation: pulse 2s infinite; }
+  .risk-item.critical .risk-dot { background: var(--down); }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .risk-label { font-weight: 700; color: var(--warn); }
+  .risk-item.critical .risk-label { color: var(--down); }
+
+  /* TAB BAR */
+  .tab-bar { position: sticky; top: 0; z-index: 100; background: var(--bg); border-bottom: 1px solid var(--border); padding: 0 20px; display: flex; gap: 0; max-width: 100%; }
+  .tab-btn { padding: 14px 24px; font-size: 13px; font-weight: 700; color: var(--text2); background: none; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: all 0.2s; white-space: nowrap; font-family: 'Noto Sans KR', sans-serif; }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-content { display: none; max-width: 1200px; margin: 0 auto; padding: 20px; }
+  .tab-content.active { display: block; }
+
+  /* SECTION HEADERS */
+  .section-header { display: flex; align-items: center; gap: 10px; margin: 24px 0 14px; }
+  .section-header h2 { font-size: 15px; font-weight: 700; color: var(--text); }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+  .section-badge { font-size: 10px; background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 4px; font-weight: 700; }
+
+  /* CARDS */
+  .cards-grid { display: grid; gap: 12px; }
+  .cards-4 { grid-template-columns: repeat(4, 1fr); }
+  .cards-3 { grid-template-columns: repeat(3, 1fr); }
+  .cards-2 { grid-template-columns: repeat(2, 1fr); }
+  .card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .card-label { font-size: 11px; color: var(--text2); font-weight: 500; margin-bottom: 4px; }
+  .card-value { font-size: 20px; font-weight: 700; font-family: 'DM Mono', monospace; }
+  .card-change { font-size: 12px; margin-top: 4px; font-family: 'DM Mono', monospace; }
+  .card-note { font-size: 11px; color: var(--text2); margin-top: 6px; }
+  .up { color: var(--up); }
+  .down { color: var(--down); }
+  .neutral { color: var(--neutral); }
+
+  /* INDEX CARDS (S-1) */
+  .index-cards { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 20px; }
+  .index-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 12px; }
+  .index-card .i-name { font-size: 11px; color: var(--text2); font-weight: 600; }
+  .index-card .i-val { font-size: 18px; font-weight: 700; font-family: 'DM Mono', monospace; margin: 4px 0 2px; }
+  .index-card .i-chg { font-size: 11px; font-family: 'DM Mono', monospace; }
+  .index-card.up-card { border-color: rgba(0,200,150,0.3); }
+  .index-card.down-card { border-color: rgba(255,77,109,0.3); }
+
+  /* POLICY GRID */
+  .policy-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .policy-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .policy-card .p-title { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .policy-card .p-body { font-size: 12px; color: var(--text2); line-height: 1.7; }
+  .policy-card .p-body strong { color: var(--text); }
+
+  /* BADGES */
+  .badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+  .badge-high { background: rgba(255,77,109,0.15); color: var(--down); border: 1px solid rgba(255,77,109,0.3); }
+  .badge-mid { background: rgba(245,166,35,0.15); color: var(--warn); border: 1px solid rgba(245,166,35,0.3); }
+  .badge-low { background: rgba(0,200,150,0.15); color: var(--up); border: 1px solid rgba(0,200,150,0.3); }
+  .badge-neutral { background: rgba(107,122,153,0.15); color: var(--neutral); border: 1px solid rgba(107,122,153,0.3); }
+
+  /* GEOPOLITICS */
+  .geo-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .geo-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; display: flex; gap: 12px; align-items: flex-start; }
+  .geo-item .geo-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .geo-item .geo-body { font-size: 12px; color: var(--text2); line-height: 1.6; }
+
+  /* TABLE */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .data-table th { background: var(--bg3); color: var(--text2); font-weight: 600; padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  .data-table td { padding: 9px 12px; border-bottom: 1px solid rgba(48,54,61,0.5); color: var(--text); vertical-align: middle; }
+  .data-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .data-table .mono { font-family: 'DM Mono', monospace; }
+
+  /* NEWS LIST */
+  .news-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .news-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .news-item .news-title { font-size: 12px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .news-item .news-src { font-size: 10px; color: var(--accent); white-space: nowrap; margin-top: 2px; }
+
+  /* SECTOR CARDS */
+  .sector-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .sector-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px; }
+  .sector-card .s-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; }
+  .sector-card .s-stocks { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+  .stock-chip { font-size: 11px; background: var(--bg3); border: 1px solid var(--border); border-radius: 6px; padding: 3px 8px; font-family: 'DM Mono', monospace; }
+  .sector-card .s-desc { font-size: 11px; color: var(--text2); line-height: 1.6; margin-bottom: 8px; }
+  .flow-bar-wrap { display: flex; align-items: center; gap: 8px; }
+  .flow-bar { flex: 1; height: 4px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+  .flow-fill { height: 100%; border-radius: 2px; transition: width 0.3s; }
+  .flow-buy .flow-fill { background: var(--up); }
+  .flow-sell .flow-fill { background: var(--down); }
+  .flow-label { font-size: 10px; color: var(--text2); }
+
+  /* BIGTECH GRID */
+  .bigtech-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .bigtech-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 12px; }
+  .bigtech-card .bt-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .bigtech-card .bt-name { font-size: 12px; font-weight: 700; color: var(--text); }
+  .bigtech-card .bt-ticker { font-size: 10px; color: var(--text2); font-family: 'DM Mono', monospace; margin-top: 2px; }
+  .bigtech-card .bt-chg { font-size: 14px; font-weight: 700; font-family: 'DM Mono', monospace; }
+  .bigtech-card .bt-news { font-size: 11px; color: var(--text2); line-height: 1.6; }
+  .bigtech-card .bt-signal { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; margin-top: 6px; display: inline-block; }
+  .signal-buy { background: rgba(0,200,150,0.15); color: var(--up); border: 1px solid rgba(0,200,150,0.3); }
+  .signal-sell { background: rgba(255,77,109,0.15); color: var(--down); border: 1px solid rgba(255,77,109,0.3); }
+  .signal-hold { background: rgba(107,122,153,0.15); color: var(--neutral); border: 1px solid rgba(107,122,153,0.3); }
+
+  /* CALENDAR */
+  .calendar-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .calendar-table th { background: var(--bg3); color: var(--text2); font-weight: 600; padding: 8px 12px; border-bottom: 1px solid var(--border); text-align: left; }
+  .calendar-table td { padding: 8px 12px; border-bottom: 1px solid rgba(48,54,61,0.5); }
+  .star-high { color: var(--down); }
+  .star-mid { color: var(--warn); }
+  .star-low { color: var(--text2); }
+
+  /* TECH ANALYSIS */
+  .tech-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .tech-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .tech-card .t-title { font-size: 12px; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
+  .tech-level { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px; }
+  .tech-level .level-label { color: var(--text2); }
+  .tech-level .level-val { font-family: 'DM Mono', monospace; font-weight: 700; }
+
+  /* SUMMARY BOX */
+  .summary-box { background: var(--bg2); border: 1px solid rgba(76,154,255,0.3); border-radius: 10px; padding: 14px 16px; margin-bottom: 16px; font-size: 13px; color: var(--text2); line-height: 1.8; }
+  .summary-box strong { color: var(--text); }
+
+  /* FOOTER */
+  .footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 16px 20px; text-align: center; color: var(--text2); font-size: 11px; line-height: 1.7; margin-top: 30px; }
+  .footer a { color: var(--accent); text-decoration: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .cards-4, .index-cards { grid-template-columns: repeat(2, 1fr); }
+    .bigtech-grid { grid-template-columns: repeat(2, 1fr); }
+    .sector-grid { grid-template-columns: repeat(2, 1fr); }
+    .policy-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .cards-4, .cards-3, .cards-2, .index-cards { grid-template-columns: 1fr 1fr; }
+    .bigtech-grid { grid-template-columns: 1fr 1fr; }
+    .sector-grid { grid-template-columns: 1fr; }
+    .tech-grid { grid-template-columns: 1fr; }
+    .header-title { font-size: 22px; }
+    .tab-btn { padding: 12px 14px; font-size: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-title">📊 모닝 마켓 브리핑</div>
+      <div class="header-sub">Global Macro & Market Morning Report</div>
+    </div>
+    <div class="header-date">
+      <div class="date-main">2026년 4월 10일 (금)</div>
+      <div class="date-sub">KST 기준 | 한국장 오전 장중</div>
+    </div>
+  </div>
+  <div class="risk-banner">
+    <div class="risk-item critical">
+      <div class="risk-dot"></div>
+      <div><span class="risk-label">🔴 핵심 리스크 ①</span> &nbsp;미·이란 2주 휴전 합의 — 오늘(4/10) 이슬라마바드 협상 시작, 호르무즈 통행료·핵 포기 쟁점 잔존</div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-dot"></div>
+      <div><span class="risk-label">🟡 핵심 이슈 ②</span> &nbsp;삼성전자 1Q26 영업익 57.2조 서프라이즈 + 오늘 한국은행 금통위 기준금리 결정(동결 유력)</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('macro', event)">🌐 글로벌 매크로</button>
+  <button class="tab-btn" onclick="switchTab('market', event)">📈 증시 시황</button>
+</div>
+
+<!-- ===================== TAB 1: MACRO ===================== -->
+<div id="tab-macro" class="tab-content active">
+
+  <!-- M-1 매크로 지표 -->
+  <div class="section-header">
+    <h2>M-1&nbsp; 글로벌 매크로 지표</h2>
+    <div class="section-line"></div>
+    <div class="section-badge">GLOBAL MACRO MONITOR</div>
+  </div>
+
+  <div class="cards-grid cards-4" style="margin-bottom:12px;">
+    <div class="card">
+      <div class="card-label">달러 인덱스 (DXY)</div>
+      <div class="card-value neutral">~100.0</div>
+      <div class="card-change neutral">▶ 100선 중심 고변동성 지속</div>
+      <div class="card-note">이란 휴전 후 달러 약보합 흐름. 페트로달러 지위 흔들</div>
+    </div>
+    <div class="card">
+      <div class="card-label">USD/KRW (원달러)</div>
+      <div class="card-value down">1,480</div>
+      <div class="card-change up">▼ 전일 ~1,515 → 1,478~1,480 하락</div>
+      <div class="card-note">이란 휴전·반도체 호실적에 원화 강세. 4주 최고치 근처</div>
+    </div>
+    <div class="card">
+      <div class="card-label">USD/JPY (달러엔)</div>
+      <div class="card-value neutral">~148~150</div>
+      <div class="card-change neutral">▶ 보합권, BOJ 정책 경계</div>
+      <div class="card-note">이란 리스크 완화 속 엔화 안전자산 수요 소폭 약화</div>
+    </div>
+    <div class="card">
+      <div class="card-label">EUR/USD (유로달러)</div>
+      <div class="card-value neutral">~1.343</div>
+      <div class="card-change up">▲ 파운드화도 1.3433달러 강세</div>
+      <div class="card-note">달러 약세 흐름에 유로·파운드 동반 강세</div>
+    </div>
+  </div>
+
+  <div class="cards-grid cards-4">
+    <div class="card">
+      <div class="card-label">WTI 원유</div>
+      <div class="card-value down">$95~98</div>
+      <div class="card-change down">▼ 2주 휴전 발표 후 최대 -19%</div>
+      <div class="card-note">이란 호르무즈 통행료 징수 변수. 100달러선 재공략 가능성</div>
+    </div>
+    <div class="card">
+      <div class="card-label">브렌트유</div>
+      <div class="card-value down">$97~98</div>
+      <div class="card-change down">▼ 전장 대비 -13~15% 낙폭</div>
+      <div class="card-note">선제적 급락 후 반등 시도. 휴전 균열 시 100달러 복귀 경계</div>
+    </div>
+    <div class="card">
+      <div class="card-label">금 (Gold)</div>
+      <div class="card-value neutral">$3,100~3,150</div>
+      <div class="card-change down">▼ 이란 안도에 소폭 하락 후 반등</div>
+      <div class="card-note">안전자산 수요 일부 완화. 달러 약세·인플레 헤지는 유효</div>
+    </div>
+    <div class="card">
+      <div class="card-label">구리 (닥터코퍼)</div>
+      <div class="card-value neutral">혼조</div>
+      <div class="card-change neutral">▶ 전쟁 리스크 완화에 공급망 우려 일부 해소</div>
+      <div class="card-note">경기 선행지표. 휴전 후 물류 정상화 기대</div>
+    </div>
+  </div>
+
+  <div class="cards-grid cards-3" style="margin-top:12px;">
+    <div class="card">
+      <div class="card-label">미 10년물 국채 금리</div>
+      <div class="card-value down">~4.25%</div>
+      <div class="card-change down">▼ 휴전 이후 3주 최저치</div>
+      <div class="card-note">에너지 물가 우려 완화로 금리 하락. 4.35%→4.25% 수준</div>
+    </div>
+    <div class="card">
+      <div class="card-label">미 2년물 국채 금리</div>
+      <div class="card-value neutral">~4.0~4.1%</div>
+      <div class="card-change neutral">▶ 연준 동결 기대에 소폭 하락</div>
+      <div class="card-note">FOMC 4월 29일 동결 확률 97.9% (FedWatch)</div>
+    </div>
+    <div class="card">
+      <div class="card-label">장단기 금리차 (10Y-2Y)</div>
+      <div class="card-value up">+0.51%</div>
+      <div class="card-change up">▲ 정상화 흐름 유지</div>
+      <div class="card-note">역전 해소 지속. 경기 연착륙 시나리오 지지</div>
+    </div>
+  </div>
+
+  <!-- M-2 정책·지정학 -->
+  <div class="section-header" style="margin-top:28px;">
+    <h2>M-2&nbsp; 통화정책 & 지정학</h2>
+    <div class="section-line"></div>
+    <div class="section-badge">POLICY & GEOPOLITICS</div>
+  </div>
+
+  <div class="policy-grid">
+    <div class="policy-card">
+      <div class="p-title">🏦 Fed (미국 연준) — 동결 기조 유지</div>
+      <div class="p-body">
+        3월 FOMC 의사록 공개 결과 <strong>일부 위원들이 금리 인하와 인상 양방향 가능성 모두 언급</strong>. 샌프란시스코 연준 데일리 총재는 "이란 전쟁의 불확실성에도 경제는 양호"라며 방어적 입장. 알리안츠 "외교적 진전은 긍정적이나 인플레 압력 높아 당분간 동결 지속 가능성 높다." <strong>4/29 FOMC 동결 확률 97.9%</strong>. 오늘 3월 CPI 발표 예정 (예상치 3.4%, 전월 2.4% 대비 대폭 상승 전망).
+      </div>
+    </div>
+    <div class="policy-card">
+      <div class="p-title">🇰🇷 한국은행 (BOK) — 오늘 금통위 결정</div>
+      <div class="p-body">
+        <strong>오늘(4/10) 금통위 개최</strong>. 시장 컨센서스는 <strong>만장일치 동결(기준금리 2.50% 유지)</strong>. 환율 1,480~1,500원대 고환율 지속 + 반도체 호황 → 금리 인하 필요성 낮음. 한국은행 2026년 성장률 전망 2.0%. 이란 사태 물가 영향 및 호르무즈 통행료 변수 추가 점검 예정. 원화 안정화 위해 추가 인하 시기 상반기 내 불투명.
+      </div>
+    </div>
+    <div class="policy-card">
+      <div class="p-title">🏛️ ECB (유럽중앙은행) & BOJ</div>
+      <div class="p-body">
+        ECB는 유가 하락에 따른 인플레 완화로 <strong>추가 인하 가능성 재부상</strong>. 파운드화 1.3433달러 부근 견조. BOJ는 금리 정상화 기조 유지 중이나 이란 충격 및 엔화 반응 모니터링. 달러-엔 148~150선 보합세.
+      </div>
+    </div>
+    <div class="policy-card">
+      <div class="p-title">⚡ 미국 재정정책 & 무역</div>
+      <div class="p-body">
+        이란 전쟁 비용 및 유가 급등으로 <strong>재정 부담 가중</strong>. 탄핵 여론 + 지지율 급락 속 트럼프 유화적 태도 선회. 페트로달러 지위 약화 우려 — 이란, 비달러(위안화 등) 결제국 호르무즈 우선 개방 방침. 미중 무역 긴장은 반도체 공급망 재편 가속 변수로 잔존.
+      </div>
+    </div>
+  </div>
+
+  <ul class="geo-list" style="margin-top:14px;">
+    <li class="geo-item">
+      <div>
+        <span class="badge badge-high">HIGH</span>&nbsp;
+        <div class="geo-title" style="display:inline">🇮🇷 미국-이란 2주 휴전 — 오늘 이슬라마바드 협상</div>
+        <div class="geo-body">트럼프 대통령이 7일 이란과 <strong>조건부 2주 휴전</strong> 합의(호르무즈 개방 조건). 오늘(4/10) 파키스탄 이슬라마바드에서 본격 협상 시작. 이란은 "미·이스라엘의 역사적 패배" 선언하며 강경 협상 예고. 핵심 쟁점: ①호르무즈 해협 통행료 징수 여부 ②핵개발 포기 ③제재 해제. 휴전 균열 시 유가 100달러 재공략 가능. 한국 선박 26척·선원 173명 아직 페르시아만 대기 중.</div>
+      </div>
+    </li>
+    <li class="geo-item">
+      <div>
+        <span class="badge badge-mid">MID</span>&nbsp;
+        <div class="geo-title" style="display:inline">🇺🇸 연준 의사록 + 오늘 3월 CPI 발표 주목</div>
+        <div class="geo-body">3월 FOMC 의사록에서 일부 위원 금리 인상 가능성 언급. 오늘 3월 CPI 발표 — 시장 예상치 3.4% (유가 급등 반영). 예상 상회 시 연준 인하 기대 추가 약화, 증시 하방 압력. 물류비 상승·에너지 가격이 인플레 재점화 경로의 핵심 변수.</div>
+      </div>
+    </li>
+    <li class="geo-item">
+      <div>
+        <span class="badge badge-mid">MID</span>&nbsp;
+        <div class="geo-title" style="display:inline">🏭 반도체 공급망 — 삼성·SK하이닉스 어닝 서프라이즈</div>
+        <div class="geo-body">삼성전자 1Q26 영업익 57.2조 (컨센서스 43.4조 대폭 상회, 전년대비 +755%). HBM·서버 메모리 가격 인상 및 물량 확보 경쟁 심화. AI 데이터센터 투자 이란 전쟁에도 일관 확대. SK하이닉스 이달 말 실적 발표 예정 — 역대 최대 경신 유력. 엔비디아 Vera Rubin 플랫폼 초기 배치 포함 코어위브·메타 210억 달러 클라우드 계약 체결.</div>
+      </div>
+    </li>
+  </ul>
+
+  <!-- M-3 실물경제 -->
+  <div class="section-header" style="margin-top:28px;">
+    <h2>M-3&nbsp; 실물 경제 사이클</h2>
+    <div class="section-line"></div>
+    <div class="section-badge">REAL ECONOMY</div>
+  </div>
+  <div style="overflow-x:auto;">
+    <table class="data-table">
+      <thead>
+        <tr><th>지표</th><th>최근치</th><th>전월/전년</th><th>평가</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>🇺🇸 미국 고용 (3월 비농업)</td><td class="mono up">+178,000명</td><td>예상치 +60,000 대폭 상회</td><td><span class="badge badge-low">호조</span> 실업률 4.3% 소폭 하락</td></tr>
+        <tr><td>🇺🇸 PCE 근원물가 (2월)</td><td class="mono down">+3.0% YoY</td><td>예상치 부합 / 전월 +2.8%</td><td><span class="badge badge-mid">주시</span> 연준 2% 목표 상회 지속</td></tr>
+        <tr><td>🇺🇸 3월 CPI (오늘 발표)</td><td class="mono down">예상 3.4%</td><td>2월 2.4% → 대폭 상승 전망</td><td><span class="badge badge-high">주목</span> 유가 급등 반영, 오늘 핵심 이벤트</td></tr>
+        <tr><td>🇺🇸 ISM 비제조업 PMI (3월)</td><td class="mono neutral">54.0</td><td>전월 56.1 / 예상 54.8 하회</td><td><span class="badge badge-neutral">보합</span> 제조업 PMI 52.7 개선과 대조</td></tr>
+        <tr><td>🇺🇸 소비자 기대 인플레이션</td><td class="mono down">3월 상승</td><td>1년 만에 최고치</td><td><span class="badge badge-high">경계</span> 물류비 상승 반영</td></tr>
+        <tr><td>🇰🇷 한국 경상수지 (2월)</td><td class="mono up">+231.9억달러 흑자</td><td>반도체 수출 호조 지속</td><td><span class="badge badge-low">양호</span> 외환보유액 4,236억달러</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- M-4 산업트렌드 -->
+  <div class="section-header" style="margin-top:28px;">
+    <h2>M-4&nbsp; 산업 & 기술 트렌드</h2>
+    <div class="section-line"></div>
+    <div class="section-badge">INDUSTRY PARADIGM</div>
+  </div>
+  <div class="cards-grid cards-2">
+    <div class="card">
+      <div class="card-label">🤖 AI 반도체 / HBM 슈퍼사이클</div>
+      <div class="card-change up" style="font-size:12px; margin-bottom:6px;">▲ 초장기 슈퍼사이클 진입 단계</div>
+      <div class="card-note">엔비디아 Vera Rubin 배치 확대, 코어위브·메타 210억달러 계약. 삼성전자 목표주가 28~40만원, SK하이닉스 200만원 대폭 상향. DRAM 수출단가 상승 10개월째 — 증권가 상반기 주가 강세 전망.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">⚡ 에너지·공급망 전환</div>
+      <div class="card-change down" style="font-size:12px; margin-bottom:6px;">▼ 고유가·호르무즈 통행료 변수</div>
+      <div class="card-note">LA 휘발유 가격 7달러 육박. 나프타 수급 불안 → 의료용 플라스틱 수급 위기. 원유 수입 의존 한국 "퍼펙트 스톰" 경계. 비달러 결제 석유 거래 확대 흐름 — 페트로달러 지위 약화.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">🚀 방산 / 우주 / AI인프라</div>
+      <div class="card-change down" style="font-size:12px; margin-bottom:6px;">▼ 미·이란 휴전 후 방산주 조정</div>
+      <div class="card-note">휴전 합의 이후 방산 주식 하락. 스페이스X 기업가치 목표 3000조원 상향. AI인프라주(코어위브 등)는 오히려 강세. 한국 방위산업은 중동 수출 수요 지속.</div>
+    </div>
+    <div class="card">
+      <div class="card-label">🏠 부동산 / 가계부채 / 신용</div>
+      <div class="card-change neutral" style="font-size:12px; margin-bottom:6px;">▶ 고금리 유지 압박 속 경계</div>
+      <div class="card-note">미국 소비자 신용카드 부채 잔액 증가 추세. 한국 가계대출 증가세 둔화 확인. 한은 고환율+고물가로 금리 인하 당분간 어려워 주택시장 관망. 분당 이매촌 3,500세대 통합재건축 초읽기.</div>
+    </div>
+  </div>
+
+  <!-- M-5 경제 캘린더 -->
+  <div class="section-header" style="margin-top:28px;">
+    <h2>M-5&nbsp; 경제 캘린더</h2>
+    <div class="section-line"></div>
+    <div class="section-badge">UPCOMING EVENTS</div>
+  </div>
+  <div style="overflow-x:auto;">
+    <table class="calendar-table">
+      <thead>
+        <tr><th>날짜</th><th>국가</th><th>지표/이벤트</th><th>예상치</th><th>중요도</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="mono" style="color:var(--down); font-weight:700;">오늘 4/10</td><td>🇺🇸</td><td>3월 소비자물가지수 (CPI)</td><td>+3.4% YoY</td><td class="star-high">⭐⭐⭐</td></tr>
+        <tr><td class="mono" style="color:var(--down); font-weight:700;">오늘 4/10</td><td>🇺🇸</td><td>미시간대 4월 인플레이션 기대</td><td>— (역대 최고 경계)</td><td class="star-high">⭐⭐⭐</td></tr>
+        <tr><td class="mono" style="color:var(--down); font-weight:700;">오늘 4/10</td><td>🇰🇷</td><td>한국은행 금통위 기준금리 결정</td><td>2.50% 동결</td><td class="star-high">⭐⭐⭐</td></tr>
+        <tr><td class="mono" style="color:var(--down); font-weight:700;">오늘 4/10</td><td>🌍</td><td>미·이란 이슬라마바드 종전 협상 시작</td><td>호르무즈·핵 쟁점</td><td class="star-high">⭐⭐⭐</td></tr>
+        <tr><td class="mono">4/29</td><td>🇺🇸</td><td>FOMC 기준금리 결정</td><td>동결 97.9% 확률</td><td class="star-high">⭐⭐⭐</td></tr>
+        <tr><td class="mono">4월 말</td><td>🇰🇷</td><td>SK하이닉스 1Q26 실적 발표</td><td>역대 최대 경신 유력</td><td class="star-mid">⭐⭐</td></tr>
+        <tr><td class="mono">이번 주</td><td>🇺🇸</td><td>델타항공 실적 (연료비 부담 속 수요 견조)</td><td>1Q26 조정 실적 사상 최대</td><td class="star-mid">⭐⭐</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- END TAB MACRO -->
+
+
+<!-- ===================== TAB 2: MARKET ===================== -->
+<div id="tab-market" class="tab-content">
+
+  <!-- S-1 한눈에 보기 -->
+  <div class="section-header">
+    <h2>S-1&nbsp; 한눈에 보기</h2>
+    <div class="section-line"></div>
+    <div class="section-badge">MARKET SNAPSHOT</div>
+  </div>
+  <div class="index-cards">
+    <div class="index-card up-card">
+      <div class="i-name">S&P500</div>
+      <div class="i-val up">6,824.66</div>
+      <div class="i-chg up">▲ +2.5% (전일 마감)</div>
+    </div>
+    <div class="index-card up-card">
+      <div class="i-name">나스닥</div>
+      <div class="i-val up">22,822.42</div>
+      <div class="i-chg up">▲ +2.80%</div>
+    </div>
+    <div class="index-card up-card">
+      <div class="i-name">다우존스</div>
+      <div class="i-val up">48,185.80</div>
+      <div class="i-chg up">▲ +2.9% (+1,300p)</div>
+    </div>
+    <div class="index-card up-card">
+      <div class="i-name">KOSPI</div>
+      <div class="i-val up">5,875.66</div>
+      <div class="i-chg up">▲ 오전 장중 (전일 5,800선 회복)</div>
+    </div>
+    <div class="index-card up-card">
+      <div class="i-name">KOSDAQ</div>
+      <div class="i-val up">1,086.17</div>
+      <div class="i-chg up">▲ 오전 장중</div>
+    </div>
+    <div class="index-card down-card">
+      <div class="i-name">USD/KRW</div>
+      <div class="i-val down">1,480</div>
+      <div class="i-chg up">▼ 환율 하락(원화 강세)</div>
+    </div>
+  </div>
+
+  <!-- S-2 주요 이슈 -->
+  <div class="section-header">
+    <h2>S-2&nbsp; 주요 이슈</h2>
+    <div class="section-line"></div>
+    <div class="section-badge">KEY ISSUES</div>
+  </div>
+  <ul class="news-list">
+    <li class="news-item">
+      <div>
+        <div class="news-title">🔴 <strong>미·이란 2주 휴전 합의 — 오늘 이슬라마바드 협상 개시</strong>. 호르무즈 통행료·핵 포기 쟁점 잔존. 8일 이후 드론 공격 일부 지속, 쿠웨이트 에너지 시설 피격 보고.</div>
+        <div class="news-src">출처: YTN·MBC·파이낸셜뉴스·뉴스핌</div>
+      </div>
+    </li>
+    <li class="news-item">
+      <div>
+        <div class="news-title">📊 <strong>삼성전자 1Q26 잠정실적 어닝 서프라이즈</strong> — 매출 133조, 영업이익 57.2조 (컨센서스 43.4조 대폭 상회, YoY +755%). NH투자 목표주가 28만원 상향. 증권가 연간 영업익 300조원 전망.</div>
+        <div class="news-src">출처: 삼성전자 뉴스룸·이데일리·더퍼블릭</div>
+      </div>
+    </li>
+    <li class="news-item">
+      <div>
+        <div class="news-title">🏦 <strong>오늘 한국은행 금통위 기준금리 결정</strong> — 만장일치 동결(2.50%) 유력. 고환율·이란 물가 리스크 모니터링 지속. 이창용 총재 기자간담회 주목.</div>
+        <div class="news-src">출처: 알파경제·한국은행</div>
+      </div>
+    </li>
+    <li class="news-item">
+      <div>
+        <div class="news-title">📉 <strong>오늘 3월 미국 CPI 발표</strong> — 예상치 3.4% (2월 2.4%). 예상 상회 시 연준 인하 기대 약화로 증시 하방 압력 경계. 연준 의사록에서 일부 위원 금리 인상 가능성 언급.</div>
+        <div class="news-src">출처: 뉴스핌·KB의 생각·시티타임스</div>
+      </div>
+    </li>
+    <li class="news-item">
+      <div>
+        <div class="news-title">🔧 <strong>코어위브-메타 210억달러 클라우드 계약</strong> (엔비디아 Vera Rubin 플랫폼 포함). AI 인프라주 강세. 어플라이드 디지털(APLD)은 순손실 확대에 하락.</div>
+        <div class="news-src">출처: 뉴스핌</div>
+      </div>
+    </li>
+  </ul>
+
+  <!-- S-3 미국 증시 -->
+  <div class="section-header" style="margin-top:24px;">
+    <h2>S-3&nbsp; 미국 증시 시황</h2>
+    <div class="section-line"></div>
+    <div class="section-badge">US MARKET</div>
+  </div>
+  <div class="summary-box">
+    <strong>9일(현지시간) 마감:</strong> S&P500 <span class="up">+2.5%</span>, 나스닥 <span class="up">+2.80%</span>, 다우 <span class="up">+2.9%(+1,300p 1년 최대 상승폭)</span>. <strong>미·이란 2주 휴전 합의</strong>가 안도 랠리를 촉발. 필라델피아반도체지수 <span class="up">+6.34%</span>. AI인프라·기술주 강세. 테슬라 인도량 부진에 <span class="down">-5.5%</span>. 주간 기준 S&P500 <span class="up">+3.4%</span>, 나스닥 <span class="up">+4.4%</span>. <strong>오늘 CPI + 미시간 기대인플레이션</strong>이 금일 방향성 결정 핵심 변수. 선물은 휴전 균열 조짐 + 금리 인하 기대 약화로 소폭 조정권.
+  </div>
+  <ul class="news-list">
+    <li class="news-item">
+      <div class="news-title">반도체·기술주 급등: 필라델피아반도체 +6.34%, AI인프라(코어위브 CRWV) 장전 +1.5~3% 강세</div>
+      <div class="news-src">뉴스핌·Investing.com</div>
+    </li>
+    <li class="news-item">
+      <div class="news-title">델타항공(DAL), 연료비 부담에도 1Q26 조정 실적 사상 최대 기록</div>
+      <div class="news-src">알파경제</div>
+    </li>
+    <li class="news-item">
+      <div class="news-title">엑슨모빌, 이란 전쟁 여파로 1Q26 전 세계 생산량 6% 상실</div>
+      <div class="news-src">알파경제</div>
+    </li>
+    <li class="news-item">
+      <div class="news-title">테슬라, 예상 하회 인도량 발표에 -5.5%. 스텔란티스-리프모터 전기 SUV 공동개발 합의</div>
+      <div class="news-src">뉴스핌·알파경제</div>
+    </li>
+  </ul>
+
+  <!-- S-4 한국 증시 -->
+  <div class="section-header" style="margin-top:24px;">
+    <h2>S-4&nbsp; 한국 증시 시황</h2>
+    <div class="section-line"></div>
+    <div class="section-badge">KR MARKET</div>
+  </div>
+  <div class="summary-box">
+    <strong>오늘 오전 장중: KOSPI 5,875.66 / KOSDAQ 1,086.17.</strong> 전일(8일) KOSPI는 미·이란 2주 휴전 합의 소식에 <span class="up">+7% 급등(5,800선 회복)</span>. 삼성전자 '20만전자' 회복, SK하이닉스 <span class="up">+9.5%</span>. 삼성전자 1Q26 서프라이즈 실적 발표(7일) 후 외국인·기관 동반 순매수. <strong>오늘 한국은행 금통위 결과</strong>와 <strong>3월 미국 CPI 발표</strong>가 장 방향성 결정. 호르무즈 통행료 이슈·휴전 균열 가능성은 상방 제한 요인.
+  </div>
+  <ul class="news-list">
+    <li class="news-item">
+      <div class="news-title">삼성전자 1Q26 어닝 서프라이즈(영업익 57.2조) → 증권가 목표주가 줄상향. 20만전자 회복</div>
+      <div class="news-src">삼성전자 뉴스룸·NH투자증권</div>
+    </li>
+    <li class="news-item">
+      <div class="news-title">SK하이닉스 +9.5% 급등. 이달 말 실적 발표 — 역대 최대 경신 전망. HBM·서버 수요 견조</div>
+      <div class="news-src">getnews</div>
+    </li>
+    <li class="news-item">
+      <div class="news-title">외국인 투자자, 한국 주식 해외 자금 유입 지속. 2월 이후 반도체 외 종목도 순매도 전환 일부 — 수급 추가 확인 필요</div>
+      <div class="news-src">KB자산운용·알파경제</div>
+    </li>
+    <li class="news-item">
+      <div class="news-title">방산주 조정: 미·이란 휴전 합의 직후 방위산업주 일제히 하락. 방위산업 수출 중동 수요는 중기 유효</div>
+      <div class="news-src">Investing.com</div>
+    </li>
+  </ul>
+
+  <!-- S-5 섹터별 동향 -->
+  <div class="section-header" style="margin-top:24px;">
+    <h2>S-5&nbsp; 섹터별 동향</h2>
+    <div class="section-line"></div>
+    <div class="section-badge">SECTOR ANALYSIS</div>
+  </div>
+  <div class="sector-grid">
+    <div class="sector-card">
+      <div class="s-title">
+        <span>💾 반도체</span>
+        <span class="up">▲ 강세</span>
+      </div>
+      <div class="s-stocks">
+        <span class="stock-chip up">삼성전자 ▲20만+</span>
+        <span class="stock-chip up">SK하이닉스 ▲+9.5%</span>
+        <span class="stock-chip up">NVDA ▲</span>
+      </div>
+      <div class="s-desc">삼성전자 1Q 서프라이즈(57.2조) + 미·이란 휴전 안도 랠리로 반도체 섹터 주도. 필라델피아반도체 +6.34%. HBM 슈퍼사이클 진입 확인. 외국인 보유 주식수 감소에도 잔고금액 +10% 이상.</div>
+      <div class="flow-bar-wrap">
+        <span class="flow-label">외국인 수급</span>
+        <div class="flow-bar flow-buy"><div class="flow-fill" style="width:72%"></div></div>
+        <span class="flow-label up">▲ 순매수 우위</span>
+      </div>
+    </div>
+    <div class="sector-card">
+      <div class="s-title">
+        <span>🔋 2차전지</span>
+        <span class="neutral">▶ 혼조</span>
+      </div>
+      <div class="s-stocks">
+        <span class="stock-chip neutral">LG에너지솔루션 ▶</span>
+        <span class="stock-chip neutral">삼성SDI ▶</span>
+      </div>
+      <div class="s-desc">유가 하락으로 전기차 전환 심리 일부 약화. 그러나 AI·전력 수요 연계 ESS 수요는 견조. 테슬라 인도량 부진으로 단기 불확실성. 중장기 AI 전력 인프라 연동 스토리 유효.</div>
+      <div class="flow-bar-wrap">
+        <span class="flow-label">외국인 수급</span>
+        <div class="flow-bar flow-sell"><div class="flow-fill" style="width:50%"></div></div>
+        <span class="flow-label neutral">▶ 혼조</span>
+      </div>
+    </div>
+    <div class="sector-card">
+      <div class="s-title">
+        <span>🚗 자동차</span>
+        <span class="neutral">▶ 보합</span>
+      </div>
+      <div class="s-stocks">
+        <span class="stock-chip neutral">현대차 ▶</span>
+        <span class="stock-chip neutral">기아 ▶</span>
+        <span class="stock-chip down">테슬라 ▼-5.5%</span>
+      </div>
+      <div class="s-desc">테슬라 인도량 부진(-5.5%). 현대·기아는 유가 하락으로 완성차 수요 회복 기대. 스텔란티스-리프모터 전기 SUV 협업 발표. 연료비 부담 항공·운수주 압박 지속.</div>
+      <div class="flow-bar-wrap">
+        <span class="flow-label">외국인 수급</span>
+        <div class="flow-bar flow-buy"><div class="flow-fill" style="width:55%"></div></div>
+        <span class="flow-label neutral">▶ 소폭 순매수</span>
+      </div>
+    </div>
+    <div class="sector-card">
+      <div class="s-title">
+        <span>🏦 금융·은행</span>
+        <span class="up">▲ 소폭 강세</span>
+      </div>
+      <div class="s-stocks">
+        <span class="stock-chip up">4대금융지주 ▲</span>
+        <span class="stock-chip up">키움증권 ▲</span>
+      </div>
+      <div class="s-desc">1Q26 국내 일평균 거래대금 ~70조원 (전분기 대비 2배). 증권사 실적 강세 예상. 한국은행 금통위 동결 시 금리 부담 유지. 삼성증권 등 Top pick 유지. 금리 동결·증시 거래대금 증가 수혜.</div>
+      <div class="flow-bar-wrap">
+        <span class="flow-label">외국인 수급</span>
+        <div class="flow-bar flow-buy"><div class="flow-fill" style="width:60%"></div></div>
+        <span class="flow-label up">▲ 순매수</span>
+      </div>
+    </div>
+    <div class="sector-card">
+      <div class="s-title">
+        <span>🛡️ 방산</span>
+        <span class="down">▼ 조정</span>
+      </div>
+      <div class="s-stocks">
+        <span class="stock-chip down">한화에어로 ▼조정</span>
+        <span class="stock-chip down">LIG넥스원 ▼</span>
+      </div>
+      <div class="s-desc">미·이란 휴전 합의 직후 방산주 일제히 하락. 그러나 중동 내 구조적 불안정 + 유럽 재무장 수요는 중기 유효. 한화에어로스페이스는 삼성증권 Top pick 유지. 휴전 균열 시 반등 가능.</div>
+      <div class="flow-bar-wrap">
+        <span class="flow-label">외국인 수급</span>
+        <div class="flow-bar flow-sell"><div class="flow-fill" style="width:65%"></div></div>
+        <span class="flow-label down">▼ 차익실현</span>
+      </div>
+    </div>
+    <div class="sector-card">
+      <div class="s-title">
+        <span>💊 바이오</span>
+        <span class="neutral">▶ 혼조</span>
+      </div>
+      <div class="s-stocks">
+        <span class="stock-chip neutral">삼성바이오 ▶</span>
+        <span class="stock-chip neutral">셀트리온 ▶</span>
+      </div>
+      <div class="s-desc">플라스틱 의료기기 원료(나프타) 수급 불안 — 호르무즈 봉쇄 영향 잔존. 정부 의료용품 집중관리 대응. AI 신약 개발 모멘텀은 중기 유효. 전쟁 위험 감소로 의약품 수출 정상화 기대.</div>
+      <div class="flow-bar-wrap">
+        <span class="flow-label">외국인 수급</span>
+        <div class="flow-bar flow-buy"><div class="flow-fill" style="width:48%"></div></div>
+        <span class="flow-label neutral">▶ 혼조</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- S-6 주요 종목 -->
+  <div class="section-header" style="margin-top:24px;">
+    <h2>S-6&nbsp; 주요 종목 분석</h2>
+    <div class="section-line"></div>
+    <div class="section-badge">TOP STOCKS</div>
+  </div>
+  <div style="display:flex; flex-direction:column; gap:14px;">
+    <div style="overflow-x:auto;">
+      <div style="font-size:12px; font-weight:700; color:var(--accent); margin-bottom:8px;">🇰🇷 국내 주목 종목 (어닝 시즌 / 이란 연동)</div>
+      <table class="data-table" style="width:100%;">
+        <thead><tr><th>#</th><th>종목</th><th>등락</th><th>핵심 이슈</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>삼성전자</strong></td><td class="up mono">▲ 20만전자 회복</td><td>1Q 영업익 57.2조 서프라이즈. 목표주가 28만원↑</td></tr>
+          <tr><td>2</td><td><strong>SK하이닉스</strong></td><td class="up mono">▲ +9.5% (883,000→100만+)</td><td>HBM 초강세, 이달 말 역대 최대 실적 예고</td></tr>
+          <tr><td>3</td><td><strong>한화에어로스페이스</strong></td><td class="down mono">▼ 조정</td><td>휴전 후 방산주 차익실현. 중기 Top pick 유지</td></tr>
+          <tr><td>4</td><td><strong>조선·LNG 수혜주</strong></td><td class="up mono">▲</td><td>호르무즈 통행료 → 비대서양 항로 수요 증가 기대</td></tr>
+          <tr><td>5</td><td><strong>삼성바이오로직스</strong></td><td class="neutral mono">▶</td><td>나프타 수급 우려 일부 있으나 바이오 CMO 수요 견조</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="overflow-x:auto;">
+      <div style="font-size:12px; font-weight:700; color:var(--accent); margin-bottom:8px;">🇺🇸 미국 주목 종목</div>
+      <table class="data-table" style="width:100%;">
+        <thead><tr><th>#</th><th>종목</th><th>등락</th><th>핵심 이슈</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td><strong>NVIDIA</strong></td><td class="up mono">▲</td><td>Vera Rubin 초기 배치, 코어위브 210억달러 계약</td></tr>
+          <tr><td>2</td><td><strong>Meta</strong></td><td class="up mono">▲</td><td>코어위브와 210억달러 AI 클라우드 계약 확대</td></tr>
+          <tr><td>3</td><td><strong>CoreWeave (CRWV)</strong></td><td class="up mono">▲ +1.5~3% 장전</td><td>메타·엔비디아 연동 AI인프라 수혜주 부각</td></tr>
+          <tr><td>4</td><td><strong>Tesla</strong></td><td class="down mono">▼ -5.5%</td><td>1Q 인도량 예상 하회. Amazon 인수설 부인</td></tr>
+          <tr><td>5</td><td><strong>Delta Air Lines</strong></td><td class="up mono">▲</td><td>연료비 부담에도 1Q 조정실적 사상 최대</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- S-7 미국 빅테크 -->
+  <div class="section-header" style="margin-top:24px;">
+    <h2>S-7&nbsp; 미국 빅테크 분석 (한국 증시 연동 핵심)</h2>
+    <div class="section-line"></div>
+    <div class="section-badge">US BIGTECH</div>
+  </div>
+  <div class="bigtech-grid">
+    <div class="bigtech-card">
+      <div class="bt-header">
+        <div><div class="bt-name">NVIDIA</div><div class="bt-ticker">NVDA</div></div>
+        <div class="bt-chg up">▲</div>
+      </div>
+      <div class="bt-news">Vera Rubin 플랫폼 코어위브 초기 배치. 메타와 210억달러 계약 포함. 필라반도체 +6.34% 주도. SK하이닉스 HBM 핵심 수요처.</div>
+      <span class="bt-signal signal-buy">매수 선호</span>
+    </div>
+    <div class="bigtech-card">
+      <div class="bt-header">
+        <div><div class="bt-name">Microsoft</div><div class="bt-ticker">MSFT</div></div>
+        <div class="bt-chg up">▲</div>
+      </div>
+      <div class="bt-news">AI 인프라 투자 확대 기조 유지. 코파일럿 기업용 확산 가속. 데이터센터 전력 수요 지속.</div>
+      <span class="bt-signal signal-buy">매수 선호</span>
+    </div>
+    <div class="bigtech-card">
+      <div class="bt-header">
+        <div><div class="bt-name">Meta Platforms</div><div class="bt-ticker">META</div></div>
+        <div class="bt-chg up">▲</div>
+      </div>
+      <div class="bt-news">코어위브와 210억달러 AI 클라우드 계약 확대. 엔비디아 Vera Rubin 플랫폼 초기 배치 포함. AI 광고 효율 강화.</div>
+      <span class="bt-signal signal-buy">매수 선호</span>
+    </div>
+    <div class="bigtech-card">
+      <div class="bt-header">
+        <div><div class="bt-name">Amazon</div><div class="bt-ticker">AMZN</div></div>
+        <div class="bt-chg up">▲</div>
+      </div>
+      <div class="bt-news">글로벌스타 인수 추진설에 글로벌스타 +13% 급등. AWS AI 인프라 수요 견조. 물류 정상화 수혜.</div>
+      <span class="bt-signal signal-buy">매수 선호</span>
+    </div>
+    <div class="bigtech-card">
+      <div class="bt-header">
+        <div><div class="bt-name">Tesla</div><div class="bt-ticker">TSLA</div></div>
+        <div class="bt-chg down">▼ -5.5%</div>
+      </div>
+      <div class="bt-news">1Q26 인도량 예상 하회. 유가 하락 전기차 전환 심리 약화. Amazon 인수설 부인.</div>
+      <span class="bt-signal signal-hold">관망</span>
+    </div>
+    <div class="bigtech-card">
+      <div class="bt-header">
+        <div><div class="bt-name">AMD</div><div class="bt-ticker">AMD</div></div>
+        <div class="bt-chg up">▲</div>
+      </div>
+      <div class="bt-news">AI 데이터센터용 GPU 수요 확대. Instinct MI300X 경쟁력 유지. NVDA 독주 속 AI 서버 2위 구도.</div>
+      <span class="bt-signal signal-hold">중립</span>
+    </div>
+    <div class="bigtech-card">
+      <div class="bt-header">
+        <div><div class="bt-name">Micron</div><div class="bt-ticker">MU</div></div>
+        <div class="bt-chg up">▲</div>
+      </div>
+      <div class="bt-news">이달 말 실적 발표 예정 — 반도체 초호황 증거 구체화 기대. SK하이닉스 대비 저평가 매력.</div>
+      <span class="bt-signal signal-buy">매수 선호</span>
+    </div>
+    <div class="bigtech-card">
+      <div class="bt-header">
+        <div><div class="bt-name">ASML</div><div class="bt-ticker">ASML</div></div>
+        <div class="bt-chg up">▲</div>
+      </div>
+      <div class="bt-news">EUV 장비 수요 HBM·선단공정 전환 수혜. 반도체 슈퍼사이클 핵심 수혜주. 한국 생산설비 확대 연동.</div>
+      <span class="bt-signal signal-buy">매수 선호</span>
+    </div>
+    <div class="bigtech-card">
+      <div class="bt-header">
+        <div><div class="bt-name">Applied Materials</div><div class="bt-ticker">AMAT</div></div>
+        <div class="bt-chg up">▲</div>
+      </div>
+      <div class="bt-news">반도체 장비 수주 증가 사이클. 삼성·SK 투자 확대 수혜. DRAM·낸드 증설 수요.</div>
+      <span class="bt-signal signal-buy">매수 선호</span>
+    </div>
+    <div class="bigtech-card">
+      <div class="bt-header">
+        <div><div class="bt-name">Broadcom</div><div class="bt-ticker">AVGO</div></div>
+        <div class="bt-chg up">▲</div>
+      </div>
+      <div class="bt-news">커스텀AI칩(XPU) 수요 메타·구글 대형 고객사 확대. 네트워킹 인프라 AI 수혜.</div>
+      <span class="bt-signal signal-buy">매수 선호</span>
+    </div>
+    <div class="bigtech-card">
+      <div class="bt-header">
+        <div><div class="bt-name">Lam Research</div><div class="bt-ticker">LRCX</div></div>
+        <div class="bt-chg up">▲</div>
+      </div>
+      <div class="bt-news">낸드·DRAM 증설 장비 수요 회복. 삼성·SK하이닉스 설비 투자 확대 사이클 수혜.</div>
+      <span class="bt-signal signal-hold">중립</span>
+    </div>
+    <div class="bigtech-card">
+      <div class="bt-header">
+        <div><div class="bt-name">CoreWeave</div><div class="bt-ticker">CRWV</div></div>
+        <div class="bt-chg up">▲ +1.5~3%</div>
+      </div>
+      <div class="bt-news">메타 210억달러 AI클라우드 계약 + Vera Rubin 배치. AI 인프라 인터넷 신흥 강자. 상장 이후 주목받는 수혜주.</div>
+      <span class="bt-signal signal-buy">매수 선호</span>
+    </div>
+  </div>
+
+  <!-- S-8 수급 분석 -->
+  <div class="section-header" style="margin-top:24px;">
+    <h2>S-8&nbsp; 수급 분석</h2>
+    <div class="section-line"></div>
+    <div class="section-badge">FLOW ANALYSIS</div>
+  </div>
+  <div class="cards-grid cards-2">
+    <div class="card">
+      <div class="card-label">🇰🇷 국내 외국인 수급</div>
+      <div class="card-note" style="font-size:12px; line-height:1.8; color:var(--text);">
+        • 3월 코스피 외국인 순매도 ~30조원 (역대 월별 최대치)<br>
+        • 삼성전자 보유주식수 28.6억주(2020년 이후 최저)로 감소<br>
+        • 그러나 <strong>보유잔고 금액 기준</strong> 삼성·SK하이닉스 모두 연초 대비 +10% 이상 평가수익<br>
+        • 4/8~9 <strong>이란 휴전 후 반도체 외국인·기관 동반 순매수 전환</strong><br>
+        • 한국 채권은 꾸준히 매수 중 — 구조적 이탈보다 차익실현 성격
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">🇺🇸 미국 기관 포지션 변화</div>
+      <div class="card-note" style="font-size:12px; line-height:1.8; color:var(--text);">
+        • AI 인프라 관련 기관 매수 강화(코어위브, 메타, NVDA)<br>
+        • Citadel Securities: 중동 긴장 고조 전 포지션 조정<br>
+        • 반도체 ETF Passive 펀드 비중 증가, EM/Value 펀드는 전술적 감소<br>
+        • 방산주: 휴전 합의 이후 기관 차익실현 포지션 축소<br>
+        • 항공·크루즈주: 유가 반등 우려로 기관 단기 매도
+      </div>
+    </div>
+  </div>
+
+  <!-- S-9 기술적 분석 -->
+  <div class="section-header" style="margin-top:24px;">
+    <h2>S-9&nbsp; 기술적 분석</h2>
+    <div class="section-line"></div>
+    <div class="section-badge">TECHNICAL ANALYSIS</div>
+  </div>
+  <div class="tech-grid">
+    <div class="tech-card">
+      <div class="t-title">🇰🇷 KOSPI</div>
+      <div class="tech-level">
+        <span class="level-label">현재가</span><span class="level-val up">5,875</span>
+      </div>
+      <div class="tech-level">
+        <span class="level-label">1차 저항</span><span class="level-val">5,900 (심리적 저항)</span>
+      </div>
+      <div class="tech-level">
+        <span class="level-label">2차 저항</span><span class="level-val">6,000 (밸류에이션 상단)</span>
+      </div>
+      <div class="tech-level">
+        <span class="level-label">1차 지지</span><span class="level-val">5,800 (직전 회복선)</span>
+      </div>
+      <div class="tech-level">
+        <span class="level-label">2차 지지</span><span class="level-val">5,600 (120일 이평선)</span>
+      </div>
+      <div class="card-note" style="margin-top:8px;">CPI + 금통위 결과에 따라 5,900 돌파 혹은 5,800 재하향 분기점. 삼성전자 서프라이즈로 상승 탄력. 12개월 예상 P/E 9.3배 기준 5,900pt 상단.</div>
+    </div>
+    <div class="tech-card">
+      <div class="t-title">🇰🇷 KOSDAQ</div>
+      <div class="tech-level">
+        <span class="level-label">현재가</span><span class="level-val up">1,086</span>
+      </div>
+      <div class="tech-level">
+        <span class="level-label">저항</span><span class="level-val">1,100 (심리적 저항)</span>
+      </div>
+      <div class="tech-level">
+        <span class="level-label">지지</span><span class="level-val">1,050 (단기 지지)</span>
+      </div>
+      <div class="card-note" style="margin-top:8px;">2026년 사상 두 번째로 높은 변동성. 반도체 섹터 주도 장세에서 코스닥 AI·바이오 중소형주 순환 가능성. 거래대금 70조 유지 여부 관건.</div>
+    </div>
+    <div class="tech-card">
+      <div class="t-title">🇺🇸 S&P500</div>
+      <div class="tech-level">
+        <span class="level-label">현재가</span><span class="level-val up">6,824</span>
+      </div>
+      <div class="tech-level">
+        <span class="level-label">저항</span><span class="level-val">6,900 / 7,000 (전고점 목표)</span>
+      </div>
+      <div class="tech-level">
+        <span class="level-label">지지</span><span class="level-val">6,700 / 6,500 (단기 이탈 시)</span>
+      </div>
+      <div class="card-note" style="margin-top:8px;">이란 전쟁 이후 첫 주간 상승 확인. CPI 예상 상회 시 6,700선 재검증. 반도체·AI 섹터 견인 지속 여부 관건. PCE 3.0% 고착화 경계.</div>
+    </div>
+    <div class="tech-card">
+      <div class="t-title">🇺🇸 나스닥</div>
+      <div class="tech-level">
+        <span class="level-label">현재가</span><span class="level-val up">22,822</span>
+      </div>
+      <div class="tech-level">
+        <span class="level-label">저항</span><span class="level-val">23,000 (전고점 도전)</span>
+      </div>
+      <div class="tech-level">
+        <span class="level-label">지지</span><span class="level-val">22,000 / 21,500</span>
+      </div>
+      <div class="card-note" style="margin-top:8px;">AI·반도체 주도 주간 +4.4% 상승. CPI + 연준 금리 방향성 민감. 테슬라 약세가 상방 제한. 23,000 돌파 시 추가 랠리 가속 가능.</div>
+    </div>
+  </div>
+
+</div><!-- END TAB MARKET -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>📋 <strong>데이터 출처</strong>: 삼성전자 뉴스룸, 한국은행, 한국거래소, Investing.com, TradingEconomics, 뉴스핌, KB의 생각, 알파경제, YTN, MBC뉴스, 파이낸셜뉴스, 시티타임스, 이데일리, 더퍼블릭, 뉴데일리, 한국무역협회</p>
+  <p style="margin-top:6px;">⚠️ <strong>면책 고지</strong>: 본 보고서는 참고 목적으로 제공되는 정보이며 투자 권유가 아닙니다. 웹 검색 기반으로 작성되었으며 실시간 데이터와 차이가 있을 수 있습니다. 투자 결정은 반드시 본인의 판단으로 하시기 바랍니다.</p>
+  <p style="margin-top:4px; color: #4a5568;">Generated by Claude AI | 2026.04.10 KST Morning</p>
+</div>
+
+<script>
+function switchTab(name, event) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  if (event && event.currentTarget) event.currentTarget.classList.add('active');
+}
+</script>
+</body>
+</html>
