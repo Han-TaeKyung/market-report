@@ -20,7 +20,7 @@
     --text2: #8b949e;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans KR', sans-serif; font-size: 14px; line-height: 1.6; }
+  body { background: var(--bg); color: var(--text); font-family: 'Noto Sans KR', sans-serif; font-size: 14px; line-height: 1.6; overflow-x: hidden; }
   .mono { font-family: 'DM Mono', monospace; }
 
   /* HEADER */
@@ -140,20 +140,47 @@
   /* FOOTER */
   .footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 16px 24px; text-align: center; font-size: 11px; color: var(--text2); margin-top: 40px; }
 
-  /* MOBILE */
+  /* MOBILE ≤ 480px */
   @media (max-width: 480px) {
-    .header { padding: 14px 14px 12px; }
-    .tab-btn { padding: 12px 12px; font-size: 12px; }
-    .tab-content { padding: 14px; }
-    .card-grid, .card-grid-2, .policy-grid, .sector-grid, .watchlist-grid, .bigtech-grid { grid-template-columns: 1fr 1fr; }
-    .bigtech-grid { grid-template-columns: 1fr; }
-    table { font-size: 11px; }
-    th, td { padding: 6px 7px; }
-    .index-value { font-size: 18px; }
-    * { width: 100% !important; max-width: 100% !important; }
-    .card-grid, .card-grid-2, .policy-grid, .sector-grid, .watchlist-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; }
-    .bigtech-grid { grid-template-columns: 1fr !important; }
-    div, table { width: 100% !important; }
+    /* 기본 레이아웃 */
+    .header { padding: 12px 12px 10px; }
+    .header-title { font-size: 18px; }
+    .header-date { font-size: 11px; }
+    .tab-content { padding: 12px; }
+
+    /* 탭 바 — 3탭 균등 분할 */
+    .tab-bar { padding: 0; }
+    .tab-btn { flex: 1; padding: 11px 4px; font-size: 11px; text-align: center; }
+
+    /* 리스크 배너 — flex 구조 보호 (아이콘/텍스트 분리 유지) */
+    .risk-banner { padding: 10px 10px; gap: 8px; }
+    .risk-icon { font-size: 14px !important; flex-shrink: 0 !important;
+                 width: auto !important; max-width: none !important; min-width: 0 !important; }
+    .risk-text  { font-size: 12px !important; flex: 1 1 0 !important;
+                 width: auto !important; max-width: none !important; min-width: 0 !important; }
+
+    /* 그리드 — 2열 */
+    .card-grid,
+    .card-grid-2,
+    .policy-grid,
+    .sector-grid,
+    .watchlist-grid { display: grid !important; grid-template-columns: 1fr 1fr !important; width: 100% !important; }
+    .bigtech-grid { display: grid !important; grid-template-columns: 1fr !important; width: 100% !important; }
+
+    /* 카드 내부 폰트 축소 */
+    .card-value  { font-size: 16px; }
+    .index-value { font-size: 16px; }
+    .watch-price { font-size: 15px; }
+    .policy-rate { font-size: 15px; }
+
+    /* 테이블 가독성 — 가로 스크롤 + 폰트/패딩 최적화 */
+    .table-wrap { width: 100% !important; overflow-x: auto; -webkit-overflow-scrolling: touch; display: block; border-radius: 8px; }
+    table { width: 100%; min-width: 480px; font-size: 12px; }
+    th { font-size: 10px; padding: 7px 8px; white-space: nowrap; }
+    td { font-size: 12px; padding: 7px 8px; word-break: keep-all; line-height: 1.4; }
+
+    .section       { margin-bottom: 20px; }
+    .section-title { font-size: 14px; }
   }
 </style>
 </head>
@@ -306,19 +333,19 @@
     </div>
 
     <div style="font-size:13px;font-weight:700;margin-bottom:10px;">🌍 지정학 리스크</div>
-    <table>
+    <div class="table-wrap"><table>
       <tr><th>이슈</th><th>내용</th><th>리스크</th></tr>
       <tr><td>미·이란 종전 협상</td><td>MOU 잠정합의 — 60일 휴전연장 + 호르무즈 재개방 30일 내 기뢰 제거. 트럼프 최종 승인 미정. 이란 "완전 확정 아님"</td><td><span class="badge badge-red">HIGH</span></td></tr>
       <tr><td>호르무즈 해협</td><td>세계 석유·LNG 20% 통과 요충지. 재개방 시 유가 추가 하락 → 원자재 관련주 타격, 항공·화학주 긍정</td><td><span class="badge badge-yellow">MID</span></td></tr>
       <tr><td>미·중 무역</td><td>반도체·AI 수출통제 지속. USMCA 개정 협상 미국산 부품 확대 추진. 공급망 재편 영향 지속</td><td><span class="badge badge-yellow">MID</span></td></tr>
       <tr><td>핵 협상</td><td>이란 "핵 비축 양보 없음" 입장 유지. 120억달러 동결자산 해제 협상 카드. 고농축 우라늄 처리 논의 예정</td><td><span class="badge badge-yellow">MID</span></td></tr>
-    </table>
+    </table></div>
   </div>
 
   <!-- M-3 실물경제 -->
   <div class="section">
     <div class="section-title">📉 M-3. 실물 경제 사이클</div>
-    <table>
+    <div class="table-wrap"><table>
       <tr><th>지표</th><th>최신값</th><th>이전값</th><th>비고</th></tr>
       <tr><td>미국 헤드라인 PCE (YoY)</td><td class="up mono">3.80%</td><td class="neutral mono">3.50%</td><td>4월 발표 · 목표 2% 초과</td></tr>
       <tr><td>미국 핵심 PCE (YoY)</td><td class="warn mono">3.30%</td><td class="neutral mono">3.20%</td><td>5/29 발표 예상치 하회</td></tr>
@@ -327,7 +354,7 @@
       <tr><td>한국 GDP (Q1)</td><td class="up mono">+1.7% QoQ</td><td class="up mono">+3.6% YoY</td><td>반도체 수출 호조</td></tr>
       <tr><td>한국 성장률 전망 (2026)</td><td class="up mono">2.6%</td><td class="neutral mono">2.0%</td><td>한은 5월 대폭 상향</td></tr>
       <tr><td>미국 연준 금리 결정 전망</td><td class="neutral mono">연내 동결</td><td colspan="2">시장 컨센서스 2026년 말까지 동결</td></tr>
-    </table>
+    </table></div>
   </div>
 
   <!-- M-4 산업·기술 트렌드 -->
@@ -356,7 +383,7 @@
   <!-- M-5 경제 캘린더 -->
   <div class="section">
     <div class="section-title">📅 M-5. 이번 주 경제 캘린더</div>
-    <table>
+    <div class="table-wrap"><table>
       <tr><th>날짜</th><th>국가</th><th>지표명</th><th>예상·비고</th><th>중요도</th></tr>
       <tr class="cal-row"><td>6/1 (월)</td><td>🇰🇷</td><td>소비자물가지수 (5월)</td><td>전월 2.6%</td><td><span class="star">⭐⭐⭐</span></td></tr>
       <tr class="cal-row"><td>6/2 (화)</td><td>🇺🇸</td><td>미국 ISM 제조업 PMI (5월)</td><td>확장 여부 확인</td><td><span class="star">⭐⭐⭐</span></td></tr>
@@ -364,7 +391,7 @@
       <tr class="cal-row"><td>6/4 (목)</td><td>🇺🇸</td><td>주간 신규실업수당청구</td><td>노동시장 냉각 여부</td><td><span class="star">⭐⭐</span></td></tr>
       <tr class="cal-row"><td>6/6 (금)</td><td>🇺🇸</td><td>비농업 신규고용 (5월)</td><td>핵심 고용지표</td><td><span class="star">⭐⭐⭐</span></td></tr>
       <tr class="cal-row"><td>7/16</td><td>🇰🇷</td><td>한국은행 금통위 (기준금리)</td><td>인상 가능성 부각</td><td><span class="star">⭐⭐⭐</span></td></tr>
-    </table>
+    </table></div>
   </div>
 
   <!-- 한국 금리 인상과 원화 -->
@@ -1336,7 +1363,7 @@
   <!-- 종합 전략 테이블 -->
   <div class="section">
     <div class="section-title">📊 워치리스트 종합 전략 요약</div>
-    <table>
+    <div class="table-wrap"><table>
       <tr><th>종목</th><th>현재가</th><th>신호</th><th>전략</th><th>핵심 근거</th></tr>
       <tr><td>삼성전자</td><td class="up mono">327,500원</td><td><span class="badge badge-yellow">RSI 68 경계</span></td><td>분할매도 / GTC 후 판단</td><td>과열 경계, HBM 모멘텀 지속</td></tr>
       <tr><td>SK하이닉스</td><td class="down mono">2,309,000원</td><td><span class="badge badge-red">RSI 72 과열</span></td><td>신규매수 자제</td><td>차익실현 압력, 지지 200만원</td></tr>
@@ -1360,7 +1387,7 @@
       <tr><td>KODEX 코리아배당성장</td><td class="neutral mono">수집실패</td><td><span class="badge badge-green">적립유지</span></td><td>코스피 최고치 수혜</td><td>원화 자산, 배당성장 장기</td></tr>
       <tr><td>TIGER 우량가치</td><td class="neutral mono">수집실패</td><td><span class="badge badge-green">분할적립</span></td><td>순환매 대비 포지션</td><td>가치주 밸류업 장기 수혜</td></tr>
       <tr><td>현대차</td><td class="neutral mono">수집실패</td><td><span class="badge badge-neutral" style="background:rgba(107,122,153,0.2);color:#6b7a99;">중립</span></td><td>모니터링</td><td>로봇 모멘텀 vs 관세 불확실</td></tr>
-    </table>
+    </table></div>
   </div>
 
 </div>
