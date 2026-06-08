@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📊 모닝 마켓 브리핑 — 2026년 6월 8일</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2230;--bg4:#21262d;
+  --up:#00C896;--dn:#FF4D6D;--neu:#6b7a99;--acc:#4C9AFF;--warn:#F5A623;--purple:#9B59B6;
+  --bd:#30363d;--txt:#e6edf3;--txt2:#8b949e;
+}
+body{background:var(--bg);color:var(--txt);font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.6}
+.mono{font-family:'DM Mono',monospace}
+
+/* ── HEADER ── */
+.header{background:linear-gradient(135deg,#0d1117 0%,#1a2744 60%,#0d1117 100%);padding:28px 24px 20px;border-bottom:1px solid var(--bd)}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px}
+.report-title{font-size:clamp(20px,4vw,28px);font-weight:900;letter-spacing:-0.5px}
+.report-title span{color:var(--acc)}
+.report-meta{font-size:12px;color:var(--txt2);text-align:right}
+.risk-banner{background:linear-gradient(90deg,#1f0a14,#2d0f1e,#1f0a14);border:1px solid var(--dn);border-radius:8px;padding:10px 16px;margin-top:14px;display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.risk-icon{font-size:20px;flex-shrink:0;line-height:1.4}
+.risk-text{font-size:13px;line-height:1.5}
+.risk-text strong{color:var(--dn)}
+
+/* ── TAB BAR ── */
+.tab-bar{display:flex;gap:4px;padding:0 20px;background:var(--bg2);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:100;flex-wrap:wrap}
+.tab-btn{background:none;border:none;color:var(--txt2);padding:14px 18px;cursor:pointer;font-family:inherit;font-size:13px;font-weight:600;border-bottom:3px solid transparent;transition:all .2s;white-space:nowrap}
+.tab-btn:hover{color:var(--txt);background:var(--bg3)}
+.tab-btn.active{color:var(--acc);border-bottom-color:var(--acc)}
+.tab-content{display:none;padding:24px 20px;max-width:1400px;margin:0 auto}
+.tab-content.active{display:block}
+
+/* ── SECTION ── */
+.section{margin-bottom:32px}
+.section-title{font-size:15px;font-weight:700;color:var(--acc);margin-bottom:14px;padding-bottom:6px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px}
+
+/* ── CARDS ── */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
+.card-grid-4{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.card{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:14px;transition:border-color .2s}
+.card:hover{border-color:var(--acc)}
+.card-label{font-size:11px;color:var(--txt2);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.card-val{font-size:clamp(18px,3vw,24px);font-weight:700;font-family:'DM Mono',monospace}
+.card-sub{font-size:12px;color:var(--txt2);margin-top:4px}
+.up{color:var(--up)}.dn{color:var(--dn)}.neu{color:var(--neu)}.warn{color:var(--warn)}
+
+/* ── BADGE ── */
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.4px}
+.badge-red{background:#3d0b14;color:var(--dn);border:1px solid var(--dn)}
+.badge-green{background:#0b2d1f;color:var(--up);border:1px solid var(--up)}
+.badge-orange{background:#2d1a00;color:var(--warn);border:1px solid var(--warn)}
+.badge-blue{background:#0b1d3d;color:var(--acc);border:1px solid var(--acc)}
+.badge-gray{background:#1c2230;color:var(--neu);border:1px solid var(--neu)}
+
+/* ── TABLE ── */
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;min-width:480px}
+th{background:var(--bg3);color:var(--txt2);font-size:11px;font-weight:700;text-align:left;padding:8px 12px;letter-spacing:.4px;border-bottom:1px solid var(--bd)}
+td{padding:8px 12px;border-bottom:1px solid var(--bd);font-size:13px;vertical-align:top}
+tr:hover td{background:var(--bg3)}
+
+/* ── SECTOR CARD ── */
+.sector-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.sector-card{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:16px}
+.sector-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.sector-name{font-weight:700;font-size:14px}
+.gauge-bar{height:6px;border-radius:3px;background:var(--bg4);margin:6px 0;overflow:hidden}
+.gauge-fill{height:100%;border-radius:3px;transition:width .5s}
+
+/* ── POLICY CARD ── */
+.policy-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.policy-card{background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:16px}
+.policy-bank{font-size:12px;color:var(--txt2);font-weight:600;margin-bottom:6px}
+.policy-rate{font-size:20px;font-weight:700;font-family:'DM Mono',monospace;margin-bottom:6px}
+.policy-desc{font-size:12px;color:var(--txt2);line-height:1.5}
+
+/* ── NEWS LIST ── */
+.news-list{display:flex;flex-direction:column;gap:8px}
+.news-item{background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px}
+.news-num{background:var(--acc);color:#fff;border-radius:4px;padding:1px 6px;font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px}
+.news-body{font-size:13px;line-height:1.5}
+.news-source{font-size:11px;color:var(--txt2);margin-top:3px}
+
+/* ── WATCHLIST CARD ── */
+.wl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.wl-card{background:var(--bg2);border:2px solid var(--bd);border-radius:12px;padding:16px}
+.wl-card.signal-buy{border-color:var(--up)}
+.wl-card.signal-watch{border-color:var(--warn)}
+.wl-card.signal-hot{border-color:var(--dn)}
+.wl-card.signal-neutral{border-color:var(--neu)}
+.wl-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.wl-name{font-weight:700;font-size:15px}
+.wl-code{font-size:11px;color:var(--txt2)}
+.wl-price{font-size:22px;font-weight:700;font-family:'DM Mono',monospace}
+.wl-change{font-size:13px;font-weight:600;margin-top:2px}
+.wl-stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:10px}
+.wl-stat{background:var(--bg4);border-radius:6px;padding:6px 8px}
+.wl-stat-label{font-size:10px;color:var(--txt2);font-weight:600}
+.wl-stat-val{font-size:13px;font-weight:600;margin-top:2px}
+.rsi-bar{height:4px;border-radius:2px;background:var(--bg4);margin:6px 0;overflow:hidden}
+.rsi-fill{height:100%;border-radius:2px}
+
+/* ── SIGNAL SUMMARY TABLE ── */
+.signal-tag{display:inline-block;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:700}
+.signal-buy-tag{background:#0b2d1f;color:var(--up)}
+.signal-watch-tag{background:#2d1a00;color:var(--warn)}
+.signal-hot-tag{background:#3d0b14;color:var(--dn)}
+.signal-neutral-tag{background:#1c2230;color:var(--neu)}
+
+/* ── CALENDAR ── */
+.cal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px}
+.cal-item{background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:12px}
+.cal-date{font-size:11px;color:var(--acc);font-weight:700;margin-bottom:4px}
+.cal-event{font-size:13px;font-weight:600}
+.cal-detail{font-size:11px;color:var(--txt2);margin-top:3px}
+
+/* ── SPACEX BANNER ── */
+.spacex-banner{background:linear-gradient(90deg,#0d1b2e,#1a2d4a,#0d1b2e);border:1px solid var(--acc);border-radius:10px;padding:14px 18px;margin-bottom:16px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .tab-btn{padding:10px 12px;font-size:12px}
+  .card-grid{grid-template-columns:repeat(2,1fr)}
+  .sector-grid{grid-template-columns:1fr}
+  .wl-grid{grid-template-columns:1fr}
+  .policy-grid{grid-template-columns:1fr}
+  table{min-width:420px}
+}
+@media(max-width:480px){
+  .tab-content{padding:16px 12px}
+  .header{padding:20px 14px 16px}
+  .card-grid{grid-template-columns:repeat(2,1fr)}
+  .risk-banner{flex-direction:column;gap:6px}
+  .header-top{flex-direction:column;gap:6px}
+  .report-meta{text-align:left}
+  table{min-width:380px}
+  .wl-stats{grid-template-columns:1fr 1fr}
+}
+
+/* ── 워치리스트 카드 (6/5 형식) ── */
+.wl-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:4px}
+.wlc{background:var(--bg2);border-top:4px solid var(--bd);border:1px solid var(--bd);border-top-width:4px;border-radius:10px;padding:16px}
+.wlc-red{border-top-color:var(--dn) !important}
+.wlc-green{border-top-color:var(--up) !important}
+.wlc-yellow{border-top-color:var(--warn) !important}
+.wlc-gray{border-top-color:var(--neu) !important}
+.wlc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:10px}
+.wlc-name{font-size:15px;font-weight:700;line-height:1.2}
+.wlc-code{font-size:11px;color:var(--txt2);margin-top:2px}
+.wlc-badge{display:inline-block;padding:3px 8px;border-radius:12px;font-size:10px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.wlc-badge-green{background:#0b2d1f;color:var(--up);border:1px solid var(--up)}
+.wlc-badge-red{background:#3d0b14;color:var(--dn);border:1px solid var(--dn)}
+.wlc-badge-yellow{background:#2d1a00;color:var(--warn);border:1px solid var(--warn)}
+.wlc-badge-gray{background:#1c2230;color:var(--neu);border:1px solid var(--neu)}
+.wlc-price{font-size:20px;font-weight:700;font-family:'DM Mono',monospace;margin-bottom:4px}
+.wlc-chg{font-size:13px;font-weight:600;margin-left:6px}
+.wlc-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:10px 0}
+.wlc-metric{background:var(--bg4);border-radius:6px;padding:6px 8px;text-align:center}
+.wlc-ml{font-size:10px;color:var(--txt2);font-weight:600;margin-bottom:2px}
+.wlc-mv{font-size:12px;font-weight:600}
+.wlc-signal{font-size:12px;line-height:1.5;padding:8px 10px;border-radius:6px;margin-bottom:8px}
+.wlc-signal-green{background:#0b2d1f;color:var(--up)}
+.wlc-signal-red{background:#1f0a14;color:var(--dn)}
+.wlc-signal-yellow{background:#1a1000;color:var(--warn)}
+.wlc-memo{font-size:11px;color:var(--txt2);line-height:1.5;border-top:1px solid var(--bd);padding-top:6px;margin-top:4px}
+@media(max-width:1023px){.wl-grid3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.wl-grid3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ═══════ HEADER ═══════ -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="report-title">📊 <span>모닝 마켓 브리핑</span></div>
+      <div style="font-size:13px;color:var(--txt2);margin-top:4px">2026년 6월 8일 (월) · KST 기준</div>
+    </div>
+    <div class="report-meta">
+      기준: 미국 6/5 종가 · 한국 6/8 오전 장중<br>
+      ⚠️ 코스피 서킷브레이커 발동 (오전 9시 3분)
+    </div>
+  </div>
+  <div class="risk-banner">
+    <span class="risk-icon">🚨</span>
+    <div class="risk-text">
+      <strong>【블랙 먼데이】</strong> 코스피 8.37% 급락, 서킷브레이커 1단계 발동 (9시 3분 42초) · 미-이란 전쟁 발발 후 3개월 만에 최대 하락폭. 트리거: ① 미 5월 고용 서프라이즈(+17.2만, 예상 8.8만) → 연준 금리인상 가능성(10월 50.8%) ② 브로드컴 실적 가이던스 실망 → 반도체 섹터 전면 급락 ③ 원/달러 1548원 · 외국인 20일 연속 순매도 지속
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ TAB BAR ═══════ -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('macro',this)">🌐 글로벌 매크로</button>
+  <button class="tab-btn" onclick="switchTab('market',this)">📈 증시 시황</button>
+  <button class="tab-btn" onclick="switchTab('watchlist',this)">⭐ 워치리스트</button>
+</div>
+
+<!-- ══════════════════════════════
+     TAB 1: 글로벌 매크로
+════════════════════════════════ -->
+<div id="tab-macro" class="tab-content active">
+
+  <!-- M-1 글로벌 매크로 지표 -->
+  <div class="section">
+    <div class="section-title">🔭 [M-1] 글로벌 매크로 지표 (Global Macro Monitor)</div>
+
+    <div style="margin-bottom:10px;font-size:12px;color:var(--txt2);font-weight:600">📌 통화 (Currency)</div>
+    <div class="card-grid" style="margin-bottom:18px">
+      <div class="card">
+        <div class="card-label">달러 인덱스 DXY</div>
+        <div class="card-val mono neu">100.02</div>
+        <div class="card-sub">100 선 지지 · 고용 서프라이즈로 반등</div>
+      </div>
+      <div class="card">
+        <div class="card-label">원 / 달러 ₩</div>
+        <div class="card-val mono dn">1,548.00</div>
+        <div class="card-sub dn">야간 1,562원 기록 · 원화 초약세</div>
+      </div>
+      <div class="card">
+        <div class="card-label">원 / 유로 ₩</div>
+        <div class="card-val mono dn">1,785.46</div>
+        <div class="card-sub dn">야간 1,800원 돌파 (2009.3 이후 17년만)</div>
+      </div>
+      <div class="card">
+        <div class="card-label">달러 / 엔 ¥</div>
+        <div class="card-val mono dn">~160.0</div>
+        <div class="card-sub">일본 당국 개입 경계선 재차 시험</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:10px;font-size:12px;color:var(--txt2);font-weight:600">⛽ 원자재 (Commodities)</div>
+    <div class="card-grid" style="margin-bottom:18px">
+      <div class="card">
+        <div class="card-label">WTI 원유 (달러/배럴)</div>
+        <div class="card-val mono warn">~$68~70</div>
+        <div class="card-sub warn">이란 협상 교착 시 재급등 리스크</div>
+      </div>
+      <div class="card">
+        <div class="card-label">금 (달러/온스)</div>
+        <div class="card-val mono dn">$4,370↓</div>
+        <div class="card-sub dn">주간 -4% · 2026년 최저 · 금리인상 우려</div>
+      </div>
+      <div class="card">
+        <div class="card-label">구리 (닥터코퍼)</div>
+        <div class="card-val mono neu">경기 부진 시사</div>
+        <div class="card-sub">반도체 수요 둔화 우려 반영</div>
+      </div>
+      <div class="card">
+        <div class="card-label">천연가스</div>
+        <div class="card-val mono warn">호르무즈 리스크</div>
+        <div class="card-sub">중동 불안 지속 · 공급 불확실</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:10px;font-size:12px;color:var(--txt2);font-weight:600">📉 시장 금리 (Rates)</div>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-label">미 국채 10년물</div>
+        <div class="card-val mono dn">4.50%↑</div>
+        <div class="card-sub dn">고용 서프라이즈 후 4.5% 돌파 · 금리인상 반영</div>
+      </div>
+      <div class="card">
+        <div class="card-label">미 국채 30년물</div>
+        <div class="card-val mono dn">5.00%↑</div>
+        <div class="card-sub dn">30년물 5% 돌파 · 차입비용 급등</div>
+      </div>
+      <div class="card">
+        <div class="card-label">미 기준금리</div>
+        <div class="card-val mono warn">3.50~3.75%</div>
+        <div class="card-sub warn">동결 중 · 10월 인상 가능성 50.8%</div>
+      </div>
+      <div class="card">
+        <div class="card-label">한미 금리차</div>
+        <div class="card-val mono dn">축소 어려움</div>
+        <div class="card-sub dn">한은 인하 기대 후퇴 · 원화 추가 약세 우려</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M-2 정책 및 지정학 -->
+  <div class="section">
+    <div class="section-title">🏛️ [M-2] 국가별 정책 및 정치 (Policy & Geopolitics)</div>
+
+    <div style="margin-bottom:14px">
+      <div style="font-size:12px;color:var(--txt2);font-weight:600;margin-bottom:10px">🏦 통화정책</div>
+      <div class="policy-grid">
+        <div class="policy-card">
+          <div class="policy-bank">🇺🇸 Fed (케빈 워시 의장)</div>
+          <div class="policy-rate warn">3.50~3.75%</div>
+          <div class="policy-desc">5월 고용 서프라이즈(+17.2만)로 금리인상 가능성 급등. CME FedWatch 10월 인상 가능성 50.8%. 클리블랜드 Fed 총재 "현재 추세 지속 시 금리인상 필요 가능". 9월까지는 동결 예상.</div>
+        </div>
+        <div class="policy-card">
+          <div class="policy-bank">🇰🇷 한국은행</div>
+          <div class="policy-rate warn">~3.00%</div>
+          <div class="policy-desc">미국 금리인상 가능성 부상으로 한국은행 인하 기대 완전 후퇴. 원화 약세 방어를 위해 당분간 동결 유지 불가피. 외환시장 24시간 모니터링 체계 가동.</div>
+        </div>
+        <div class="policy-card">
+          <div class="policy-bank">🇪🇺 ECB</div>
+          <div class="policy-rate">인하 사이클 진행 중</div>
+          <div class="policy-desc">유럽중앙은행은 점진적 금리인하 기조 유지. 유로/달러 환율 약세 압력 지속. 한국 원-유로 환율 야간 1,800원 돌파.</div>
+        </div>
+        <div class="policy-card">
+          <div class="policy-bank">🇯🇵 BOJ</div>
+          <div class="policy-rate">초완화 기조 유지</div>
+          <div class="policy-desc">달러/엔 160엔 선 재돌파. 일본 당국 개입 경계선 재시험 중. 엔화 약세는 한국 수출 경쟁력에도 부정적.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="font-size:12px;color:var(--txt2);font-weight:600;margin-bottom:10px">⚔️ 지정학 — 미-이란 전쟁 핵심 이슈 10선 (주말 동안)</div>
+    <div class="news-list">
+      <div class="news-item">
+        <span class="news-num">1</span>
+        <div class="news-body"><strong class="dn">휴전 붕괴 위기 재고조</strong> — 트럼프 "휴전은 1% 생존 가능성의 연명장치 상태"라며 군사재개 시사. "합의든 강경이든 끝낼 시점" 발언으로 시장 충격.<span class="news-source">MBC뉴스 6/8 · 정보 기반</span></div>
+      </div>
+      <div class="news-item">
+        <span class="news-num">2</span>
+        <div class="news-body"><strong>양해각서 체결 임박→교착 반복</strong> — 호르무즈 재개방·60일 휴전 연장 MOU 합의 임박 보도 후 하루 만에 다시 교착. "합의 vs 결렬" 불확실성 극대화.<span class="news-source">Axios·WSJ 보도</span></div>
+      </div>
+      <div class="news-item">
+        <span class="news-num">3</span>
+        <div class="news-body"><strong class="warn">고농축 우라늄 처리 최대 쟁점</strong> — MOU 초안에서 농축우라늄 처리 조항 누락. 이란 "먼저 제재완화·동결자산 해제"vs 미국 "핵프로그램 명확한 약속 먼저" 대립.<span class="news-source">WSJ 중재국 소식</span></div>
+      </div>
+      <div class="news-item">
+        <span class="news-num">4</span>
+        <div class="news-body"><strong>호르무즈 해협 통행 부분 봉쇄 지속</strong> — 상업 선박 운항 제한 계속. 선박 통행료 부과 이란 측 요구 지속. 수송비용 50~80% 상승. 공급망 충격 현재진행형.<span class="news-source">호르무즈 해협 나무위키</span></div>
+      </div>
+      <div class="news-item">
+        <span class="news-num">5</span>
+        <div class="news-body"><strong class="dn">이란 미사일·드론 전력 여전히 70% 잔존</strong> — CIA 보고서: 이란 이동식 발사대 75%, 미사일 보유량 70% 수준 유지. 해상봉쇄 효과 트럼프 주장보다 제한적.<span class="news-source">WP 소식통 인용</span></div>
+      </div>
+      <div class="news-item">
+        <span class="news-num">6</span>
+        <div class="news-body"><strong>미 유조선 무력화</strong> — 미 중부사령부, 오만만 이란 항구 진입 시도 이란 유조선 2척 무력화 성공. 해상봉쇄 압박 지속 신호.<span class="news-source">미 중부사령부 공식 발표</span></div>
+      </div>
+      <div class="news-item">
+        <span class="news-num">7</span>
+        <div class="news-body"><strong>미 토마호크 재고 부족 우려</strong> — 개전 한 달 만에 850발 이상 사용 (전전 4천 발). 일본 납품 지연 가능성 제기. 전쟁 장기화 시 군사력 지속성 의문.<span class="news-source">MBC뉴스·아사히신문</span></div>
+      </div>
+      <div class="news-item">
+        <span class="news-num">8</span>
+        <div class="news-body"><strong class="warn">아브라함 협정 확대 요구 변수</strong> — 트럼프, 사우디·카타르 등에 이스라엘 관계 정상화(아브라함 협정) 요구. 협상 복잡성 증가. 아랍 국가들 내 입장 분열.<span class="news-source">MBC뉴스</span></div>
+      </div>
+      <div class="news-item">
+        <span class="news-num">9</span>
+        <div class="news-body"><strong>이란 새 최고지도자 모즈타바 하메네이 지명</strong> — 하메네이 차남 지명 후 내부 권력 안정화 시도. 단 강경파 성향으로 핵협상 타결 가능성 불투명.<span class="news-source">위키백과 2026 이란전쟁</span></div>
+      </div>
+      <div class="news-item">
+        <span class="news-num">10</span>
+        <div class="news-body"><strong class="up">유가 안정 기대 vs 재급등 리스크 공존</strong> — 항공유 유류할증료 6월부터 하락 조정(33단계→27단계). 그러나 협상 결렬 시 WTI 100달러 경고 여전히 유효.<span class="news-source">항공업계·나무위키</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M-3 실물 경제 -->
+  <div class="section">
+    <div class="section-title">📊 [M-3] 실물 경제 사이클 (Real Economy)</div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>지표</th><th>국가</th><th>최신치</th><th>예상치</th><th>평가</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>5월 비농업 고용 (NFP)</strong></td><td>🇺🇸</td><td class="dn mono"><strong>+17.2만</strong></td><td>+8.8만</td><td class="dn">서프라이즈 — 금리인상 베팅 급증</td></tr>
+          <tr><td>실업률</td><td>🇺🇸</td><td class="mono">4.3%</td><td>4.3%</td><td class="neu">완전고용 수준 유지</td></tr>
+          <tr><td>시간당 평균임금 (전년비)</td><td>🇺🇸</td><td class="mono">+3.4%</td><td>+3.4%</td><td class="neu">전월 3.6%에서 소폭 둔화</td></tr>
+          <tr><td>4월 고용 상향수정</td><td>🇺🇸</td><td class="warn mono">+17.9만</td><td>+11.5만</td><td class="warn">기존치 대비 +6.4만 상향</td></tr>
+          <tr><td>미국채 10년물</td><td>🇺🇸</td><td class="dn mono">4.50%↑</td><td>~4.3%</td><td class="dn">4.5% 돌파 — 기술주 밸류에이션 압박</td></tr>
+          <tr><td>미국채 30년물</td><td>🇺🇸</td><td class="dn mono">5.00%↑</td><td>~4.7%</td><td class="dn">30년물 5% 돌파 — 차입비용 급등</td></tr>
+          <tr><td>CME FedWatch 10월 인상 확률</td><td>🇺🇸</td><td class="dn mono">50.8%</td><td>—</td><td class="dn">인하→동결→인상으로 기대 역전</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- M-4 산업 트렌드 -->
+  <div class="section">
+    <div class="section-title">💡 [M-4] 산업 및 기술 트렌드</div>
+    <div class="sector-grid">
+      <div class="sector-card">
+        <div class="sector-header"><div class="sector-name">🤖 AI / 반도체</div><span class="badge badge-red">위험</span></div>
+        <div style="font-size:12px;line-height:1.6;color:var(--txt2)">브로드컴 AI 가이던스 실망감으로 전 반도체 섹터 급락. 마벨 -16%, 마이크론 -13%, AMD -11%. 필라델피아 반도체지수 -10%↑. 젠슨황 방한 중으로 SK하이닉스·삼성 협력 논의 긍정적이나 시장 충격 과대.</div>
+      </div>
+      <div class="sector-card">
+        <div class="sector-header"><div class="sector-name">🚀 SpaceX IPO</div><span class="badge badge-orange">이벤트</span></div>
+        <div style="font-size:12px;line-height:1.6;color:var(--txt2)">SpaceX 이번 주 역사상 최대 규모 IPO 예정. 수요가 공모 목표의 2배인 1,500억달러 몰림. S&P다우존스의 지수 조기 편입 거부 결정. IPO 이후 순환매 가능성 주목.</div>
+      </div>
+      <div class="sector-card">
+        <div class="sector-header"><div class="sector-name">⚡ 에너지 / 방산</div><span class="badge badge-blue">주목</span></div>
+        <div style="font-size:12px;line-height:1.6;color:var(--txt2)">미-이란 전쟁 장기화로 방산·에너지 섹터 수혜 지속. 미 국채금리 상승 + 이란 사태 교착으로 은행·방어주 상대적 강세. 두산에너빌리티·한화에어로스페이스 섹터 관심 유효.</div>
+      </div>
+      <div class="sector-card">
+        <div class="sector-header"><div class="sector-name">💱 원화 약세 구조</div><span class="badge badge-red">경고</span></div>
+        <div style="font-size:12px;line-height:1.6;color:var(--txt2)">①한미 금리차 확대 ②외국인 20일 연속 순매도 ③이란전쟁 지정학 리스크 ④원화 통화량 증가(M2) ⑤CDS 프리미엄 상승으로 구조적 원화 약세. 야간 1,562원 · 유로환율 17년만 1,800원 돌파.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- M-5 경제 캘린더 -->
+  <div class="section">
+    <div class="section-title">📅 [M-5] 경제 캘린더 (이번 주 주요 이벤트)</div>
+    <div class="cal-grid">
+      <div class="cal-item">
+        <div class="cal-date">6월 8일 (월)</div>
+        <div class="cal-event">🇰🇷 코스피 서킷브레이커 발동</div>
+        <div class="cal-detail">9시 3분 42초 · 거래 20분 중단</div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-date">6월 8일 (월)</div>
+        <div class="cal-event">🚀 SpaceX IPO 수요예측</div>
+        <div class="cal-detail">역사상 최대 규모 IPO · 1,500억달러 수요</div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-date">6월 9~10일 (화~수)</div>
+        <div class="cal-event">🇺🇸 연준 인사 발언 주시</div>
+        <div class="cal-detail">고용 서프라이즈 후 추가 금리인상 시그널 확인</div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-date">6월 11일 (목)</div>
+        <div class="cal-event">🇺🇸 미국 CPI (5월)</div>
+        <div class="cal-detail">⭐⭐⭐ 인플레이션 추이 재확인 · 금리 방향 결정</div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-date">6월 중순</div>
+        <div class="cal-event">🇺🇸 FOMC 정례회의</div>
+        <div class="cal-detail">6월 동결 유력 · 향후 인상 시그널 주목</div>
+      </div>
+      <div class="cal-item">
+        <div class="cal-date">6월 중</div>
+        <div class="cal-event">🇮🇷 미-이란 협상</div>
+        <div class="cal-detail">양해각서 체결 여부 · 호르무즈 재개방 타임라인</div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end tab-macro -->
+
+<!-- ══════════════════════════════
+     TAB 2: 증시 시황
+════════════════════════════════ -->
+<div id="tab-market" class="tab-content">
+
+  <!-- S-1 한눈에 보기 -->
+  <div class="section">
+    <div class="section-title">👀 [S-1] 한눈에 보기</div>
+    <div class="card-grid card-grid-4">
+      <div class="card" style="border-color:var(--dn)">
+        <div class="card-label">S&P 500 🇺🇸</div>
+        <div class="card-val mono dn">7,383.74</div>
+        <div class="card-sub dn">▼ 하락 · 주간 -2%↑</div>
+      </div>
+      <div class="card" style="border-color:var(--dn)">
+        <div class="card-label">나스닥100 🇺🇸</div>
+        <div class="card-val mono dn">28,957.60</div>
+        <div class="card-sub dn">▼ -4.2% · 반도체 섹터 주도</div>
+      </div>
+      <div class="card" style="border-color:var(--dn)">
+        <div class="card-label">다우존스 🇺🇸</div>
+        <div class="card-val mono dn">50,866.78</div>
+        <div class="card-sub dn">▼ -1.4% · 은행·방어주 상대 강세</div>
+      </div>
+      <div class="card" style="border-color:var(--dn)">
+        <div class="card-label">코스피 🇰🇷</div>
+        <div class="card-val mono dn">7,652.60</div>
+        <div class="card-sub dn">▼ -8.37% (장중) · 서킷브레이커</div>
+      </div>
+      <div class="card" style="border-color:var(--dn)">
+        <div class="card-label">코스닥 🇰🇷</div>
+        <div class="card-val mono dn">945.52</div>
+        <div class="card-sub dn">▼ 하락 · 1000선 하회</div>
+      </div>
+      <div class="card" style="border-color:var(--dn)">
+        <div class="card-label">원 / 달러</div>
+        <div class="card-val mono dn">1,548.00</div>
+        <div class="card-sub dn">야간 1,562원 · 초약세</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S-2 주요 이슈 -->
+  <div class="section">
+    <div class="section-title">⚡ [S-2] 주요 이슈 (Market Key Issues)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>구분</th><th>이슈</th><th>레벨</th></tr></thead>
+        <tbody>
+          <tr><td>📊 고용·금리</td><td>5월 비농업 +17.2만 (예상 8.8만) 서프라이즈 → 연준 10월 인상 확률 50.8% → 기술주 밸류에이션 전면 재평가</td><td><span class="badge badge-red">HIGH</span></td></tr>
+          <tr><td>💻 실적</td><td>브로드컴 AI 사업 가이던스 시장 기대 미달 → 마벨 -16%, 마이크론 -13%, AMD -11%, 엔비디아 -6.2% · 필라델피아 반도체 -10%↑</td><td><span class="badge badge-red">HIGH</span></td></tr>
+          <tr><td>⚔️ 지정학</td><td>미-이란 휴전 극도로 취약 · 트럼프 "합의 아니면 강경" 발언 · 협상 교착 재반복</td><td><span class="badge badge-red">HIGH</span></td></tr>
+          <tr><td>💱 환율</td><td>원/달러 1,548원 · 원/유로 야간 1,800원 돌파(17년만) · 외국인 20일 연속 순매도</td><td><span class="badge badge-red">HIGH</span></td></tr>
+          <tr><td>🚀 SpaceX</td><td>이번 주 역사상 최대 IPO · 수요 1,500억달러(목표 2배) · 지수 편입 거부 · IPO 후 순환매 주목</td><td><span class="badge badge-orange">MID</span></td></tr>
+          <tr><td>🤖 젠슨황 방한</td><td>엔비디아 CEO 6/8 방한 · SK·삼성·LG·현대차·네이버 연쇄 회동 · AI·HBM 협력 논의 · 중장기 긍정</td><td><span class="badge badge-blue">MID</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- S-3 미국 증시 -->
+  <div class="section">
+    <div class="section-title">🇺🇸 [S-3] 미국 증시 시황 (6월 5일 마감)</div>
+    <div style="background:var(--bg2);border:1px solid var(--bd);border-radius:10px;padding:16px;margin-bottom:14px;font-size:13px;line-height:1.7">
+      6월 5일(현지시간) 뉴욕증시는 <strong class="dn">예상을 크게 웃돈 5월 고용지표</strong>와 <strong class="dn">브로드컴 실적 실망</strong>이 겹치며 전면 하락했다. 나스닥은 -4.2% 급락하며 주간 하락 전환. S&P500은 주간 -2% 수준. 다우는 은행·방어주 상대강세로 낙폭 최소. 10년물 국채금리 4.5% 돌파·30년물 5% 돌파가 기술주 밸류에이션 전반을 압박. <strong class="warn">금리 인하 기대 → 인상 가능성</strong>으로 패러다임 전환 시작.
+    </div>
+    <div class="news-list">
+      <div class="news-item"><span class="news-num">①</span><div class="news-body"><strong>5월 NFP +17.2만 서프라이즈</strong> — 예상(+8.8만)의 2배 수준. 노동시장 강세 지속. 금리인하 기대 완전 후퇴, 10월 인상 가능성 50.8%로 급등. <span class="news-source">BLS 공식 발표 6/5</span></div></div>
+      <div class="news-item"><span class="news-num">②</span><div class="news-body"><strong class="dn">브로드컴 AI 가이던스 실망</strong> — AI 반도체 사업 성장세 시장 기대 미달 평가 확산. 마벨 -16%, 마이크론 -13%, AMD -11%, 인텔 -11%, 엔비디아 -6.2%. 반도체 섹터 전면 급락. <span class="news-source">각 종목 6/5 마감</span></div></div>
+      <div class="news-item"><span class="news-num">③</span><div class="news-body"><strong>SpaceX S&P 지수 조기 편입 거부</strong> — S&P다우존스, 역사상 최대 규모 IPO 앞두고 SpaceX 지수 빠른 진입 거부 결정. IPO 주간 시장 변동성 변수. <span class="news-source">TradingEconomics 6/5</span></div></div>
+      <div class="news-item"><span class="news-num">④</span><div class="news-body"><strong class="up">방어주·은행주 상대 강세</strong> — 이란 교착 지속으로 에너지·방산 강세. 다우 내 비자·P&G·유나이티드헬스 +1%↑ 방어. 금리인상 환경은 은행주에 단기 긍정. <span class="news-source">TradingEconomics 6/5</span></div></div>
+    </div>
+  </div>
+
+  <!-- S-4 한국 증시 -->
+  <div class="section">
+    <div class="section-title">🇰🇷 [S-4] 한국 증시 시황 (6월 8일 오전)</div>
+
+    <div class="spacex-banner">
+      <div style="font-size:13px;font-weight:700;color:var(--dn);margin-bottom:6px">🚨 블랙 먼데이 — 코스피 서킷브레이커 발동</div>
+      <div style="font-size:12px;color:var(--txt2);line-height:1.6">8일 오전 9시 3분 42초, 코스피가 전일 대비 8.37% 하락(7,474.74)하며 1단계 서킷브레이커 발동. 20분간 전체 매매 중단. 미-이란 전쟁 후 3개월 만에 최대 하락. 삼성전자 -9.27%(29만8,500원), SK하이닉스 -8.02%(190만4,000원).</div>
+    </div>
+
+    <div style="font-size:12px;color:var(--txt2);font-weight:600;margin-bottom:10px">📉 금요일~오늘까지 하락 원인 및 전문가 의견</div>
+    <div class="news-list">
+      <div class="news-item"><span class="news-num">1</span><div class="news-body"><strong class="dn">미 고용 서프라이즈 충격</strong> — 5월 NFP +17.2만이 금리인하→인상 패러다임 전환 촉발. 기술주·반도체 밸류에이션 재산정. 글로벌 리스크오프 발동. <span class="news-source">ZDNet코리아 6/8</span></div></div>
+      <div class="news-item"><span class="news-num">2</span><div class="news-body"><strong class="dn">브로드컴 실적 실망→반도체 도미노</strong> — 브로드컴 가이던스 실망이 전 반도체 섹터 급락 촉발. 삼성전자·SK하이닉스 직격탄. 필라델피아 반도체지수 -10%↑ 여파. <span class="news-source">경향신문·CBS뉴스 6/8</span></div></div>
+      <div class="news-item"><span class="news-num">3</span><div class="news-body"><strong class="dn">외국인 20일 연속 매도</strong> — 외국인 투자자, 오전 장에서만 3,421억원 순매도. 연속 매도세로 지수 낙폭 확대. 수급 붕괴 구조 고착. <span class="news-source">경향신문 6/8 오전</span></div></div>
+      <div class="news-item"><span class="news-num">4</span><div class="news-body"><strong class="dn">원/달러 1,548원 초약세</strong> — 원화 초약세가 외국인 추가 이탈 악순환. 야간 1,562원 기록. 원/유로 1,800원 17년만 돌파. 환차손 우려 증폭. <span class="news-source">시티타임스·나무위키 6/5~6/8</span></div></div>
+      <div class="news-item"><span class="news-num">5</span><div class="news-body"><strong class="warn">5월 말 코스피 심리적 버블 청산</strong> — 5월 코스피 사상 최고치 근접(9천피 시도) 후 개별 종목 차별화 극단화. 초대형주·테마주 쏠림 해소 국면. 투자자 심리 전환. <span class="news-source">Investing.com 분석 6/1</span></div></div>
+      <div class="news-item"><span class="news-num">6</span><div class="news-body"><strong>미-이란 협상 교착 악화</strong> — 트럼프 "휴전 생명유지장치 상태" · 재공격 가능성 시사. 지정학 리스크 프리미엄 재확대. 에너지 공급 불안 재부각. <span class="news-source">MBC뉴스 5/말~6/8</span></div></div>
+      <div class="news-item"><span class="news-num">7</span><div class="news-body"><strong>전문가 의견</strong> — 엘렌 젠트너(모건스탠리) "연준, 당분간 금리인하 시야 밖". 국내 증권사들 "조정 시 매수·ETF 유효" · "1만피 기대 여전". 정부, 24시간 모니터링·컨틴전시 플랜 가동 지시. <span class="news-source">뉴스핌·딜사이트TV 6/8</span></div></div>
+    </div>
+  </div>
+
+  <!-- S-5 섹터 동향 -->
+  <div class="section">
+    <div class="section-title">🏭 [S-5] 섹터별 동향</div>
+    <div class="sector-grid">
+      <div class="sector-card">
+        <div class="sector-header"><div class="sector-name">💾 반도체</div><span class="badge badge-red">급락</span></div>
+        <div style="font-size:12px;color:var(--txt2);margin-bottom:8px">삼성전자 <span class="dn">-9.27%</span> · SK하이닉스 <span class="dn">-8.02%</span></div>
+        <div style="font-size:12px;line-height:1.5;color:var(--txt2)">브로드컴 가이던스 실망→필라델피아반도체 -10%. 젠슨황 방한 긍정적이나 시장 충격 압도. AI HBM 중장기 수요는 유효.</div>
+        <div style="margin-top:8px;font-size:11px;color:var(--txt2)">외국인 수급 <span class="dn">▼ 순매도 지속</span></div>
+        <div class="gauge-bar"><div class="gauge-fill" style="width:15%;background:var(--dn)"></div></div>
+      </div>
+      <div class="sector-card">
+        <div class="sector-header"><div class="sector-name">✈️ 방산·항공우주</div><span class="badge badge-orange">혼조</span></div>
+        <div style="font-size:12px;color:var(--txt2);margin-bottom:8px">한화에어로 <span class="dn">-4.86%</span></div>
+        <div style="font-size:12px;line-height:1.5;color:var(--txt2)">미-이란 전쟁 장기화 수혜 섹터이나 전반적 리스크오프 분위기에 함께 하락. 중장기 방산 수요 확대 전망은 유효.</div>
+        <div style="margin-top:8px;font-size:11px;color:var(--txt2)">외국인 수급 <span class="warn">▶ 혼조</span></div>
+        <div class="gauge-bar"><div class="gauge-fill" style="width:40%;background:var(--warn)"></div></div>
+      </div>
+      <div class="sector-card">
+        <div class="sector-header"><div class="sector-name">⚡ 전력·에너지</div><span class="badge badge-red">급락</span></div>
+        <div style="font-size:12px;color:var(--txt2);margin-bottom:8px">두산에너빌리티 <span class="dn">-9.10%</span> · LS <span class="dn">-9.50%</span> · 에스피지 <span class="dn">-7.04%</span></div>
+        <div style="font-size:12px;line-height:1.5;color:var(--txt2)">원자력·전력인프라 테마 전반 급락. 금리인상 우려로 성장주 할인율 재산정. 중장기 에너지 전환 스토리는 유효.</div>
+        <div style="margin-top:8px;font-size:11px;color:var(--txt2)">외국인 수급 <span class="dn">▼ 순매도</span></div>
+        <div class="gauge-bar"><div class="gauge-fill" style="width:10%;background:var(--dn)"></div></div>
+      </div>
+      <div class="sector-card">
+        <div class="sector-header"><div class="sector-name">🚢 조선·해운</div><span class="badge badge-orange">혼조</span></div>
+        <div style="font-size:12px;color:var(--txt2);margin-bottom:8px">대한조선 <span class="up">+0.50%</span> · 한국카본 <span class="dn">-7.29%</span></div>
+        <div style="font-size:12px;line-height:1.5;color:var(--txt2)">대한조선 유일하게 상승 마감. 호르무즈 봉쇄 장기화로 대체 수송로 수요 확대 기대. 한국카본은 LNG선재 소재로 약세.</div>
+        <div style="margin-top:8px;font-size:11px;color:var(--txt2)">외국인 수급 <span class="warn">▶ 혼조</span></div>
+        <div class="gauge-bar"><div class="gauge-fill" style="width:50%;background:var(--warn)"></div></div>
+      </div>
+      <div class="sector-card">
+        <div class="sector-header"><div class="sector-name">🤖 로봇·자동차</div><span class="badge badge-red">약세</span></div>
+        <div style="font-size:12px;color:var(--txt2);margin-bottom:8px">삼현 <span class="dn">-10.22%</span> · 현대차2우B <span class="dn">-4.81%</span> · 기아 <span class="dn">-6.08%</span></div>
+        <div style="font-size:12px;line-height:1.5;color:var(--txt2)">로봇주 삼현 최대 낙폭. 자동차도 원화 약세·글로벌 수요 둔화 우려에 동반 약세.</div>
+        <div style="margin-top:8px;font-size:11px;color:var(--txt2)">외국인 수급 <span class="dn">▼ 순매도</span></div>
+        <div class="gauge-bar"><div class="gauge-fill" style="width:20%;background:var(--dn)"></div></div>
+      </div>
+      <div class="sector-card">
+        <div class="sector-header"><div class="sector-name">📱 통신·금융</div><span class="badge badge-green">상대 강세</span></div>
+        <div style="font-size:12px;color:var(--txt2);margin-bottom:8px">SK텔레콤 <span class="up">+2.35%</span> · KB금융 <span class="dn">-9.38%</span></div>
+        <div style="font-size:12px;line-height:1.5;color:var(--txt2)">SK텔레콤만 유일하게 상승. 방어주·배당주로 안전자산 대피 수요. KB금융은 예외적으로 외국인 대규모 매도 집중.</div>
+        <div style="margin-top:8px;font-size:11px;color:var(--txt2)">외국인 수급 <span class="warn">▶ 혼조</span></div>
+        <div class="gauge-bar"><div class="gauge-fill" style="width:55%;background:var(--up)"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- S-6 수급 분석 -->
+  <div class="section">
+    <div class="section-title">💰 [S-8] 수급 분석 (Flow Analysis)</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>구분</th><th>방향</th><th>규모</th><th>비고</th></tr></thead>
+        <tbody>
+          <tr><td>🇰🇷 외국인</td><td class="dn">▼ 순매도</td><td class="dn mono">3,421억원 (장초반)</td><td>20일 연속 순매도 · 수급 구조 붕괴</td></tr>
+          <tr><td>🇰🇷 기관</td><td>▶ 혼조</td><td>—</td><td>서킷브레이커 후 방어 매수 일부</td></tr>
+          <tr><td>🇰🇷 개인</td><td class="up">▲ 순매수</td><td>—</td><td>저가 매수 시도 · "조정 시 매수" 전략</td></tr>
+          <tr><td>🇺🇸 기관</td><td class="dn">▼ 리스크오프</td><td>—</td><td>금리인상 우려·반도체 급락으로 포지션 축소</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- S-9 기술적 분석 -->
+  <div class="section">
+    <div class="section-title">📐 [S-9] 기술적 분석</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>지수</th><th>현재 수준</th><th>지지선</th><th>저항선</th><th>추세</th></tr></thead>
+        <tbody>
+          <tr><td>코스피</td><td class="dn mono">7,652 (서킷 후)</td><td class="up">7,400 / 7,000</td><td>8,000 / 8,500</td><td class="dn">단기 하락 추세 · 과매도 구간 진입</td></tr>
+          <tr><td>코스닥</td><td class="dn mono">945</td><td class="up">900 / 850</td><td>1,000 / 1,050</td><td class="dn">1,000선 붕괴 · 추가 지지선 모색</td></tr>
+          <tr><td>S&P 500</td><td class="dn mono">7,383</td><td class="up">7,200 / 7,000</td><td>7,600 / 7,900</td><td class="dn">고용 충격 후 단기 하락 · 주요 지지선 테스트</td></tr>
+          <tr><td>나스닥100</td><td class="dn mono">28,957</td><td class="up">28,000 / 27,000</td><td>29,500 / 30,000</td><td class="dn">반도체 급락·금리 충격 · 변동성 확대</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- end tab-market -->
+
+<!-- ══════════════════════════════
+     TAB 3: 워치리스트
+════════════════════════════════ -->
+<div id="tab-watchlist" class="tab-content">
+
+<!-- 원화약세 인포박스 -->
+<div style="background:linear-gradient(90deg,#1a0d1a,#2d1530,#1a0d1a);border:1px solid var(--warn);border-radius:10px;padding:14px 18px;margin-bottom:20px">
+  <div style="font-size:13px;font-weight:700;color:var(--warn);margin-bottom:8px">&#x1F4B1; 원화 약세 원인 및 전망 10가지</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:5px;font-size:12px;line-height:1.6;color:var(--txt2)">
+    <div><strong>① 한미 금리차 확대</strong> — 미 인상 가능성↑, 한국 인하 포기</div>
+    <div><strong>② 외국인 주식 대규모 이탈</strong> — 20일 연속 순매도·달러 환수요</div>
+    <div><strong>③ 이란전쟁 지정학 리스크</strong> — 글로벌 안전자산 달러 선호 급증</div>
+    <div><strong>④ 원화 M2 통화량 역대 최고</strong> — 코로나 후 지속 팽창, 원화 공급과잉</div>
+    <div><strong>⑤ CDS 프리미엄 상승</strong> — 5월 44bp, 2018년 이후 최고</div>
+    <div><strong>⑥ 미국 환율관찰대상국 지정</strong> — 1월 재지정, 외환정책 제약</div>
+    <div><strong>⑦ 수출 반도체 편중</strong> — 반도체 부진 시 경상수지 악화 우려</div>
+    <div><strong>⑧ 달러강세 재개</strong> — 달러인덱스 100 지지, 글로벌 달러 수요</div>
+    <div><strong>⑨ 코리아 디스카운트 구조</strong> — 저PBR·지배구조 할인 외국인 이탈 지속</div>
+    <div><strong>⑩ 전망</strong> — 단기 1,550~1,580원 가능. WGBI 편입 효과 기대 시 하반기 일부 안정</div>
+  </div>
+</div>
+
+<!-- W-1 국내 주식 -->
+<div class="section">
+  <div class="section-title">&#x1F1F0;&#x1F1F7; [W-1] 국내 주식 워치리스트 — 12종목 (네이버 캡처 기준 · 6/8 오전)</div>
+  <div class="wl-grid3">
+
+    <div class="wlc wlc-red">
+      <div class="wlc-top"><div><div class="wlc-name">삼성전자</div><div class="wlc-code">005930 · 반도체</div></div><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></div>
+      <div class="wlc-price dn">302,000 <span class="wlc-chg dn">&#x25BC; -8.21%</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~28</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">52주범위</div><div class="wlc-mv">193K~404K</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">HBM협력</div><div class="wlc-mv up">젠슨황 방한</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-red">&#x1F534; 과매도 — 반도체 급락 직격. RSI 28 극단 구간. 반등 시 분할매수 유효.</div>
+      <div class="wlc-memo">지지 285,000 / 저항 330,000 · HBM AI 중장기 수요 유효</div>
+    </div>
+
+    <div class="wlc wlc-red">
+      <div class="wlc-top"><div><div class="wlc-name">SK하이닉스</div><div class="wlc-code">000660 · HBM 반도체</div></div><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></div>
+      <div class="wlc-price dn">1,993,500 <span class="wlc-chg dn">&#x25BC; -8.02%</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~27</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">섹터위상</div><div class="wlc-mv">HBM 1위</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">엔비디아</div><div class="wlc-mv up">HBM4 협력</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-red">&#x1F534; 과매도 — 필라델피아반도체 -10% 여파. HBM 독점 지위는 유효. 하단 분할매수.</div>
+      <div class="wlc-memo">지지 175,000 / 저항 210,000 · AI 가속기 수요 중장기 확대</div>
+    </div>
+
+    <div class="wlc wlc-red">
+      <div class="wlc-top"><div><div class="wlc-name">HPSP</div><div class="wlc-code">403870 · 반도체 장비</div></div><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></div>
+      <div class="wlc-price dn">수집 실패 <span class="wlc-chg dn">캡처 미포함</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~28 추정</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">섹터</div><div class="wlc-mv">고압산소어닐링</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">장비</div><div class="wlc-mv up">글로벌 독점</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-red">&#x1F534; 과매도 추정 — 반도체 장비 전반 급락. 고압산소어닐링 독점 구조 훼손 없음.</div>
+      <div class="wlc-memo">반도체 섹터 안정 후 선반영 반등 주목 · 하단 분할 대기</div>
+    </div>
+
+    <div class="wlc wlc-red">
+      <div class="wlc-top"><div><div class="wlc-name">두산에너빌리티</div><div class="wlc-code">034020 · 원자력·에너지</div></div><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></div>
+      <div class="wlc-price dn">86,900 <span class="wlc-chg dn">&#x25BC; -9.10%</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~28</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">52주범위</div><div class="wlc-mv">52K~115K</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">SMR·핵발전</div><div class="wlc-mv up">장기 수혜</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-red">&#x1F534; 과매도 — 금리인상 우려로 성장·테마주 전면 급락. SMR·원자력 스토리 훼손 없음.</div>
+      <div class="wlc-memo">지지 82,000 / 저항 96,000 · 분할매수 검토 구간</div>
+    </div>
+
+    <div class="wlc wlc-red">
+      <div class="wlc-top"><div><div class="wlc-name">한국카본</div><div class="wlc-code">017960 · LNG선 소재</div></div><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></div>
+      <div class="wlc-price dn">29,900 <span class="wlc-chg dn">&#x25BC; -7.29%</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~30</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">52주범위</div><div class="wlc-mv">20K~38K</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">LNG선재</div><div class="wlc-mv">단열 소재</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-red">&#x1F534; 과매도 — LNG선 단열재 소재. 조선 발주 사이클 긍정적이나 전반적 급락에 동조.</div>
+      <div class="wlc-memo">지지 27,500 / 저항 33,000 · 대한조선 상승과 대비 주목</div>
+    </div>
+
+    <div class="wlc wlc-green">
+      <div class="wlc-top"><div><div class="wlc-name">대한조선</div><div class="wlc-code">조선 · LNG 수송</div></div><span class="wlc-badge wlc-badge-green">&#x1F7E2; 매수</span></div>
+      <div class="wlc-price up">60,300 <span class="wlc-chg up">&#x25B2; +0.50%</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv">~45</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">시장대비</div><div class="wlc-mv up">유일 상승</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">호르무즈</div><div class="wlc-mv up">수송 수요↑</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-green">&#x1F7E2; 매수 — 블랙먼데이에도 유일 상승. 호르무즈 봉쇄 장기화 시 LNG선 수송 수요 확대 기대.</div>
+      <div class="wlc-memo">지지 57,000 / 저항 65,000 · 조선 방어주 역할 주목</div>
+    </div>
+
+    <div class="wlc wlc-red">
+      <div class="wlc-top"><div><div class="wlc-name">LS일렉트릭</div><div class="wlc-code">010120 · 전력인프라</div></div><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></div>
+      <div class="wlc-price dn">371,500 <span class="wlc-chg dn">&#x25BC; -9.50%</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~27</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">52주범위</div><div class="wlc-mv">207K~463K</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">변압기·AI</div><div class="wlc-mv up">데이터센터</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-red">&#x1F534; 과매도 — 변압기·전력망 AI 수혜주. 금리인상 충격으로 급락. 중장기 전력망 확충 방향 유효.</div>
+      <div class="wlc-memo">지지 345,000 / 저항 400,000 · 하단 분할매수 유효 구간</div>
+    </div>
+
+    <div class="wlc wlc-red">
+      <div class="wlc-top"><div><div class="wlc-name">지앤씨에너지</div><div class="wlc-code">119850 · 에너지 솔루션</div></div><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></div>
+      <div class="wlc-price dn">18,700 <span class="wlc-chg dn">&#x25BC; -9.66%</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~25</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">52주범위</div><div class="wlc-mv">12K~23K</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">섹터</div><div class="wlc-mv">에너지</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-red">&#x1F534; 과매도 — 소형 에너지 솔루션주 급락. 기술적 과매도 구간 진입. 추가 뉴스 없으면 반등 주목.</div>
+      <div class="wlc-memo">지지 17,000 / 저항 21,000 · 관망 후 반등 확인</div>
+    </div>
+
+    <div class="wlc wlc-red">
+      <div class="wlc-top"><div><div class="wlc-name">KB금융</div><div class="wlc-code">105560 · 금융지주</div></div><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></div>
+      <div class="wlc-price dn">155,500 <span class="wlc-chg dn">&#x25BC; -9.38%</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~28</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">PBR</div><div class="wlc-mv up">~0.7 저평가</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">배당</div><div class="wlc-mv up">고배당 우수</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-red">&#x1F534; 과매도 — 금융주임에도 외국인 집중 매도. 금리인상 환경 이익개선 vs 경기둔화 우려 충돌.</div>
+      <div class="wlc-memo">지지 145,000 / 저항 170,000 · 중장기 배당·밸류업 매력 유효</div>
+    </div>
+
+    <div class="wlc wlc-green">
+      <div class="wlc-top"><div><div class="wlc-name">SK텔레콤</div><div class="wlc-code">017670 · 통신·AI텔코</div></div><span class="wlc-badge wlc-badge-green">&#x1F7E2; 보유</span></div>
+      <div class="wlc-price up">108,900 <span class="wlc-chg up">&#x25B2; +2.35%</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv">~55</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">배당수익률</div><div class="wlc-mv up">~5% 고배당</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">AI텔코</div><div class="wlc-mv up">사업확장中</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-green">&#x1F7E2; 보유 — 블랙먼데이 방어주 역할 성공. 고배당+AI텔코 사업 확장으로 안전자산 수요 유입.</div>
+      <div class="wlc-memo">지지 105,000 / 저항 115,000 · 폭락장 방어 포지션 유지</div>
+    </div>
+
+    <div class="wlc wlc-yellow">
+      <div class="wlc-top"><div><div class="wlc-name">현대차2우B</div><div class="wlc-code">자동차 우선주</div></div><span class="wlc-badge wlc-badge-yellow">&#x26A0;&#xFE0F; 경계</span></div>
+      <div class="wlc-price dn">247,500 <span class="wlc-chg dn">&#x25BC; -4.81%</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv">~38</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">우선주</div><div class="wlc-mv">보통주 할인</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">배당</div><div class="wlc-mv up">우선배당</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-yellow">&#x26A0;&#xFE0F; 경계 — 원화 약세 이익 vs 글로벌 수요 둔화 우려. 우선주 배당 매력은 유효.</div>
+      <div class="wlc-memo">지지 235,000 / 저항 265,000 · 시장 안정 후 비중 확대 검토</div>
+    </div>
+
+    <div class="wlc wlc-red">
+      <div class="wlc-top"><div><div class="wlc-name">삼현</div><div class="wlc-code">로봇·감속기</div></div><span class="wlc-badge wlc-badge-red">&#x1F534; 극단과매도</span></div>
+      <div class="wlc-price dn">41,750 <span class="wlc-chg dn">&#x25BC; -10.22%</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~25</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">섹터</div><div class="wlc-mv">로봇 테마</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">감속기</div><div class="wlc-mv up">핵심 부품</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-red">&#x1F534; 극단과매도 — 로봇 테마 최대 낙폭. 금리인상 우려에 성장·테마주 집중 급락. 추세 확인 후 분할.</div>
+      <div class="wlc-memo">지지 38,000 / 저항 47,000 · 로봇 산업화 중장기 방향 유효</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- W-2 미국 주식 -->
+<div class="section">
+  <div class="section-title">&#x1F1FA;&#x1F1F8; [W-2] 미국 퀀텀컴퓨팅·우주 워치리스트 — 4종목</div>
+  <div class="wl-grid3">
+
+    <div class="wlc wlc-red">
+      <div class="wlc-top"><div><div class="wlc-name">IonQ</div><div class="wlc-code">IONQ · 양자컴퓨팅</div></div><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></div>
+      <div class="wlc-price dn">$56.86 <span class="wlc-chg dn">&#x25BC; 나스닥 급락 연동</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~30 추정</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">섹터</div><div class="wlc-mv">양자컴퓨팅</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">기술</div><div class="wlc-mv up">이온트랩</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-red">&#x1F534; 과매도 추정 — 나스닥 -4.2% 연동. 금리인상 우려 시 고밸류 성장주 직격. 장기 보유 유효.</div>
+      <div class="wlc-memo">양자컴퓨팅 상업화 선도주 · 고위험 포지션 소규모 유지</div>
+    </div>
+
+    <div class="wlc wlc-red">
+      <div class="wlc-top"><div><div class="wlc-name">Rigetti Computing</div><div class="wlc-code">RGTI · 양자컴퓨팅</div></div><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></div>
+      <div class="wlc-price dn">$20.79 <span class="wlc-chg dn">&#x25BC; 나스닥 급락 연동</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~28 추정</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">기술</div><div class="wlc-mv">초전도 큐비트</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">변동성</div><div class="wlc-mv dn">매우 높음</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-red">&#x1F534; 과매도 추정 — 소형 양자컴퓨팅주. 금리충격에 고베타 종목 집중 급락. 분할 유지.</div>
+      <div class="wlc-memo">초전도 큐비트 방식 · 고위험·고변동 포지션 소규모 유지</div>
+    </div>
+
+    <div class="wlc wlc-red">
+      <div class="wlc-top"><div><div class="wlc-name">D-Wave Quantum</div><div class="wlc-code">QBTS · 양자컴퓨팅</div></div><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></div>
+      <div class="wlc-price dn">수집 실패 <span class="wlc-chg dn">나스닥 급락 연동</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~28 추정</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">기술</div><div class="wlc-mv">어닐링 방식</div></div>
+        <div class="wlc-metric"><div class="wlc-mv">상업화</div><div class="wlc-mv up">클라우드 제공</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-red">&#x1F534; 과매도 추정 — 양자 어닐링 상업화 최선도 기업. 나스닥 급락 연동. 분할 보유 유지.</div>
+      <div class="wlc-memo">실제 상업 고객 보유 차별점 · 장기 관점 소규모 유지</div>
+    </div>
+
+    <div class="wlc wlc-yellow">
+      <div class="wlc-top"><div><div class="wlc-name">Planet Labs</div><div class="wlc-code">PL · 위성 데이터</div></div><span class="wlc-badge wlc-badge-yellow">&#x26A0;&#xFE0F; 관망</span></div>
+      <div class="wlc-price dn">$33.17 <span class="wlc-chg dn">&#x25BC; 나스닥 급락 연동</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~32 추정</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">위성 수</div><div class="wlc-mv up">200기↑ 운용</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">SpaceX</div><div class="wlc-mv warn">IPO 경쟁</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-yellow">&#x26A0;&#xFE0F; 관망 — 위성 데이터 구독 비즈니스. SpaceX IPO 주간 순환매 우려. 변동성 확대 예상.</div>
+      <div class="wlc-memo">지구관측 데이터 독보적 지위 · SpaceX IPO 후 자금 흐름 모니터링</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- W-3 미국 ETF -->
+<div class="section">
+  <div class="section-title">&#x1F1FA;&#x1F1F8; [W-3] 미국 ETF 워치리스트 — 4종목</div>
+  <div class="wl-grid3">
+
+    <div class="wlc wlc-yellow">
+      <div class="wlc-top"><div><div class="wlc-name">VOO</div><div class="wlc-code">S&amp;P500 ETF · Vanguard</div></div><span class="wlc-badge wlc-badge-yellow">&#x26A0;&#xFE0F; 속도조절</span></div>
+      <div class="wlc-price dn">$678.80 <span class="wlc-chg dn">&#x25BC; S&amp;P500 연동 하락</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv">~38 추정</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">환율영향</div><div class="wlc-mv warn">1,548원 부담</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">배당</div><div class="wlc-mv">~1.4%</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-yellow">&#x26A0;&#xFE0F; 속도조절 — 환율 1,548원으로 신규매수 부담. S&amp;P500 조정 진행 중. 기존 적립 유지.</div>
+      <div class="wlc-memo">환율 1,500원 미만 시 적극매수 구간 · 현재 기존 포지션 보유</div>
+    </div>
+
+    <div class="wlc wlc-yellow">
+      <div class="wlc-top"><div><div class="wlc-name">QQQM</div><div class="wlc-code">나스닥100 ETF · Invesco</div></div><span class="wlc-badge wlc-badge-yellow">&#x26A0;&#xFE0F; 관망</span></div>
+      <div class="wlc-price dn">$291.88 <span class="wlc-chg dn">&#x25BC; 나스닥 -4.2% 연동</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~32 추정</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">반도체비중</div><div class="wlc-mv dn">급락 직격</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">주도주</div><div class="wlc-mv">AI·기술 ETF</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-yellow">&#x26A0;&#xFE0F; 관망 — 나스닥 -4.2% 직격. 반도체 비중 높아 단기 충격 큼. 조정 후 분할매수 대기.</div>
+      <div class="wlc-memo">환율 1,500원 미만 + 나스닥 추가 조정 시 매수 강화 · 현재 관망</div>
+    </div>
+
+    <div class="wlc wlc-green">
+      <div class="wlc-top"><div><div class="wlc-name">SCHD</div><div class="wlc-code">배당 ETF · Schwab</div></div><span class="wlc-badge wlc-badge-green">&#x1F7E2; 분할매수</span></div>
+      <div class="wlc-price">$32.23 <span class="wlc-chg up">상대적 안정</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv">~42 추정</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">배당수익률</div><div class="wlc-mv up">~3.5%</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">배당성장</div><div class="wlc-mv up">연속 증가</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-green">&#x1F7E2; 분할매수 — 배당주 ETF. 금리인상 환경 방어적. 기술주 충격 상대적 작음. 적립 유지.</div>
+      <div class="wlc-memo">환율 1,548원이나 배당 재투자 장기전략 유효 · 매월 분할 적립 유지</div>
+    </div>
+
+    <div class="wlc wlc-green">
+      <div class="wlc-top"><div><div class="wlc-name">DGRO</div><div class="wlc-code">배당성장 ETF · iShares</div></div><span class="wlc-badge wlc-badge-green">&#x1F7E2; 분할매수</span></div>
+      <div class="wlc-price">수집 실패 <span class="wlc-chg">상대적 안정</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv">~43 추정</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">배당수익률</div><div class="wlc-mv up">~2.5%</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">성장성</div><div class="wlc-mv up">배당성장주</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-green">&#x1F7E2; 분할매수 — 배당성장 ETF. 기술주 급락 방어. 금리인상 환경에서도 배당주 상대 강세.</div>
+      <div class="wlc-memo">SCHD와 함께 배당 포트 양축 · 환율 1,550원 이하 적립 지속</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- W-4 국내 ETF -->
+<div class="section">
+  <div class="section-title">&#x1F1F0;&#x1F1F7; [W-4] 국내 ETF 워치리스트 — 2종목</div>
+  <div class="wl-grid3">
+
+    <div class="wlc wlc-red">
+      <div class="wlc-top"><div><div class="wlc-name">KODEX 코리아배당성장</div><div class="wlc-code">국내 배당성장 ETF</div></div><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></div>
+      <div class="wlc-price dn">28,680 <span class="wlc-chg dn">&#x25BC; -6.17%</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv dn">~30</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">유형</div><div class="wlc-mv">배당성장</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">분산</div><div class="wlc-mv up">고배당 분산</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-red">&#x1F534; 과매도 — 코스피 급락에 동반. 배당주 분산 ETF이나 외국인 이탈 충격. 반등 시 상대 안정 기대.</div>
+      <div class="wlc-memo">코스피 안정 후 분할적립 재개 · 저점 매수 관심 구간</div>
+    </div>
+
+    <div class="wlc wlc-yellow">
+      <div class="wlc-top"><div><div class="wlc-name">TIGER 우량가치</div><div class="wlc-code">국내 가치주 ETF</div></div><span class="wlc-badge wlc-badge-yellow">&#x26A0;&#xFE0F; 관망</span></div>
+      <div class="wlc-price dn">20,570 <span class="wlc-chg dn">&#x25BC; -3.86%</span></div>
+      <div class="wlc-metrics">
+        <div class="wlc-metric"><div class="wlc-ml">RSI(14)</div><div class="wlc-mv">~35</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">낙폭</div><div class="wlc-mv up">코스피 대비 소</div></div>
+        <div class="wlc-metric"><div class="wlc-ml">가치주</div><div class="wlc-mv up">금리인상 유리</div></div>
+      </div>
+      <div class="wlc-signal wlc-signal-yellow">&#x26A0;&#xFE0F; 관망 — 코스피 대비 상대 낙폭 적음. 금리인상 환경 가치주 상대 강세 기대 유효.</div>
+      <div class="wlc-memo">코스피 안정 확인 후 비중 확대 검토 · 현재 관망</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- W-5 환율 전략 -->
+<div class="section">
+  <div class="section-title">&#x1F4B1; [W-5] 원달러 환율 구간별 미국 ETF 매매 전략</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>환율 구간</th><th>전략</th><th>적용 종목</th><th>비고</th></tr></thead>
+      <tbody>
+        <tr><td class="up">1,500원 미만</td><td class="up">&#x2705; 적극 매수</td><td>VOO / QQQM / SCHD / DGRO</td><td class="up">환차익 기대 최적 구간</td></tr>
+        <tr><td class="warn">1,500~1,550원 (현재)</td><td class="warn">&#x26A0;&#xFE0F; 속도 조절</td><td>SCHD / DGRO 배당 중심</td><td class="warn">신규 최소화, 배당 적립 유지</td></tr>
+        <tr><td class="dn">1,550~1,600원</td><td class="dn">&#x1F6D1; 신규 중단</td><td>기존 포지션 보유만</td><td class="dn">환차손 리스크 관리</td></tr>
+        <tr><td class="dn">1,600원 이상</td><td class="dn">&#x1F6AB; 관망</td><td>현금 대기</td><td class="dn">원화 자산 상대 선호</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-top:10px;padding:10px 14px;background:var(--bg2);border-left:3px solid var(--warn);border-radius:0 6px 6px 0;font-size:12px;color:var(--warn)">
+    &#x26A0;&#xFE0F; 현재 원달러 <strong>1,548원</strong> — 속도조절 구간. 야간 1,562원 기록으로 1,550~1,600 경계 진입 주의. SCHD·DGRO 배당 적립만 유지, 나머지 신규 매수 일시 중단 권고.
+  </div>
+</div>
+
+<!-- W-6 종합 신호 테이블 -->
+<div class="section">
+  <div class="section-title">&#x1F4CB; [W-6] 워치리스트 종합 신호 테이블 — 전 종목</div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>종목</th><th>현재가</th><th>등락률</th><th>RSI</th><th>신호</th><th>핵심 포인트</th></tr></thead>
+      <tbody>
+        <tr><td><strong>SK텔레콤</strong></td><td class="mono up">108,900</td><td class="up">+2.35%</td><td>~55</td><td><span class="wlc-badge wlc-badge-green">&#x1F7E2; 보유</span></td><td>방어주 상승 · 고배당·AI텔코</td></tr>
+        <tr><td><strong>대한조선</strong></td><td class="mono up">60,300</td><td class="up">+0.50%</td><td>~45</td><td><span class="wlc-badge wlc-badge-green">&#x1F7E2; 매수</span></td><td>유일 상승 · 호르무즈 LNG 수요</td></tr>
+        <tr><td><strong>SCHD</strong></td><td class="mono">$32.23</td><td class="up">상대안정</td><td>~42</td><td><span class="wlc-badge wlc-badge-green">&#x1F7E2; 적립</span></td><td>배당 ETF · 금리인상 방어</td></tr>
+        <tr><td><strong>DGRO</strong></td><td class="mono">수집실패</td><td class="up">상대안정</td><td>~43</td><td><span class="wlc-badge wlc-badge-green">&#x1F7E2; 적립</span></td><td>배당성장 · 환율 1,550 이하 유지</td></tr>
+        <tr><td><strong>현대차2우B</strong></td><td class="mono dn">247,500</td><td class="dn">-4.81%</td><td>~38</td><td><span class="wlc-badge wlc-badge-yellow">&#x26A0;&#xFE0F; 경계</span></td><td>시장 안정 후 비중 확대</td></tr>
+        <tr><td><strong>TIGER 우량가치</strong></td><td class="mono dn">20,570</td><td class="dn">-3.86%</td><td>~35</td><td><span class="wlc-badge wlc-badge-yellow">&#x26A0;&#xFE0F; 관망</span></td><td>가치주 상대강세 · 안정 후 확대</td></tr>
+        <tr><td><strong>Planet Labs (PL)</strong></td><td class="mono dn">$33.17</td><td class="dn">연동 하락</td><td>~32</td><td><span class="wlc-badge wlc-badge-yellow">&#x26A0;&#xFE0F; 관망</span></td><td>SpaceX IPO 순환매 주시</td></tr>
+        <tr><td><strong>VOO</strong></td><td class="mono dn">$678.80</td><td class="dn">S&amp;P500 연동</td><td>~38</td><td><span class="wlc-badge wlc-badge-yellow">&#x26A0;&#xFE0F; 속도조절</span></td><td>환율 1,548 · 기존 포지션 보유</td></tr>
+        <tr><td><strong>QQQM</strong></td><td class="mono dn">$291.88</td><td class="dn">나스닥 연동</td><td>~32</td><td><span class="wlc-badge wlc-badge-yellow">&#x26A0;&#xFE0F; 관망</span></td><td>반도체 급락 연동 · 조정 후 대기</td></tr>
+        <tr><td><strong>삼성전자</strong></td><td class="mono dn">302,000</td><td class="dn">-8.21%</td><td class="dn">~28</td><td><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></td><td>반도체 급락 직격 · 분할매수</td></tr>
+        <tr><td><strong>SK하이닉스</strong></td><td class="mono dn">1,993,500</td><td class="dn">-8.02%</td><td class="dn">~27</td><td><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></td><td>HBM 독점 유효 · 하단 분할</td></tr>
+        <tr><td><strong>HPSP</strong></td><td class="mono dn">수집실패</td><td class="dn">급락 추정</td><td class="dn">~28</td><td><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></td><td>장비 독점구조 유효 · 하단 대기</td></tr>
+        <tr><td><strong>두산에너빌리티</strong></td><td class="mono dn">86,900</td><td class="dn">-9.10%</td><td class="dn">~28</td><td><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></td><td>SMR·원자력 중장기 · 분할매수</td></tr>
+        <tr><td><strong>LS일렉트릭</strong></td><td class="mono dn">371,500</td><td class="dn">-9.50%</td><td class="dn">~27</td><td><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></td><td>전력망 AI 수혜 · 금리충격 일시적</td></tr>
+        <tr><td><strong>지앤씨에너지</strong></td><td class="mono dn">18,700</td><td class="dn">-9.66%</td><td class="dn">~25</td><td><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></td><td>기술적 반등 주목 · 관망 후 확인</td></tr>
+        <tr><td><strong>KB금융</strong></td><td class="mono dn">155,500</td><td class="dn">-9.38%</td><td class="dn">~28</td><td><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></td><td>배당·밸류업 중장기 · 저점 관심</td></tr>
+        <tr><td><strong>한국카본</strong></td><td class="mono dn">29,900</td><td class="dn">-7.29%</td><td class="dn">~30</td><td><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></td><td>LNG 소재 · 조선 발주 긍정</td></tr>
+        <tr><td><strong>삼현</strong></td><td class="mono dn">41,750</td><td class="dn">-10.22%</td><td class="dn">~25</td><td><span class="wlc-badge wlc-badge-red">&#x1F534; 극단과매도</span></td><td>로봇 테마 집중 · 확인 후 매수</td></tr>
+        <tr><td><strong>KODEX 코리아배당성장</strong></td><td class="mono dn">28,680</td><td class="dn">-6.17%</td><td class="dn">~30</td><td><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></td><td>배당 ETF 분할적립 · 저점 관심</td></tr>
+        <tr><td><strong>IonQ (IONQ)</strong></td><td class="mono dn">$56.86</td><td class="dn">나스닥 연동</td><td class="dn">~30</td><td><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></td><td>양자컴퓨팅 장기 · 고위험 유지</td></tr>
+        <tr><td><strong>Rigetti (RGTI)</strong></td><td class="mono dn">$20.79</td><td class="dn">나스닥 연동</td><td class="dn">~28</td><td><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></td><td>소형 양자주 · 소규모 유지</td></tr>
+        <tr><td><strong>D-Wave (QBTS)</strong></td><td class="mono">수집실패</td><td class="dn">나스닥 연동</td><td class="dn">~28</td><td><span class="wlc-badge wlc-badge-red">&#x1F534; 과매도</span></td><td>상업화 선도 · 분할 보유</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+</div><!-- end tab-watchlist -->
+
+<!-- ═══════ FOOTER ═══════ -->
+<div style="background:var(--bg2);border-top:1px solid var(--bd);padding:20px;text-align:center;font-size:11px;color:var(--txt2);margin-top:20px">
+  <div>📊 모닝 마켓 브리핑 · 2026년 6월 8일 (월)</div>
+  <div style="margin-top:6px">출처: 뉴스1·경향신문·ZDNet코리아·MBC뉴스·CBC뉴스·TradingEconomics·Investing.com·나무위키·BLS 공식 발표</div>
+  <div style="margin-top:6px;color:var(--dn)">⚠️ 본 보고서는 정보 제공 목적이며 투자 권유가 아닙니다. 주가는 캡처 기준(6/8 오전)이며 RSI는 추정치입니다. 투자 판단은 본인 책임입니다.</div>
+</div>
+
+<script>
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
