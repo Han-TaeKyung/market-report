@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>워치리스트 매매타이밍 분석 2026-06-19</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0d1117;--bg2:#161b22;--bg3:#1c2330;--border:#30363d;
+  --up:#00C896;--dn:#FF4D6D;--neu:#6b7a99;--acc:#4C9AFF;
+  --warn:#F5A623;--text:#e6edf3;--text2:#8b949e;
+  --buy:#00C896;--sell:#FF4D6D;--hold:#F5A623;--watch:#4C9AFF;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:"Noto Sans KR",sans-serif;font-size:14px;line-height:1.6;}
+.mono{font-family:"DM Mono",monospace;}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#0d1117,#1a2332,#0d1117);border-bottom:2px solid var(--warn);padding:18px 22px 14px;}
+.header-badge{background:var(--warn);color:#000;font-weight:900;font-size:11px;padding:3px 8px;border-radius:4px;letter-spacing:1px;}
+.header-title{font-size:22px;font-weight:900;margin:8px 0 6px;background:linear-gradient(90deg,#F5A623,#FF4D6D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.disclaimer{background:rgba(255,77,109,0.08);border:1px solid rgba(255,77,109,0.2);border-radius:6px;padding:8px 12px;font-size:11px;color:var(--text2);}
+
+/* TAB */
+.tab-bar{position:sticky;top:0;z-index:100;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;padding:0 16px;overflow-x:auto;}
+.tab-btn{background:none;border:none;color:var(--text2);font-family:"Noto Sans KR",sans-serif;font-size:12px;font-weight:500;padding:10px 16px;cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;}
+.tab-btn.active{color:var(--acc);border-bottom-color:var(--acc);font-weight:700;}
+.tab-content{display:none;padding:16px;}
+.tab-content.active{display:block;}
+
+/* SIGNAL BADGE */
+.sig{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;}
+.sig-buy{background:rgba(0,200,150,.15);color:var(--buy);border:1px solid rgba(0,200,150,.35);}
+.sig-sell{background:rgba(255,77,109,.15);color:var(--sell);border:1px solid rgba(255,77,109,.35);}
+.sig-hold{background:rgba(245,166,35,.15);color:var(--hold);border:1px solid rgba(245,166,35,.35);}
+.sig-watch{background:rgba(76,154,255,.15);color:var(--watch);border:1px solid rgba(76,154,255,.35);}
+.sig-wait{background:rgba(107,122,153,.15);color:var(--neu);border:1px solid rgba(107,122,153,.35);}
+
+/* STOCK CARD */
+.stock-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;margin-bottom:14px;overflow:hidden;}
+.stock-header{padding:12px 16px;display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;}
+.stock-name-block{}
+.stock-name{font-size:15px;font-weight:700;}
+.stock-code{font-size:11px;color:var(--text2);font-family:"DM Mono",monospace;}
+.stock-price-block{text-align:right;}
+.stock-price{font-family:"DM Mono",monospace;font-size:18px;font-weight:500;}
+.stock-chg{font-size:12px;font-weight:600;}
+.stock-body{padding:14px 16px;}
+
+/* TIMING GRID */
+.timing-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;}
+.timing-box{background:var(--bg3);border-radius:6px;padding:10px 12px;}
+.timing-label{font-size:10px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+.timing-val{font-size:13px;font-weight:600;}
+
+/* LEVEL BARS */
+.level-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:12px;}
+.level-name{min-width:60px;color:var(--text2);}
+.level-bar{flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.level-fill{height:100%;border-radius:3px;}
+.level-val{font-family:"DM Mono",monospace;font-size:11px;min-width:70px;text-align:right;}
+
+/* ACTION PLAN */
+.action-plan{background:var(--bg3);border-radius:8px;padding:12px 14px;margin-top:10px;}
+.action-title{font-size:12px;font-weight:700;margin-bottom:8px;color:var(--text2);}
+.action-row{display:flex;gap:8px;align-items:flex-start;margin-bottom:5px;font-size:12px;}
+.action-icon{min-width:16px;font-size:11px;padding-top:2px;}
+.action-text{line-height:1.6;}
+
+/* SUMMARY TABLE */
+.summary-tbl{width:100%;border-collapse:collapse;border-radius:8px;overflow:hidden;border:1px solid var(--border);}
+.summary-tbl th{background:var(--bg3);padding:8px 12px;font-size:11px;color:var(--text2);font-weight:700;text-align:left;border-bottom:1px solid var(--border);}
+.summary-tbl td{padding:9px 12px;font-size:12px;border-bottom:1px solid rgba(48,54,61,.5);}
+.summary-tbl tr:last-child td{border-bottom:none;}
+.summary-tbl tr:hover td{background:rgba(255,255,255,.02);}
+
+/* RISK METER */
+.risk-meter{display:flex;gap:3px;align-items:center;margin-top:2px;}
+.risk-dot{width:8px;height:8px;border-radius:50%;background:var(--bg3);}
+.risk-dot.on-low{background:var(--up);}
+.risk-dot.on-mid{background:var(--warn);}
+.risk-dot.on-high{background:var(--dn);}
+
+/* SECTION */
+.section-title{font-size:14px;font-weight:700;padding:9px 12px;background:var(--bg3);border-left:3px solid var(--warn);border-radius:0 6px 6px 0;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+
+.up{color:var(--up);}
+.dn{color:var(--dn);}
+.warn{color:var(--warn);}
+.acc{color:var(--acc);}
+
+@media(max-width:480px){
+  .timing-grid{grid-template-columns:1fr;}
+  .stock-header{flex-direction:column;}
+  .stock-price-block{text-align:left;}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <span class="header-badge">TRADE TIMING</span>
+  <div class="header-title">⚡ 워치리스트 매매타이밍 분석 · 2026.06.19</div>
+  <div class="disclaimer">⚠️ 본 분석은 투자 참고용이며 투자 권유가 아닙니다. RSI·이동평균 수치는 검색 기반 추정치이며 실시간 데이터가 아닐 수 있습니다. 최종 투자 판단은 본인이 하십시오.</div>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="sw('summary',this)">📋 전체요약</button>
+  <button class="tab-btn" onclick="sw('semi',this)">💾 반도체</button>
+  <button class="tab-btn" onclick="sw('energy',this)">⚡ 에너지·전력</button>
+  <button class="tab-btn" onclick="sw('auto',this)">🚗 자동차</button>
+  <button class="tab-btn" onclick="sw('defense',this)">🛡️ 방산·조선</button>
+  <button class="tab-btn" onclick="sw('fin',this)">🏦 금융·통신</button>
+  <button class="tab-btn" onclick="sw('us',this)">🇺🇸 미국주식·ETF</button>
+  <button class="tab-btn" onclick="sw('etf',this)">📦 한국ETF</button>
+</div>
+
+<!-- ══ 전체 요약 ══ -->
+<div id="tab-summary" class="tab-content active">
+  <div class="section-title">📋 매매타이밍 전체 요약 — 6월 19일 기준</div>
+
+  <div style="background:rgba(245,166,35,0.07);border:1px solid rgba(245,166,35,0.2);border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:12px;">
+    <strong style="color:var(--warn)">오늘의 시장 컨텍스트</strong><br>
+    🔴 FOMC 매파 충격 (연내 금리인상 시사) → 성장주·배당주 부담<br>
+    🟡 트리플 위칭 데이 → 오늘 변동성 확대 주의<br>
+    🟢 미·이란 종전 MOU 발효 → 방산↓ / 자동차·항공 반등 / 에너지↓<br>
+    🟢 코스피 9,364 (오전) — 반도체 주도 상승 지속, 비반도체 소외<br>
+    🔴 외국인 연속 순매도 — 고점 부담 차익실현 경계
+  </div>
+
+  <table class="summary-tbl">
+    <tr>
+      <th>종목</th>
+      <th>현재가</th>
+      <th>전일비</th>
+      <th>타이밍</th>
+      <th>핵심 이유</th>
+      <th>매수존</th>
+      <th>리스크</th>
+    </tr>
+    <!-- 반도체 -->
+    <tr>
+      <td><strong>삼성전자</strong><br><span style="font-size:10px;color:var(--text2)">005930</span></td>
+      <td class="mono up">373,500</td>
+      <td class="up">▲3.03%</td>
+      <td><span class="sig sig-hold">⏸ 홀딩</span></td>
+      <td>상승 지속이나 단기 과열. 신규는 조정 대기</td>
+      <td class="mono">330,000~350,000</td>
+      <td><div class="risk-meter"><div class="risk-dot on-mid"></div><div class="risk-dot on-mid"></div><div class="risk-dot"></div></div></td>
+    </tr>
+    <tr>
+      <td><strong>SK하이닉스</strong><br><span style="font-size:10px;color:var(--text2)">000660</span></td>
+      <td class="mono up">2,852,000</td>
+      <td class="up">▲6.22%</td>
+      <td><span class="sig sig-hold">⏸ 홀딩</span></td>
+      <td>역대 최고가 갱신. 52주 고점 근접. 보유자 유지</td>
+      <td class="mono">2,400,000~2,600,000</td>
+      <td><div class="risk-meter"><div class="risk-dot on-mid"></div><div class="risk-dot on-mid"></div><div class="risk-dot on-mid"></div></div></td>
+    </tr>
+    <tr>
+      <td><strong>HPSP</strong><br><span style="font-size:10px;color:var(--text2)">403870</span></td>
+      <td class="mono up">60,500</td>
+      <td class="up">▲1.85%</td>
+      <td><span class="sig sig-buy">▲ 분할매수</span></td>
+      <td>반도체 소재 수혜. 상대적 저평가</td>
+      <td class="mono">55,000~58,000</td>
+      <td><div class="risk-meter"><div class="risk-dot on-low"></div><div class="risk-dot on-low"></div><div class="risk-dot"></div></div></td>
+    </tr>
+    <!-- 에너지전력 -->
+    <tr>
+      <td><strong>LS ELECTRIC</strong><br><span style="font-size:10px;color:var(--text2)">010120</span></td>
+      <td class="mono up">270,000</td>
+      <td class="up">▲11.57%</td>
+      <td><span class="sig sig-wait">⌛ 눌림 대기</span></td>
+      <td>하루 11% 급등 — 단기 과열. 눌림목 확인 후</td>
+      <td class="mono">240,000~255,000</td>
+      <td><div class="risk-meter"><div class="risk-dot on-mid"></div><div class="risk-dot on-mid"></div><div class="risk-dot on-high"></div></div></td>
+    </tr>
+    <tr>
+      <td><strong>두산에너빌리티</strong><br><span style="font-size:10px;color:var(--text2)">034020</span></td>
+      <td class="mono up">99,900</td>
+      <td class="up">▲0.30%</td>
+      <td><span class="sig sig-watch">👁 관망</span></td>
+      <td>종전 후 원전·방산 모멘텀 약화. 방향 확인 필요</td>
+      <td class="mono">90,000~95,000</td>
+      <td><div class="risk-meter"><div class="risk-dot on-mid"></div><div class="risk-dot on-mid"></div><div class="risk-dot"></div></div></td>
+    </tr>
+    <tr>
+      <td><strong>GNC에너지</strong><br><span style="font-size:10px;color:var(--text2)">305090</span></td>
+      <td class="mono dn">22,500</td>
+      <td class="dn">▼2.39%</td>
+      <td><span class="sig sig-wait">⌛ 반등 대기</span></td>
+      <td>에너지 가격 하락 압박. 지지선 확인 후 접근</td>
+      <td class="mono">20,000~21,500</td>
+      <td><div class="risk-meter"><div class="risk-dot on-mid"></div><div class="risk-dot on-mid"></div><div class="risk-dot"></div></div></td>
+    </tr>
+    <tr>
+      <td><strong>한국카본</strong><br><span style="font-size:10px;color:var(--text2)">017960</span></td>
+      <td class="mono dn">30,800</td>
+      <td class="dn">▼3.75%</td>
+      <td><span class="sig sig-wait">⌛ 반등 대기</span></td>
+      <td>에너지 약세 연동. 지지선 확인 필요</td>
+      <td class="mono">28,000~30,000</td>
+      <td><div class="risk-meter"><div class="risk-dot on-mid"></div><div class="risk-dot on-mid"></div><div class="risk-dot"></div></div></td>
+    </tr>
+    <!-- 자동차 -->
+    <tr>
+      <td><strong>현대차</strong><br><span style="font-size:10px;color:var(--text2)">005380</span></td>
+      <td class="mono up">621,000</td>
+      <td class="up">▲3.33%</td>
+      <td><span class="sig sig-hold">⏸ 홀딩</span></td>
+      <td>종전 반등. 추가 상승 여력 있으나 환율 역풍</td>
+      <td class="mono">570,000~590,000</td>
+      <td><div class="risk-meter"><div class="risk-dot on-low"></div><div class="risk-dot on-mid"></div><div class="risk-dot"></div></div></td>
+    </tr>
+    <tr>
+      <td><strong>현대차2우B</strong><br><span style="font-size:10px;color:var(--text2)">005387</span></td>
+      <td class="mono up">245,500</td>
+      <td class="up">▲2.29%</td>
+      <td><span class="sig sig-buy">▲ 분할매수</span></td>
+      <td>현대차 대비 저평가 우선주. 배당+성장 매력</td>
+      <td class="mono">225,000~235,000</td>
+      <td><div class="risk-meter"><div class="risk-dot on-low"></div><div class="risk-dot on-low"></div><div class="risk-dot"></div></div></td>
+    </tr>
+    <!-- 방산조선 -->
+    <tr>
+      <td><strong>한화에어로스페이스</strong><br><span style="font-size:10px;color:var(--text2)">012450</span></td>
+      <td class="mono dn">1,137,000</td>
+      <td class="dn">▼4.37%</td>
+      <td><span class="sig sig-watch">👁 관망</span></td>
+      <td>종전합의로 방산 모멘텀 둔화. 추세 재확인 필요</td>
+      <td class="mono">1,000,000~1,050,000</td>
+      <td><div class="risk-meter"><div class="risk-dot on-mid"></div><div class="risk-dot on-mid"></div><div class="risk-dot on-mid"></div></div></td>
+    </tr>
+    <tr>
+      <td><strong>대한조선</strong><br><span style="font-size:10px;color:var(--text2)">439580</span></td>
+      <td class="mono dn">61,000</td>
+      <td class="dn">▼2.24%</td>
+      <td><span class="sig sig-watch">👁 관망</span></td>
+      <td>호르무즈 재개방 후 해운 물동량 변화 추이 확인</td>
+      <td class="mono">55,000~58,000</td>
+      <td><div class="risk-meter"><div class="risk-dot on-mid"></div><div class="risk-dot on-mid"></div><div class="risk-dot"></div></div></td>
+    </tr>
+    <!-- 금융통신 -->
+    <tr>
+      <td><strong>KB금융</strong><br><span style="font-size:10px;color:var(--text2)">105560</span></td>
+      <td class="mono dn">159,000</td>
+      <td class="dn">▼2.51%</td>
+      <td><span class="sig sig-buy">▲ 분할매수</span></td>
+      <td>BOK 7월 인상 시 NIM 개선. 조정이 분할 기회</td>
+      <td class="mono">150,000~155,000</td>
+      <td><div class="risk-meter"><div class="risk-dot on-low"></div><div class="risk-dot on-mid"></div><div class="risk-dot"></div></div></td>
+    </tr>
+    <tr>
+      <td><strong>SK텔레콤</strong><br><span style="font-size:10px;color:var(--text2)">017670</span></td>
+      <td class="mono up">96,800</td>
+      <td class="up">▲0.94%</td>
+      <td><span class="sig sig-hold">⏸ 홀딩</span></td>
+      <td>방어주 견조. 금리인상 환경에도 배당 매력 유지</td>
+      <td class="mono">88,000~92,000</td>
+      <td><div class="risk-meter"><div class="risk-dot on-low"></div><div class="risk-dot on-low"></div><div class="risk-dot"></div></div></td>
+    </tr>
+    <!-- 미국 -->
+    <tr>
+      <td><strong>IonQ (IONQ)</strong><br><span style="font-size:10px;color:var(--text2)">NYSE</span></td>
+      <td class="mono up">$61.18</td>
+      <td class="up">▲5.76%</td>
+      <td><span class="sig sig-hold">⏸ 홀딩</span></td>
+      <td>목표가 $67.64. 현재가 $61. 과열 아니나 모멘텀 지켜봄</td>
+      <td class="mono">$50~$56</td>
+      <td><div class="risk-meter"><div class="risk-dot on-mid"></div><div class="risk-dot on-mid"></div><div class="risk-dot on-high"></div></div></td>
+    </tr>
+    <tr>
+      <td><strong>Rigetti (RGTI)</strong><br><span style="font-size:10px;color:var(--text2)">NASDAQ</span></td>
+      <td class="mono up">$22.70</td>
+      <td class="up">▲8.20%</td>
+      <td><span class="sig sig-watch">👁 관망</span></td>
+      <td>IONQ 대비 펀더멘털 약. 단기 급등 후 소화 필요</td>
+      <td class="mono">$18~$20</td>
+      <td><div class="risk-meter"><div class="risk-dot on-mid"></div><div class="risk-dot on-high"></div><div class="risk-dot on-high"></div></div></td>
+    </tr>
+    <tr>
+      <td><strong>Planet Labs (PL)</strong><br><span style="font-size:10px;color:var(--text2)">NYSE</span></td>
+      <td class="mono neu">데이터 미확인</td>
+      <td class="neu">—</td>
+      <td><span class="sig sig-watch">👁 관망</span></td>
+      <td>종전 후 우주정찰 수요 단기 둔화 우려. 확인 필요</td>
+      <td class="mono">확인 후</td>
+      <td><div class="risk-meter"><div class="risk-dot on-mid"></div><div class="risk-dot on-mid"></div><div class="risk-dot on-mid"></div></div></td>
+    </tr>
+  </table>
+</div>
+
+<!-- ══ 반도체 ══ -->
+<div id="tab-semi" class="tab-content">
+  <div class="section-title">💾 반도체 섹터 — 삼성전자 / SK하이닉스 / HPSP</div>
+
+  <!-- 삼성전자 -->
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">삼성전자 <span class="sig sig-hold">⏸ 홀딩 / 신규 관망</span></div>
+        <div class="stock-code">005930 · KOSPI</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price up">373,500</div>
+        <div class="stock-chg up">▲ 3.03% (6/18 종가)</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="timing-grid">
+        <div class="timing-box">
+          <div class="timing-label">52주 범위</div>
+          <div class="timing-val"><span class="mono">150,000</span> — <span class="mono">395,000</span></div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">현재 위치</div>
+          <div class="timing-val warn">52주 고점 94% 근접</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">애널 목표가</div>
+          <div class="timing-val acc">합성 적정 PER 10배 = <span class="mono">410,000</span></div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">밸류에이션</div>
+          <div class="timing-val up">PER ~7배 (저평가 구간)</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <span class="level-name">강지지</span>
+        <div class="level-bar"><div class="level-fill" style="width:100%;background:var(--up);"></div></div>
+        <span class="level-val mono up">330,000</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">지지</span>
+        <div class="level-bar"><div class="level-fill" style="width:88%;background:var(--acc);"></div></div>
+        <span class="level-val mono acc">350,000</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">현재가</span>
+        <div class="level-bar"><div class="level-fill" style="width:94%;background:var(--warn);"></div></div>
+        <span class="level-val mono warn">373,500 ◀</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">저항1</span>
+        <div class="level-bar"><div class="level-fill" style="width:97%;background:var(--dn);"></div></div>
+        <span class="level-val mono dn">390,000</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">목표가</span>
+        <div class="level-bar"><div class="level-fill" style="width:100%;background:var(--dn);"></div></div>
+        <span class="level-val mono dn">410,000~</span>
+      </div>
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>기존 보유자:</strong> 홀딩 유지. 올해 상승률 반영한 고점 부담 있으나 AI 슈퍼사이클 중기 펀더멘털 훼손 없음</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>신규 진입:</strong> <strong>350,000원 이하</strong> 조정 시 1차 분할매수 검토. 330,000원 이하는 적극 매수 구간</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>오늘 주의:</strong> 트리플 위칭 만기일 변동성 + FOMC 매파 충격 소화 과정. 단기 조정 가능성 있음</span></div>
+        <div class="action-row"><span class="action-icon dn">▶</span><span class="action-text"><strong>손절 기준:</strong> 320,000원 하향 돌파 시 재검토. 외국인 연속 순매도 흐름 모니터링</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SK하이닉스 -->
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">SK하이닉스 <span class="sig sig-hold">⏸ 홀딩 / 신규 자제</span></div>
+        <div class="stock-code">000660 · KOSPI</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price up">2,852,000</div>
+        <div class="stock-chg up">▲ 6.22% (6/18 종가) | 역대 최고가</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="timing-grid">
+        <div class="timing-box">
+          <div class="timing-label">52주 범위</div>
+          <div class="timing-val mono">242,000 — <span class="up">2,701,000*</span></div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">1년 수익률</div>
+          <div class="timing-val up">+738% (1년)</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">애널 컨센서스</div>
+          <div class="timing-val up">36명 매수 / 0명 매도<br>목표 평균 2,712,489원</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">밸류에이션</div>
+          <div class="timing-val warn">선행PER ~6.8배<br>이미 목표가 근접</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <span class="level-name">강지지</span>
+        <div class="level-bar"><div class="level-fill" style="width:88%;background:var(--up);"></div></div>
+        <span class="level-val mono up">2,400,000</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">지지</span>
+        <div class="level-bar"><div class="level-fill" style="width:94%;background:var(--acc);"></div></div>
+        <span class="level-val mono acc">2,600,000</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">현재가</span>
+        <div class="level-bar"><div class="level-fill" style="width:100%;background:var(--warn);"></div></div>
+        <span class="level-val mono warn">2,852,000 ◀</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">목표가 평균</span>
+        <div class="level-bar"><div class="level-fill" style="width:100%;background:var(--dn);"></div></div>
+        <span class="level-val mono dn">2,712,489 (↓ 이미 초과)</span>
+      </div>
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>기존 보유자:</strong> 홀딩 유지 권장. HBM4E 샘플 공급 + AI 수요 지속으로 중기 스토리 유효</span></div>
+        <div class="action-row"><span class="action-icon dn">▶</span><span class="action-text"><strong>신규 진입:</strong> 현재 가격(2,852,000)은 애널 평균 목표가(2,712,489) <strong>초과</strong>. 신규 매수 자제. 2,400,000~2,600,000 조정 대기</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>차익실현:</strong> 단기 5~10% 트레이딩 목적이면 3,000,000원 저항에서 일부 익절 고려</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>7/29 실적발표</strong> 이후 방향 재점검. 레버리지 ETF 금감원 경보 발령 — 레버리지 상품 주의</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HPSP -->
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">HPSP <span class="sig sig-buy">▲ 분할매수 적극 검토</span></div>
+        <div class="stock-code">403870 · KOSPI</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price up">60,500</div>
+        <div class="stock-chg up">▲ 1.85%</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="timing-grid">
+        <div class="timing-box">
+          <div class="timing-label">포지셔닝</div>
+          <div class="timing-val up">반도체 소재·부품 수혜<br>삼성전자·SK하이닉스보다 낮은 고점 부담</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">매력 포인트</div>
+          <div class="timing-val up">AI 반도체 공정 필수 소재<br>수요 안정적 성장</div>
+        </div>
+      </div>
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>진입 전략:</strong> 현재 60,500원 부근에서 <strong>1차 분할매수 가능</strong>. 55,000~58,000원 조정 시 2차 추가 매수</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>이유:</strong> 삼성전자·SK하이닉스 대비 상대적 저평가. 반도체 슈퍼사이클 수혜 동일하나 변동성 낮음</span></div>
+        <div class="action-row"><span class="action-icon dn">▶</span><span class="action-text"><strong>손절:</strong> 52,000원 이탈 시 재검토</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 에너지·전력 ══ -->
+<div id="tab-energy" class="tab-content">
+  <div class="section-title">⚡ 에너지·전력 — LS ELECTRIC / 두산에너빌리티 / GNC에너지 / 한국카본</div>
+
+  <!-- LS ELECTRIC -->
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">LS ELECTRIC <span class="sig sig-wait">⌛ 눌림목 대기</span></div>
+        <div class="stock-code">010120 · KOSPI</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price up">270,000</div>
+        <div class="stock-chg up">▲ 11.57% 🔥 단기 과열</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="timing-grid">
+        <div class="timing-box">
+          <div class="timing-label">오늘 급등 이유</div>
+          <div class="timing-val up">AI 데이터센터 전력 인프라<br>새로운 핵심 테마로 부상</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">단기 과열 신호</div>
+          <div class="timing-val dn">하루 +11.57% — RSI 추정 70+ 과매수<br>단기 조정 가능성 높음</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <span class="level-name">지지</span>
+        <div class="level-bar"><div class="level-fill" style="width:88%;background:var(--up);"></div></div>
+        <span class="level-val mono up">240,000</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">매수존</span>
+        <div class="level-bar"><div class="level-fill" style="width:93%;background:var(--acc);"></div></div>
+        <span class="level-val mono acc">250,000~255,000</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">현재가</span>
+        <div class="level-bar"><div class="level-fill" style="width:100%;background:var(--warn);"></div></div>
+        <span class="level-val mono warn">270,000 ◀ 과열</span>
+      </div>
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon dn">▶</span><span class="action-text"><strong>신규 매수 금지:</strong> 하루 11.57% 급등은 단기 과열. 즉시 추격 매수는 고점 물림 위험</span></div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>눌림목 전략:</strong> <strong>250,000~255,000원</strong> 조정 시 1차 분할매수. 240,000원 이하 2차 추가</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>중기 스토리:</strong> AI 데이터센터 전력 수요는 수년간 성장 지속 예상. 장기 보유 관점에서 매력적 테마</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>기존 보유자:</strong> 홀딩. 300,000원 저항 근처에서 일부 익절 고려</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 두산에너빌리티 -->
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">두산에너빌리티 <span class="sig sig-watch">👁 방향 확인 후 접근</span></div>
+        <div class="stock-code">034020 · KOSPI</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price up">99,900</div>
+        <div class="stock-chg up">▲ 0.30%</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="timing-grid">
+        <div class="timing-box">
+          <div class="timing-label">현황</div>
+          <div class="timing-val warn">종전합의로 방산·에너지 모멘텀<br>단기 약화 우려</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">중기 스토리</div>
+          <div class="timing-val up">원전·SMR 장기 성장 스토리 유효<br>에너지 전환 수혜</div>
+        </div>
+      </div>
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>단기:</strong> 종전 후 방산 모멘텀 재평가 필요. 90,000원 이하 조정 시 분할 진입 검토</span></div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>중장기:</strong> 원전·SMR 정책 수혜 지속. 90,000~95,000원 구간이 중기 매수존</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GNC에너지 + 한국카본 -->
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">GNC에너지 / 한국카본 <span class="sig sig-wait">⌛ 바닥 확인 후</span></div>
+        <div class="stock-code">305090 / 017960</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price dn">22,500 / 30,800</div>
+        <div class="stock-chg dn">▼ 2.39% / ▼ 3.75%</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon dn">▶</span><span class="action-text"><strong>현재 상황:</strong> 호르무즈 재개방으로 에너지 가격 하락 → 에너지 소재주 동반 약세</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>GNC에너지:</strong> 20,000~21,500원 지지 확인 후 반등 시 접근. 에너지 가격 안정 여부 모니터링</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>한국카본:</strong> 28,000~30,000원 지지 확인. 탄소소재 중장기 수요는 유효하나 단기 조정 감내 필요</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 자동차 ══ -->
+<div id="tab-auto" class="tab-content">
+  <div class="section-title">🚗 자동차 — 현대차 / 현대차2우B</div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">현대차 <span class="sig sig-hold">⏸ 홀딩</span></div>
+        <div class="stock-code">005380 · KOSPI</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price up">621,000</div>
+        <div class="stock-chg up">▲ 3.33%</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="timing-grid">
+        <div class="timing-box">
+          <div class="timing-label">종전 수혜</div>
+          <div class="timing-val up">에너지 비용 절감 기대<br>글로벌 경기 회복 모멘텀</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">역풍 요인</div>
+          <div class="timing-val dn">원달러 1,538 → 해외 가격경쟁력 약화<br>FOMC 금리인상 시 소비 둔화</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <span class="level-name">강지지</span>
+        <div class="level-bar"><div class="level-fill" style="width:90%;background:var(--up);"></div></div>
+        <span class="level-val mono up">570,000</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">지지</span>
+        <div class="level-bar"><div class="level-fill" style="width:94%;background:var(--acc);"></div></div>
+        <span class="level-val mono acc">590,000</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">현재가</span>
+        <div class="level-bar"><div class="level-fill" style="width:100%;background:var(--warn);"></div></div>
+        <span class="level-val mono warn">621,000 ◀</span>
+      </div>
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>기존 보유자:</strong> 홀딩 유지. 로봇·AI 모멘텀 + 종전 수혜 복합 상승 흐름</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>신규 진입:</strong> 590,000원 이하 조정 시 분할매수 검토. 570,000원 강지지</span></div>
+        <div class="action-row"><span class="action-icon dn">▶</span><span class="action-text"><strong>주의:</strong> 환율 1,538원 → 수입 부품 비용 상승 압박. 달러 강세 지속 시 마진 압박</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">현대차 2우B <span class="sig sig-buy">▲ 분할매수 추천</span></div>
+        <div class="stock-code">005387 · KOSPI</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price up">245,500</div>
+        <div class="stock-chg up">▲ 2.29%</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="timing-grid">
+        <div class="timing-box">
+          <div class="timing-label">매력 포인트</div>
+          <div class="timing-val up">현대차 대비 할인된 우선주<br>배당+성장 동시 추구</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">현대차 대비</div>
+          <div class="timing-val up">우선주 할인율 약 60%<br>저평가 매력</div>
+        </div>
+      </div>
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>적극 분할매수 구간:</strong> 현재 245,500원 + 225,000~235,000원 추가 매수로 분할 진입 권장</span></div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>이유:</strong> 현대차(621,000)와 동일 사업 수혜이나 가격이 약 40% 수준. 배당수익률 추가</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>목표가:</strong> 중기 270,000~280,000원 (현대차 목표가 연동 상승 기대)</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 방산·조선 ══ -->
+<div id="tab-defense" class="tab-content">
+  <div class="section-title">🛡️ 방산·조선 — 한화에어로스페이스 / 대한조선</div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">한화에어로스페이스 <span class="sig sig-watch">👁 추세 재확인 후 접근</span></div>
+        <div class="stock-code">012450 · KOSPI</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price dn">1,137,000</div>
+        <div class="stock-chg dn">▼ 4.37% — 종전 충격</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="timing-grid">
+        <div class="timing-box">
+          <div class="timing-label">하락 원인</div>
+          <div class="timing-val dn">미·이란 종전 MOU 발효<br>방산 수요 감소 우려</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">중기 스토리</div>
+          <div class="timing-val warn">방산 수출 (폴란드·루마니아 등)<br>지속 성장 구조는 유효</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <span class="level-name">현재가</span>
+        <div class="level-bar"><div class="level-fill" style="width:100%;background:var(--warn);"></div></div>
+        <span class="level-val mono warn">1,137,000 ◀</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">1차지지</span>
+        <div class="level-bar"><div class="level-fill" style="width:91%;background:var(--acc);"></div></div>
+        <span class="level-val mono acc">1,050,000</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">강지지</span>
+        <div class="level-bar"><div class="level-fill" style="width:87%;background:var(--up);"></div></div>
+        <span class="level-val mono up">1,000,000</span>
+      </div>
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>현재 상황:</strong> 종전 합의로 단기 모멘텀 훼손. 방산주 전반 조정 국면</span></div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>매수 기회:</strong> 1,000,000~1,050,000원 지지 확인 후 분할 진입. 중기 방산 수출 성장 스토리 유효</span></div>
+        <div class="action-row"><span class="action-icon dn">▶</span><span class="action-text"><strong>리스크:</strong> 미·이란 60일 협상이 원만 타결 시 방산 모멘텀 추가 약화 가능. 협상 결과 모니터링 필수</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>손절:</strong> 950,000원 이탈 시 재검토. 기존 보유자는 1,050,000원 지지 여부 확인 후 판단</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">대한조선 <span class="sig sig-watch">👁 방향 확인 중</span></div>
+        <div class="stock-code">439580 · KOSPI</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price dn">61,000</div>
+        <div class="stock-chg dn">▼ 2.24%</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="timing-grid">
+        <div class="timing-box">
+          <div class="timing-label">상충 요인</div>
+          <div class="timing-val warn">✅ 호르무즈 재개방 → 해상 물동량 증가<br>❌ 종전 후 운임 하락 → 수주 감소 우려</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">애널 리포트</div>
+          <div class="timing-val up">수에즈막스 플랫폼 P/E 7배<br>저평가 매력 분석 나옴</div>
+        </div>
+      </div>
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>단기:</strong> 55,000~58,000원 지지 확인 후 분할 진입. 종전 이후 해운 시황 변화 추이 모니터링</span></div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>중기:</strong> P/E 7배 저평가 + 수에즈막스 수주 경쟁력. 장기 보유 관점에서 매력적</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 금융·통신 ══ -->
+<div id="tab-fin" class="tab-content">
+  <div class="section-title">🏦 금융·통신 — KB금융 / SK텔레콤</div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">KB금융 <span class="sig sig-buy">▲ 분할매수 적극 검토</span></div>
+        <div class="stock-code">105560 · KOSPI</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price dn">159,000</div>
+        <div class="stock-chg dn">▼ 2.51% — FOMC 충격</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="timing-grid">
+        <div class="timing-box">
+          <div class="timing-label">금리인상 시 영향</div>
+          <div class="timing-val up">BOK 7월 25bp 인상 시<br>NIM(순이자마진) 개선 → 이익 증가</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">단기 조정 이유</div>
+          <div class="timing-val dn">FOMC 매파 → 금리 불확실성<br>대출 부실 우려 반영</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">밸류에이션</div>
+          <div class="timing-val up">ROE·RoRWA 동반 상승<br>은행주 중 가장 돋보이는 지표</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">배당수익률</div>
+          <div class="timing-val up">4%+ 배당 매력<br>저금리 대비 고매력</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <span class="level-name">강지지</span>
+        <div class="level-bar"><div class="level-fill" style="width:93%;background:var(--up);"></div></div>
+        <span class="level-val mono up">150,000</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">1차매수</span>
+        <div class="level-bar"><div class="level-fill" style="width:96%;background:var(--acc);"></div></div>
+        <span class="level-val mono acc">155,000</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">현재가</span>
+        <div class="level-bar"><div class="level-fill" style="width:100%;background:var(--warn);"></div></div>
+        <span class="level-val mono warn">159,000 ◀</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">목표가</span>
+        <div class="level-bar"><div class="level-fill" style="width:108%;background:var(--up);"></div></div>
+        <span class="level-val mono up">175,000~180,000</span>
+      </div>
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>현재 분할매수 기회:</strong> FOMC 충격으로 -2.51% 조정 = 매수 기회. 155,000~159,000원 1차 진입</span></div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>2차 매수:</strong> 150,000원 이하 추가 매수. BOK 7월 인상 시 NIM 개선 + 배당 증가 기대</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>리스크:</strong> 금리인상이 대출 부실로 이어질 경우 충당금 증가. 가계부채 연체율 모니터링</span></div>
+        <div class="action-row"><span class="action-icon dn">▶</span><span class="action-text"><strong>손절:</strong> 145,000원 이탈 시 재검토</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">SK텔레콤 <span class="sig sig-hold">⏸ 홀딩 / 소량 추가 가능</span></div>
+        <div class="stock-code">017670 · KOSPI</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price up">96,800</div>
+        <div class="stock-chg up">▲ 0.94%</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="timing-grid">
+        <div class="timing-box">
+          <div class="timing-label">매력 포인트</div>
+          <div class="timing-val up">방어주 성격 + AI 인프라 수혜<br>배당 안정성 높음</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">금리 영향</div>
+          <div class="timing-val warn">BOK 금리인상 시 배당주 상대 약세<br>그러나 절대 배당 매력 유지</div>
+        </div>
+      </div>
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>홀딩 유지:</strong> 방어주로서 변동성 장세에 포트폴리오 안정 역할. 88,000~92,000원 조정 시 소량 추가 가능</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>목표가:</strong> 105,000~110,000원. AI 인프라 수혜 기대 반영 시 추가 상승 여지</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 미국 주식 ══ -->
+<div id="tab-us" class="tab-content">
+  <div class="section-title">🇺🇸 미국 주식 — IonQ / Rigetti / Planet Labs</div>
+
+  <!-- IonQ -->
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">IonQ (IONQ) <span class="sig sig-hold">⏸ 홀딩 / 조정 시 추가</span></div>
+        <div class="stock-code">NYSE · 양자컴퓨팅</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price up">$61.18</div>
+        <div class="stock-chg up">▲ 5.76% (6/16 기준)</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="timing-grid">
+        <div class="timing-box">
+          <div class="timing-label">52주 범위</div>
+          <div class="timing-val mono">$25.89 — <span class="up">$84.64</span></div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">애널 목표가</div>
+          <div class="timing-val up">평균 $67.64<br>최고 $100 / 최저 $44.78<br>11명 전원 매수</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">펀더멘털</div>
+          <div class="timing-val up">Q1 매출 $64.7M (+755% YoY)<br>가이던스 $260~270M (+100%)</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">리스크</div>
+          <div class="timing-val dn">EBITDA -$96.8M 적자<br>고평가 우려 (InvestingPro)</div>
+        </div>
+      </div>
+      <div class="level-row">
+        <span class="level-name">강지지</span>
+        <div class="level-bar"><div class="level-fill" style="width:58%;background:var(--up);"></div></div>
+        <span class="level-val mono up">$50</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">지지</span>
+        <div class="level-bar"><div class="level-fill" style="width:65%;background:var(--acc);"></div></div>
+        <span class="level-val mono acc">$56</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">현재가</span>
+        <div class="level-bar"><div class="level-fill" style="width:72%;background:var(--warn);"></div></div>
+        <span class="level-val mono warn">$61.18 ◀</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">목표가</span>
+        <div class="level-bar"><div class="level-fill" style="width:80%;background:var(--up);"></div></div>
+        <span class="level-val mono up">$67.64 (평균)</span>
+      </div>
+      <div class="level-row">
+        <span class="level-name">목표 상단</span>
+        <div class="level-bar"><div class="level-fill" style="width:100%;background:var(--up);"></div></div>
+        <span class="level-val mono up">$84~$100</span>
+      </div>
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>보유자 홀딩:</strong> 목표가 평균 $67.64 → 현재 $61.18 = 상승여력 +10.5%. 홀딩 유효</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>신규 진입:</strong> $56~$58 조정 시 1차 분할매수. $50 이하 2차 추가. 8/12 실적발표 전 포지션 구축</span></div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>트리플 위칭(오늘):</strong> 미국 장중 변동성 확대 가능. 오늘 급변동 시 기회로 활용</span></div>
+        <div class="action-row"><span class="action-icon dn">▶</span><span class="action-text"><strong>FOMC 금리인상 리스크:</strong> 금리인상 시 적자 성장주 밸류에이션 할인 확대. 포지션 크기 관리 필수</span></div>
+        <div class="action-row"><span class="action-icon dn">▶</span><span class="action-text"><strong>손절:</strong> $44.78 하향 돌파 시 재검토</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rigetti -->
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">Rigetti (RGTI) <span class="sig sig-watch">👁 소화 후 재진입</span></div>
+        <div class="stock-code">NASDAQ · 양자컴퓨팅</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price up">$22.70</div>
+        <div class="stock-chg up">▲ 8.20% (6/16 기준)</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="timing-grid">
+        <div class="timing-box">
+          <div class="timing-label">IONQ 대비 포지션</div>
+          <div class="timing-val warn">초전도 양자 하드웨어 특화<br>IONQ 대비 상업화 속도 느림</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">리스크 수준</div>
+          <div class="timing-val dn">IONQ보다 높은 변동성<br>작은 시가총액 → 급등락 반복</div>
+        </div>
+      </div>
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>단기 과열:</strong> 하루 8.2% 급등 후 단기 조정 가능. $18~$20 조정 대기</span></div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>진입 전략:</strong> $18~$20 조정 시 소량 매수. IONQ 연동 흐름이므로 IONQ 주가 방향 확인 후 결정</span></div>
+        <div class="action-row"><span class="action-icon dn">▶</span><span class="action-text"><strong>비중 주의:</strong> IONQ 대비 펀더멘털 열위. 포트폴리오 내 비중 IONQ의 절반 이하 권장</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Planet Labs -->
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">Planet Labs (PL) <span class="sig sig-watch">👁 데이터 확인 후</span></div>
+        <div class="stock-code">NYSE · 위성 데이터</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price neu">— 실시간 미확인</div>
+        <div class="stock-chg warn">직접 확인 필요</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="timing-grid">
+        <div class="timing-box">
+          <div class="timing-label">종전 후 영향</div>
+          <div class="timing-val warn">군사·정찰 수요 단기 둔화 가능<br>그러나 민간·기후 수요 지속</div>
+        </div>
+        <div class="timing-box">
+          <div class="timing-label">중기 스토리</div>
+          <div class="timing-val up">위성 데이터 상업화 성장<br>AI 데이터 파이프라인 역할</div>
+        </div>
+      </div>
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text">오늘 실제 주가 및 등락 확인 후 포지션 결정 권장. 종전합의 후 우주·방산 섹터 전반 조정 압력 존재</span></div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text">10~15% 조정 시 분할 진입 검토. 위성 데이터 장기 성장 스토리 유효</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 한국 ETF ══ -->
+<div id="tab-etf" class="tab-content">
+  <div class="section-title">📦 한국 ETF + 미국 ETF</div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">KODEX 코리아배당성장 <span class="sig sig-wait">⌛ 관망 후 매수</span></div>
+        <div class="stock-code">279530 · KRX ETF</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price dn">29,700</div>
+        <div class="stock-chg dn">▼ 0.79%</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text"><strong>BOK 7월 인상 전:</strong> 금리 인상 시 배당주 상대 약세. 인상 결정 후 반응 확인 후 진입 전략 수립</span></div>
+        <div class="action-row"><span class="action-icon up">▶</span><span class="action-text"><strong>매수존:</strong> 28,000~29,000원 조정 시 분할매수. 한국 밸류업 정책 수혜 + 배당 성장 장기 매력</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="stock-header">
+      <div class="stock-name-block">
+        <div class="stock-name">TIGER 우량가치 <span class="sig sig-wait">⌛ 관망</span></div>
+        <div class="stock-code">108490 · KRX ETF</div>
+      </div>
+      <div class="stock-price-block">
+        <div class="stock-price dn">20,910</div>
+        <div class="stock-chg dn">▼ 0.50%</div>
+      </div>
+    </div>
+    <div class="stock-body">
+      <div class="action-plan">
+        <div class="action-title">💡 매매 전략</div>
+        <div class="action-row"><span class="action-icon warn">▶</span><span class="action-text">반도체 쏠림 장세에서 가치주 ETF는 소외. 시장 순환매 국면에서 재평가 가능. 19,500~20,000원 매수존</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-top:10px;">
+    <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--text);">🇺🇸 미국 ETF — VOO / QQQM / SCHD / DGRO</div>
+    <table class="summary-tbl">
+      <tr><th>ETF</th><th>타이밍</th><th>핵심 코멘트</th><th>진입 전략</th></tr>
+      <tr>
+        <td><strong>VOO</strong><br><span style="font-size:10px;color:var(--text2)">S&P500</span></td>
+        <td><span class="sig sig-hold">⏸ 홀딩</span></td>
+        <td>S&P500 7,500. 트리플 위칭 변동성 후 방향 확인</td>
+        <td>7,200 조정 시 적립식 추가 매수</td>
+      </tr>
+      <tr>
+        <td><strong>QQQM</strong><br><span style="font-size:10px;color:var(--text2)">나스닥100</span></td>
+        <td><span class="sig sig-hold">⏸ 홀딩</span></td>
+        <td>반도체·AI 비중 높아 강세 견인. FOMC 금리인상 시 고밸류 부담</td>
+        <td>29,000~29,500 조정 시 분할매수</td>
+      </tr>
+      <tr>
+        <td><strong>SCHD</strong><br><span style="font-size:10px;color:var(--text2)">배당 ETF</span></td>
+        <td><span class="sig sig-wait">⌛ 금리 확인 후</span></td>
+        <td class="dn">FOMC 금리인상 시나리오 = 배당ETF 할인. 9월 FOMC 결과 후 재진입 전략 유효</td>
+        <td>9월 FOMC 후 재평가. 현재는 관망</td>
+      </tr>
+      <tr>
+        <td><strong>DGRO</strong><br><span style="font-size:10px;color:var(--text2)">배당성장 ETF</span></td>
+        <td><span class="sig sig-wait">⌛ 금리 확인 후</span></td>
+        <td class="dn">SCHD와 동일한 금리 민감도. 금리인상 확정 전까지 비중 유지 최소화</td>
+        <td>금리인상 사이클 완료 후 분할매수</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div style="background:var(--bg2);border-top:1px solid var(--border);padding:14px 20px;color:var(--text2);font-size:11px;margin-top:10px;">
+  ⚠️ 본 분석은 검색 기반 정보와 시황을 종합한 참고 자료입니다. RSI 수치는 실시간 데이터가 아닌 추정 기반입니다. 지지·저항선은 기계적 룰이 아니며, 반드시 개인의 리스크 허용 범위와 투자 목표에 맞게 조정하십시오. | 생성: 2026-06-19 KST
+</div>
+
+<script>
+function sw(name, btn) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
