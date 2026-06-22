@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>워치리스트 타이밍 보고서 — 2026-06-22</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0d1117;--bg2:#161b22;--bg3:#1c2333;--bg4:#21262d;
+    --up:#00C896;--dn:#FF4D6D;--neu:#6b7a99;
+    --acc:#4C9AFF;--warn:#F5A623;--pur:#b48eff;--grn:#3fb950;
+    --txt:#e6edf3;--txt2:#8b949e;--brd:#30363d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--txt);font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.6;}
+  .num{font-family:'DM Mono',monospace;}
+  .up{color:var(--up);} .dn{color:var(--dn);} .neu{color:var(--neu);} .warn{color:var(--warn);} .acc{color:var(--acc);}
+
+  /* HEADER */
+  .hdr{background:linear-gradient(135deg,#0d1117,#1a1f2e);border-bottom:1px solid var(--brd);padding:18px 24px 14px;}
+  .hdr-title{font-size:20px;font-weight:900;color:var(--acc);}
+  .hdr-sub{font-size:11px;color:var(--txt2);font-family:'DM Mono',monospace;margin-top:3px;}
+
+  /* FILTER TABS */
+  .filter-bar{background:var(--bg2);border-bottom:1px solid var(--brd);padding:0 24px;display:flex;gap:0;overflow-x:auto;position:sticky;top:0;z-index:100;}
+  .fb{background:none;border:none;border-bottom:2px solid transparent;padding:10px 16px;color:var(--txt2);cursor:pointer;font-size:12px;font-family:'Noto Sans KR',sans-serif;font-weight:500;white-space:nowrap;transition:all .2s;}
+  .fb:hover{color:var(--txt);}
+  .fb.on{color:var(--acc);border-bottom-color:var(--acc);font-weight:700;}
+
+  /* MAIN */
+  .main{max-width:1400px;margin:0 auto;padding:20px 24px 48px;}
+
+  /* LEGEND */
+  .legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;}
+  .leg{display:flex;align-items:center;gap:5px;font-size:11px;}
+  .leg-dot{width:10px;height:10px;border-radius:50%;}
+
+  /* SIGNAL BADGE */
+  .sig{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-weight:700;font-family:'DM Mono',monospace;}
+  .sig-buy{background:rgba(0,200,150,.18);color:var(--up);border:1px solid rgba(0,200,150,.3);}
+  .sig-watch{background:rgba(76,154,255,.18);color:var(--acc);border:1px solid rgba(76,154,255,.3);}
+  .sig-hold{background:rgba(107,122,153,.18);color:var(--neu);border:1px solid rgba(107,122,153,.3);}
+  .sig-caution{background:rgba(245,166,35,.18);color:var(--warn);border:1px solid rgba(245,166,35,.3);}
+  .sig-over{background:rgba(255,77,109,.18);color:var(--dn);border:1px solid rgba(255,77,109,.3);}
+
+  /* RSI BAR */
+  .rsi-wrap{width:100%;background:var(--bg3);border-radius:4px;height:8px;position:relative;margin:4px 0;}
+  .rsi-fill{height:100%;border-radius:4px;}
+  .rsi-line{position:absolute;top:0;height:100%;width:2px;background:rgba(255,255,255,.4);}
+
+  /* STOCK CARD */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px;}
+  .scard{background:var(--bg2);border:1px solid var(--brd);border-radius:12px;padding:16px 18px;transition:border-color .2s;}
+  .scard:hover{border-color:var(--acc);}
+  .sc-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
+  .sc-name{font-size:14px;font-weight:700;}
+  .sc-code{font-size:11px;color:var(--txt2);font-family:'DM Mono',monospace;}
+  .sc-price{font-size:22px;font-weight:700;font-family:'DM Mono',monospace;}
+  .sc-chg{font-size:12px;font-family:'DM Mono',monospace;margin-left:6px;}
+  .sc-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0;}
+  .sc-meta-item{background:var(--bg3);border-radius:6px;padding:7px 9px;}
+  .sc-meta-label{font-size:10px;color:var(--txt2);margin-bottom:2px;}
+  .sc-meta-val{font-size:13px;font-weight:600;font-family:'DM Mono',monospace;}
+  .sc-bar-row{margin:8px 0;}
+  .sc-bar-label{display:flex;justify-content:space-between;font-size:11px;color:var(--txt2);margin-bottom:3px;}
+  .sc-52{display:flex;justify-content:space-between;font-size:11px;margin:6px 0;}
+  .sc-tp{background:rgba(76,154,255,.1);border:1px solid rgba(76,154,255,.2);border-radius:6px;padding:7px 10px;margin:8px 0;font-size:12px;}
+  .sc-tp-label{color:var(--txt2);font-size:10px;margin-bottom:2px;}
+  .sc-insight{font-size:12px;line-height:1.6;color:var(--txt);margin-top:8px;padding-top:8px;border-top:1px solid rgba(48,54,61,.6);}
+  .sc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px;}
+  .tag{background:var(--bg3);border:1px solid var(--brd);border-radius:4px;padding:2px 7px;font-size:10px;color:var(--txt2);}
+
+  /* SECTION TITLE */
+  .sec-title{font-size:12px;font-weight:700;color:var(--acc);border-left:3px solid var(--acc);padding-left:8px;margin-bottom:14px;text-transform:uppercase;letter-spacing:.5px;}
+
+  /* SUMMARY TABLE */
+  .sum-tbl{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px;}
+  .sum-tbl th{background:var(--bg3);color:var(--txt2);padding:8px 10px;text-align:left;font-weight:600;font-size:11px;border-bottom:1px solid var(--brd);}
+  .sum-tbl td{padding:8px 10px;border-bottom:1px solid rgba(48,54,61,.4);vertical-align:middle;}
+  .sum-tbl tr:hover td{background:rgba(255,255,255,.02);}
+
+  /* PROGRESS BAR (52주 위치) */
+  .pos-bar{width:100%;background:var(--bg3);border-radius:3px;height:5px;position:relative;}
+  .pos-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--up),var(--acc));}
+
+  /* DIVIDER */
+  .divider{border:none;border-top:1px solid var(--brd);margin:24px 0;}
+
+  /* DISCLAIMER */
+  .disclaimer{background:var(--bg2);border:1px solid var(--brd);border-radius:8px;padding:12px 16px;font-size:11px;color:var(--txt2);margin-top:24px;}
+
+  /* RESPONSIVE */
+  @media(max-width:900px){.grid{grid-template-columns:1fr;}.sc-meta{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:480px){.main{padding:14px 14px 36px;}.filter-bar{padding:0 14px;}}
+
+  /* SECTION WRAPPER */
+  .sec-wrap{margin-bottom:30px;}
+  .tab-content{display:none;}.tab-content.on{display:block;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-title">👁️ 워치리스트 타이밍 보고서</div>
+  <div class="hdr-sub">2026-06-22 (월) | 캡처 기준 오전 시황 | RSI·52주 위치·목표주가 통합 분석</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+    <span style="background:rgba(255,77,109,.15);border:1px solid var(--dn);border-radius:5px;padding:4px 10px;font-size:11px;color:var(--dn);">⚠️ RSI 실시간 수치 미확인 — 추정치 표기. 직접 검증 필요</span>
+    <span style="background:rgba(245,166,35,.12);border:1px solid var(--warn);border-radius:5px;padding:4px 10px;font-size:11px;color:var(--warn);">💡 목표주가 집계 기준: 최근 서치 결과 — 실제 최신 리포트 확인 권고</span>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <button class="fb on" onclick="switchTab('all',this)">📊 전체</button>
+  <button class="fb" onclick="switchTab('kr-semi',this)">💾 반도체</button>
+  <button class="fb" onclick="switchTab('kr-def',this)">🛡️ 방산·조선</button>
+  <button class="fb" onclick="switchTab('kr-auto',this)">🚗 자동차</button>
+  <button class="fb" onclick="switchTab('kr-fin',this)">🏦 금융·통신</button>
+  <button class="fb" onclick="switchTab('kr-energy',this)">⚡ 에너지</button>
+  <button class="fb" onclick="switchTab('us',this)">🇺🇸 미국·ETF</button>
+</div>
+
+<div class="main">
+
+<!-- ────── 범례 ────── -->
+<div class="legend">
+  <div class="leg"><div class="leg-dot" style="background:var(--dn)"></div><span>과열 (RSI≥70)</span></div>
+  <div class="leg"><div class="leg-dot" style="background:var(--warn)"></div><span>경계 (RSI 60~69)</span></div>
+  <div class="leg"><div class="leg-dot" style="background:var(--acc)"></div><span>관망 (RSI 40~59)</span></div>
+  <div class="leg"><div class="leg-dot" style="background:var(--up)"></div><span>매수검토 (RSI≤39)</span></div>
+  <div class="leg" style="margin-left:10px;"><span style="color:var(--txt2)">52주 위치: </span><span>바 길이 = 52주 저→고 내 현재 위치</span></div>
+</div>
+
+<!-- ─────────────────────────────────────────
+     요약 테이블
+───────────────────────────────────────── -->
+<div class="sec-wrap tab-content on" id="tab-all">
+<div id="summary-section">
+<div class="sec-title">📋 워치리스트 전체 요약</div>
+<table class="sum-tbl">
+  <thead>
+    <tr>
+      <th>종목</th><th>현재가</th><th>등락</th><th>RSI 추정</th><th>타이밍 신호</th><th>52주 위치</th><th>목표주가(컨센서스)</th><th>상승여력</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- 반도체 -->
+    <tr>
+      <td><strong>삼성전자</strong> <span style="color:var(--txt2);font-size:10px;">005930</span></td>
+      <td class="num">353,500</td><td class="dn">▼ -0.14%</td>
+      <td><span style="color:var(--warn);">~68 (경계)</span></td>
+      <td><span class="sig sig-watch">관망</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:95%;"></div>
+        </div> <span class="num" style="font-size:10px;">95%</span>
+      </td>
+      <td class="num acc">428,076</td><td class="up">+21%</td>
+    </tr>
+    <tr>
+      <td><strong>SK하이닉스</strong> <span style="color:var(--txt2);font-size:10px;">000660</span></td>
+      <td class="num">2,855,000</td><td class="up">▲ +3.29%</td>
+      <td><span style="color:var(--dn);">~78 (과열)</span></td>
+      <td><span class="sig sig-over">과열주의</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:99%;"></div>
+        </div> <span class="num" style="font-size:10px;">99%</span>
+      </td>
+      <td class="num acc">2,712,489</td><td class="dn">-5%</td>
+    </tr>
+    <tr>
+      <td><strong>HPSP</strong> <span style="color:var(--txt2);font-size:10px;">403870</span></td>
+      <td class="num">60,900</td><td class="up">▲ +7.60%</td>
+      <td><span style="color:var(--dn);">~72 (과열)</span></td>
+      <td><span class="sig sig-over">과열주의</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:82%;"></div>
+        </div> <span class="num" style="font-size:10px;">82%</span>
+      </td>
+      <td class="num acc">미확인</td><td class="neu">—</td>
+    </tr>
+    <!-- 방산·조선 -->
+    <tr>
+      <td><strong>한화에어로스페이스</strong> <span style="color:var(--txt2);font-size:10px;">012450</span></td>
+      <td class="num">1,139,000</td><td class="up">▲ +1.52%</td>
+      <td><span style="color:var(--acc);">~58 (관망)</span></td>
+      <td><span class="sig sig-watch">관망</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:42%;"></div>
+        </div> <span class="num" style="font-size:10px;">42%</span>
+      </td>
+      <td class="num acc">1,732,045</td><td class="up">+52%</td>
+    </tr>
+    <tr>
+      <td><strong>대한조선</strong> <span style="color:var(--txt2);font-size:10px;">439580</span></td>
+      <td class="num">59,800</td><td class="dn">▼ -1.32%</td>
+      <td><span style="color:var(--acc);">~52 (관망)</span></td>
+      <td><span class="sig sig-watch">관망</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:60%;"></div>
+        </div> <span class="num" style="font-size:10px;">~60%</span>
+      </td>
+      <td class="num acc">미확인</td><td class="neu">—</td>
+    </tr>
+    <!-- 자동차 -->
+    <tr>
+      <td><strong>현대차</strong> <span style="color:var(--txt2);font-size:10px;">005380</span></td>
+      <td class="num">590,500</td><td class="dn">▼ -3.67%</td>
+      <td><span style="color:var(--acc);">~50 (관망)</span></td>
+      <td><span class="sig sig-hold">보유</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:65%;"></div>
+        </div> <span class="num" style="font-size:10px;">~65%</span>
+      </td>
+      <td class="num acc">미확인</td><td class="neu">—</td>
+    </tr>
+    <tr>
+      <td><strong>현대차 2우B</strong> <span style="color:var(--txt2);font-size:10px;">005387</span></td>
+      <td class="num">236,000</td><td class="dn">▼ -2.07%</td>
+      <td><span style="color:var(--acc);">~47 (관망)</span></td>
+      <td><span class="sig sig-buy">매수검토</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:35%;"></div>
+        </div> <span class="num" style="font-size:10px;">~35%</span>
+      </td>
+      <td class="num acc">미확인</td><td class="neu">—</td>
+    </tr>
+    <!-- 금융·통신 -->
+    <tr>
+      <td><strong>KB금융</strong> <span style="color:var(--txt2);font-size:10px;">105560</span></td>
+      <td class="num">157,200</td><td class="dn">▼ -0.69%</td>
+      <td><span style="color:var(--acc);">~48 (관망)</span></td>
+      <td><span class="sig sig-buy">매수검토</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:80%;"></div>
+        </div> <span class="num" style="font-size:10px;">~80%</span>
+      </td>
+      <td class="num acc">195,750</td><td class="up">+24%</td>
+    </tr>
+    <tr>
+      <td><strong>SK텔레콤</strong> <span style="color:var(--txt2);font-size:10px;">017670</span></td>
+      <td class="num">93,500</td><td class="dn">▼ -1.48%</td>
+      <td><span style="color:var(--acc);">~43 (관망)</span></td>
+      <td><span class="sig sig-buy">매수검토</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:45%;"></div>
+        </div> <span class="num" style="font-size:10px;">~45%</span>
+      </td>
+      <td class="num warn">직접확인 필요</td><td class="warn">—</td>
+    </tr>
+    <!-- 에너지 -->
+    <tr>
+      <td><strong>두산에너빌리티</strong> <span style="color:var(--txt2);font-size:10px;">034020</span></td>
+      <td class="num">96,200</td><td class="dn">▼ -1.74%</td>
+      <td><span style="color:var(--acc);">~52 (관망)</span></td>
+      <td><span class="sig sig-watch">관망</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:55%;"></div>
+        </div> <span class="num" style="font-size:10px;">~55%</span>
+      </td>
+      <td class="num acc">139,361</td><td class="up">+45%</td>
+    </tr>
+    <tr>
+      <td><strong>LS ELECTRIC</strong> <span style="color:var(--txt2);font-size:10px;">010120</span></td>
+      <td class="num">255,500</td><td class="dn">▼ -1.35%</td>
+      <td><span style="color:var(--warn);">~62 (경계)</span></td>
+      <td><span class="sig sig-caution">경계</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:28%;"></div>
+        </div> <span class="num" style="font-size:10px;">~28%</span>
+      </td>
+      <td class="num acc">232,276</td><td class="dn">-9%</td>
+    </tr>
+    <tr>
+      <td><strong>GNC에너지</strong> <span style="color:var(--txt2);font-size:10px;">305090</span></td>
+      <td class="num">23,050</td><td class="up">▲ +6.22%</td>
+      <td><span style="color:var(--dn);">~71 (과열)</span></td>
+      <td><span class="sig sig-over">과열주의</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:75%;"></div>
+        </div> <span class="num" style="font-size:10px;">~75%</span>
+      </td>
+      <td class="num acc">미확인</td><td class="neu">—</td>
+    </tr>
+    <tr>
+      <td><strong>한국카본</strong> <span style="color:var(--txt2);font-size:10px;">017960</span></td>
+      <td class="num">30,300</td><td class="dn">▼ -0.16%</td>
+      <td><span style="color:var(--acc);">~50 (관망)</span></td>
+      <td><span class="sig sig-hold">보유</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:50%;"></div>
+        </div> <span class="num" style="font-size:10px;">~50%</span>
+      </td>
+      <td class="num acc">미확인</td><td class="neu">—</td>
+    </tr>
+    <tr>
+      <td><strong>엘앤에프</strong> <span style="color:var(--txt2);font-size:10px;">066970</span></td>
+      <td class="num">129,200</td><td class="up">▲ +0.47%</td>
+      <td><span style="color:var(--acc);">~48 (관망)</span></td>
+      <td><span class="sig sig-watch">관망</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:55%;"></div>
+        </div> <span class="num" style="font-size:10px;">~55%</span>
+      </td>
+      <td class="num acc">미확인</td><td class="neu">—</td>
+    </tr>
+    <!-- ETF -->
+    <tr>
+      <td><strong>KODEX 코리아배당성장</strong> <span style="color:var(--txt2);font-size:10px;">279530</span></td>
+      <td class="num">29,050</td><td class="dn">▼ -1.21%</td>
+      <td><span style="color:var(--acc);">~50 (관망)</span></td>
+      <td><span class="sig sig-hold">보유</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:60%;"></div>
+        </div> <span class="num" style="font-size:10px;">~60%</span>
+      </td>
+      <td class="neu">ETF</td><td class="neu">—</td>
+    </tr>
+    <tr>
+      <td><strong>TIGER 우량가치</strong> <span style="color:var(--txt2);font-size:10px;">108490</span></td>
+      <td class="num">20,550</td><td class="dn">▼ -0.63%</td>
+      <td><span style="color:var(--acc);">~49 (관망)</span></td>
+      <td><span class="sig sig-hold">보유</span></td>
+      <td>
+        <div class="pos-bar" style="width:100px;display:inline-block;vertical-align:middle;">
+          <div class="pos-fill" style="width:55%;"></div>
+        </div> <span class="num" style="font-size:10px;">~55%</span>
+      </td>
+      <td class="neu">ETF</td><td class="neu">—</td>
+    </tr>
+  </tbody>
+</table>
+</div><!-- end summary-section -->
+
+<hr class="divider">
+
+<!-- ─── 매수 타이밍 TOP ─── -->
+<div class="sec-title">🎯 매수 타이밍 검토 종목 (신호 기준)</div>
+<div class="grid">
+
+  <!-- KB금융 -->
+  <div class="scard">
+    <div class="sc-head">
+      <div>
+        <div class="sc-name">KB금융 <span class="sc-code">105560</span></div>
+        <div style="margin-top:4px;"><span class="sig sig-buy">매수검토</span> <span class="tag">금융</span> <span class="tag">배당</span> <span class="tag">7월인상수혜</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div><span class="sc-price dn num">157,200</span><span class="sc-chg dn">▼ -0.69%</span></div>
+      </div>
+    </div>
+    <div class="sc-meta">
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">RSI (추정)</div>
+        <div class="sc-meta-val acc">~48</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 범위</div>
+        <div class="sc-meta-val num" style="font-size:11px;">104,700~175,700</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 위치</div>
+        <div class="sc-meta-val up">상단 80%</div>
+      </div>
+    </div>
+    <div class="sc-bar-row">
+      <div class="sc-bar-label"><span>RSI (추정 48)</span><span class="acc">중립 구간</span></div>
+      <div class="rsi-wrap">
+        <div class="rsi-fill" style="width:48%;background:var(--acc);"></div>
+        <div class="rsi-line" style="left:39%;"></div>
+        <div class="rsi-line" style="left:60%;"></div>
+        <div class="rsi-line" style="left:70%;"></div>
+      </div>
+    </div>
+    <div class="sc-tp">
+      <div class="sc-tp-label">컨센서스 목표주가 (20명 매수, 0명 매도)</div>
+      <div style="font-size:14px;font-weight:700;font-family:'DM Mono',monospace;color:var(--acc);">195,750원 <span style="font-size:12px;color:var(--up);">(+24% 상승여력)</span></div>
+      <div style="font-size:10px;color:var(--txt2);margin-top:3px;">최고 226,000 / 최저 161,000</div>
+    </div>
+    <div class="sc-insight">
+      <strong>타이밍 근거:</strong> RSI 중립권, 52주 고점 대비 여유. 한은 7월 16일 <span class="warn">금리 인상(2.75%)</span> 시 NIM(순이자마진) 확대 수혜 직접적. 배당 정책 강화 및 밸류업 수혜주. 반도체 쏠림 장세에서 소외됐으나 금리 인상 확정 시 섹터 재평가 기대. <span class="up">과거 브리핑 기준 최강 매수 후보.</span>
+    </div>
+  </div>
+
+  <!-- 현대차 2우B -->
+  <div class="scard">
+    <div class="sc-head">
+      <div>
+        <div class="sc-name">현대차 2우B <span class="sc-code">005387</span></div>
+        <div style="margin-top:4px;"><span class="sig sig-buy">매수검토</span> <span class="tag">자동차</span> <span class="tag">우선주</span> <span class="tag">배당</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div><span class="sc-price dn num">236,000</span><span class="sc-chg dn">▼ -2.07%</span></div>
+      </div>
+    </div>
+    <div class="sc-meta">
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">RSI (추정)</div>
+        <div class="sc-meta-val acc">~47</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 위치</div>
+        <div class="sc-meta-val up">하단 35%</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">보통주 대비</div>
+        <div class="sc-meta-val up">할인폭 큼</div>
+      </div>
+    </div>
+    <div class="sc-bar-row">
+      <div class="sc-bar-label"><span>RSI (추정 47)</span><span class="acc">중립~매수 구간</span></div>
+      <div class="rsi-wrap">
+        <div class="rsi-fill" style="width:47%;background:var(--acc);"></div>
+        <div class="rsi-line" style="left:39%;"></div>
+        <div class="rsi-line" style="left:60%;"></div>
+        <div class="rsi-line" style="left:70%;"></div>
+      </div>
+    </div>
+    <div class="sc-tp">
+      <div class="sc-tp-label">참고 — 보통주(005380) 현재가 590,500원</div>
+      <div style="font-size:13px;font-weight:700;color:var(--acc);">우선주 할인율 약 60% 수준 (비교우위 존재)</div>
+    </div>
+    <div class="sc-insight">
+      <strong>타이밍 근거:</strong> 보통주 대비 대폭 할인. 52주 하단권(35%) 위치. 반도체 쏠림에 자동차 전체 소외 중 — 역발상 관점에서 이익 우수. 현대차 AI 로봇(보스턴다이내믹스) 사업 재평가, 전기차 전환 수혜 중장기 유효. 배당수익률도 우선주 특성상 매력.
+    </div>
+  </div>
+
+  <!-- SK텔레콤 -->
+  <div class="scard">
+    <div class="sc-head">
+      <div>
+        <div class="sc-name">SK텔레콤 <span class="sc-code">017670</span></div>
+        <div style="margin-top:4px;"><span class="sig sig-buy">매수검토</span> <span class="tag">통신</span> <span class="tag">배당</span> <span class="tag">AI인프라</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div><span class="sc-price dn num">93,500</span><span class="sc-chg dn">▼ -1.48%</span></div>
+      </div>
+    </div>
+    <div class="sc-meta">
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">RSI (추정)</div>
+        <div class="sc-meta-val acc">~43</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 위치</div>
+        <div class="sc-meta-val up">중간권 45%</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">목표주가</div>
+        <div class="sc-meta-val warn">직접확인 필요</div>
+      </div>
+    </div>
+    <div class="sc-bar-row">
+      <div class="sc-bar-label"><span>RSI (추정 43)</span><span class="up">매수 접근 구간</span></div>
+      <div class="rsi-wrap">
+        <div class="rsi-fill" style="width:43%;background:var(--up);"></div>
+        <div class="rsi-line" style="left:39%;"></div>
+        <div class="rsi-line" style="left:60%;"></div>
+        <div class="rsi-line" style="left:70%;"></div>
+      </div>
+    </div>
+    <div class="sc-tp">
+      <div class="sc-tp-label">⚠️ 목표주가 집계 데이터 실시간 미확인</div>
+      <div style="font-size:13px;font-weight:700;color:var(--warn);">KB증권 150,000 / DB금융 110,000 (과거 확인치)</div>
+      <div style="font-size:10px;color:var(--txt2);margin-top:3px;">최신 리포트 직접 확인 필수</div>
+    </div>
+    <div class="sc-insight">
+      <strong>타이밍 근거:</strong> 통신주 특성상 고금리 환경에서 방어적 배당주로 기능. AI 에이전트·클라우드 구독 수익 증가. 반도체 과열 장세 조정 시 자금 이동 수혜 섹터. RSI 중립 하단. 다만 목표주가 직접 확인 후 매수 진입 결정 권고.
+    </div>
+  </div>
+
+  <!-- 두산에너빌리티 -->
+  <div class="scard">
+    <div class="sc-head">
+      <div>
+        <div class="sc-name">두산에너빌리티 <span class="sc-code">034020</span></div>
+        <div style="margin-top:4px;"><span class="sig sig-watch">관망</span> <span class="tag">원자력</span> <span class="tag">SMR</span> <span class="tag">가스터빈</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div><span class="sc-price dn num">96,200</span><span class="sc-chg dn">▼ -1.74%</span></div>
+      </div>
+    </div>
+    <div class="sc-meta">
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">RSI (추정)</div>
+        <div class="sc-meta-val acc">~52</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 범위</div>
+        <div class="sc-meta-val num" style="font-size:11px;">51,100~139,200</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 위치</div>
+        <div class="sc-meta-val">중간 55%</div>
+      </div>
+    </div>
+    <div class="sc-bar-row">
+      <div class="sc-bar-label"><span>RSI (추정 52)</span><span class="acc">중립 구간</span></div>
+      <div class="rsi-wrap">
+        <div class="rsi-fill" style="width:52%;background:var(--acc);"></div>
+        <div class="rsi-line" style="left:39%;"></div>
+        <div class="rsi-line" style="left:60%;"></div>
+        <div class="rsi-line" style="left:70%;"></div>
+      </div>
+    </div>
+    <div class="sc-tp">
+      <div class="sc-tp-label">컨센서스 목표주가 (21명 매수, 0명 매도)</div>
+      <div style="font-size:14px;font-weight:700;font-family:'DM Mono',monospace;color:var(--acc);">139,361원 <span style="font-size:12px;color:var(--up);">(+45% 상승여력)</span></div>
+      <div style="font-size:10px;color:var(--txt2);margin-top:3px;">최고 195,000 / 최저 92,000</div>
+    </div>
+    <div class="sc-insight">
+      <strong>타이밍 근거:</strong> 롤스로이스 SMR 스웨덴 선정 → 두산에너빌리티 수혜 기대. 체코 원전·가스터빈 수주 모멘텀. 52주 중간권으로 진입 부담 낮음. 목표주가 대비 45% 업사이드. 이란 종전 후 중동 재건 발전 인프라 수주 기대도 추가.
+    </div>
+  </div>
+
+</div><!-- end grid -->
+
+<hr class="divider">
+
+<!-- ─── 과열 경계 종목 ─── -->
+<div class="sec-title">🔴 과열·경계 주의 종목</div>
+<div class="grid">
+
+  <!-- SK하이닉스 -->
+  <div class="scard" style="border-color:rgba(255,77,109,.3);">
+    <div class="sc-head">
+      <div>
+        <div class="sc-name">SK하이닉스 <span class="sc-code">000660</span></div>
+        <div style="margin-top:4px;"><span class="sig sig-over">과열주의</span> <span class="tag">HBM4</span> <span class="tag">레버리지ETF오늘출시</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div><span class="sc-price up num">2,855,000</span><span class="sc-chg up">▲ +3.29%</span></div>
+      </div>
+    </div>
+    <div class="sc-meta">
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">RSI (추정)</div>
+        <div class="sc-meta-val dn">~78 ⚠️</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 범위</div>
+        <div class="sc-meta-val num" style="font-size:11px;">245,000~2,891,000</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 위치</div>
+        <div class="sc-meta-val dn">신고가권 99%</div>
+      </div>
+    </div>
+    <div class="sc-bar-row">
+      <div class="sc-bar-label"><span>RSI (추정 78)</span><span class="dn">과매수 구간</span></div>
+      <div class="rsi-wrap">
+        <div class="rsi-fill" style="width:78%;background:var(--dn);"></div>
+        <div class="rsi-line" style="left:39%;"></div>
+        <div class="rsi-line" style="left:60%;"></div>
+        <div class="rsi-line" style="left:70%;"></div>
+      </div>
+    </div>
+    <div class="sc-tp">
+      <div class="sc-tp-label">컨센서스 목표주가 (36명 매수)</div>
+      <div style="font-size:14px;font-weight:700;font-family:'DM Mono',monospace;color:var(--dn);">2,712,489원 <span style="font-size:12px;color:var(--dn);">(-5% 하락여력, 현재가가 목표 상회)</span></div>
+      <div style="font-size:10px;color:var(--txt2);margin-top:3px;">최고 4,000,000 / 최저 1,030,000</div>
+    </div>
+    <div class="sc-insight">
+      <strong>주의 근거:</strong> RSI 78 과열, 현재가가 컨센서스 목표주가 상회. 빚투 잔고 급증(마이너스통장 40.5조). 오늘 레버리지 ETF 출시로 변동성 확대 우려. 장중 고점 2,891,000 기록 후 숨고르기. <span class="dn">신규 진입보다 기존 보유자 부분 차익실현 고려.</span> 6/23 마이크론 실적이 재상승 트리거 될 수 있음.
+    </div>
+  </div>
+
+  <!-- 삼성전자 -->
+  <div class="scard" style="border-color:rgba(245,166,35,.3);">
+    <div class="sc-head">
+      <div>
+        <div class="sc-name">삼성전자 <span class="sc-code">005930</span></div>
+        <div style="margin-top:4px;"><span class="sig sig-caution">경계</span> <span class="tag">HBM4E</span> <span class="tag">레버리지ETF오늘출시</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div><span class="sc-price dn num">353,500</span><span class="sc-chg dn">▼ -0.14%</span></div>
+      </div>
+    </div>
+    <div class="sc-meta">
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">RSI (추정)</div>
+        <div class="sc-meta-val warn">~68 (경계)</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 범위</div>
+        <div class="sc-meta-val num" style="font-size:11px;">57,600~374,500</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 위치</div>
+        <div class="sc-meta-val warn">상단 95%</div>
+      </div>
+    </div>
+    <div class="sc-bar-row">
+      <div class="sc-bar-label"><span>RSI (추정 68)</span><span class="warn">경계권 접근</span></div>
+      <div class="rsi-wrap">
+        <div class="rsi-fill" style="width:68%;background:var(--warn);"></div>
+        <div class="rsi-line" style="left:39%;"></div>
+        <div class="rsi-line" style="left:60%;"></div>
+        <div class="rsi-line" style="left:70%;"></div>
+      </div>
+    </div>
+    <div class="sc-tp">
+      <div class="sc-tp-label">컨센서스 목표주가 (36명 매수, 1명 매도)</div>
+      <div style="font-size:14px;font-weight:700;font-family:'DM Mono',monospace;color:var(--up);">428,076원 <span style="font-size:12px;color:var(--up);">(+21% 상승여력)</span></div>
+      <div style="font-size:10px;color:var(--txt2);margin-top:3px;">최고 850,000 / 최저 205,000</div>
+    </div>
+    <div class="sc-insight">
+      <strong>경계 근거:</strong> RSI 68로 과열권 진입 전 경계. 52주 신고가(374,500) 근접. 목표주가 대비 21% 업사이드 남아있어 중장기 유효하나 단기 추격매수 부담. HBM4E 세계 최초 출하, 범용 D램·낸드 ASP 상승 펀더멘털 견고. 레버리지 ETF 출시 수급 변수 확인 필요.
+    </div>
+  </div>
+
+  <!-- HPSP -->
+  <div class="scard" style="border-color:rgba(255,77,109,.3);">
+    <div class="sc-head">
+      <div>
+        <div class="sc-name">HPSP <span class="sc-code">403870</span></div>
+        <div style="margin-top:4px;"><span class="sig sig-over">과열주의</span> <span class="tag">고압산화</span> <span class="tag">HBM장비</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div><span class="sc-price up num">60,900</span><span class="sc-chg up">▲ +7.60%</span></div>
+      </div>
+    </div>
+    <div class="sc-meta">
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">RSI (추정)</div>
+        <div class="sc-meta-val dn">~72 ⚠️</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">당일 급등</div>
+        <div class="sc-meta-val dn">+7.60%</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 위치</div>
+        <div class="sc-meta-val warn">상단 82%</div>
+      </div>
+    </div>
+    <div class="sc-bar-row">
+      <div class="sc-bar-label"><span>RSI (추정 72)</span><span class="dn">과매수 진입</span></div>
+      <div class="rsi-wrap">
+        <div class="rsi-fill" style="width:72%;background:var(--dn);"></div>
+        <div class="rsi-line" style="left:39%;"></div>
+        <div class="rsi-line" style="left:60%;"></div>
+        <div class="rsi-line" style="left:70%;"></div>
+      </div>
+    </div>
+    <div class="sc-tp">
+      <div class="sc-tp-label">목표주가 (실시간 미확인)</div>
+      <div style="font-size:13px;font-weight:700;color:var(--warn);">직접 확인 필요</div>
+    </div>
+    <div class="sc-insight">
+      <strong>주의 근거:</strong> 당일 +7.60% 급등으로 단기 과매수. 고압 산화 공정 글로벌 독점 모델로 HBM4 증설 수요 직접 수혜 — 펀더멘털은 우수. <span class="warn">단기 추격 매수 자제, RSI 조정 후 재진입 기회 모색 권장.</span>
+    </div>
+  </div>
+
+  <!-- LS ELECTRIC -->
+  <div class="scard" style="border-color:rgba(245,166,35,.3);">
+    <div class="sc-head">
+      <div>
+        <div class="sc-name">LS ELECTRIC <span class="sc-code">010120</span></div>
+        <div style="margin-top:4px;"><span class="sig sig-caution">경계</span> <span class="tag">전력인프라</span> <span class="tag">AI데이터센터</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div><span class="sc-price dn num">255,500</span><span class="sc-chg dn">▼ -1.35%</span></div>
+      </div>
+    </div>
+    <div class="sc-meta">
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">RSI (추정)</div>
+        <div class="sc-meta-val warn">~62 (경계)</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 범위</div>
+        <div class="sc-meta-val num" style="font-size:11px;">153,400~907,000</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 위치</div>
+        <div class="sc-meta-val up">하단 28%</div>
+      </div>
+    </div>
+    <div class="sc-bar-row">
+      <div class="sc-bar-label"><span>RSI (추정 62)</span><span class="warn">경계권</span></div>
+      <div class="rsi-wrap">
+        <div class="rsi-fill" style="width:62%;background:var(--warn);"></div>
+        <div class="rsi-line" style="left:39%;"></div>
+        <div class="rsi-line" style="left:60%;"></div>
+        <div class="rsi-line" style="left:70%;"></div>
+      </div>
+    </div>
+    <div class="sc-tp">
+      <div class="sc-tp-label">컨센서스 목표주가 (18명 매수)</div>
+      <div style="font-size:14px;font-weight:700;font-family:'DM Mono',monospace;color:var(--dn);">232,276원 <span style="font-size:12px;color:var(--dn);">(-9% 하락여력, 현재가가 목표 상회)</span></div>
+      <div style="font-size:10px;color:var(--txt2);margin-top:3px;">52주 최고 907,000 → 현재 255,500 (고점 대비 크게 하락)</div>
+    </div>
+    <div class="sc-insight">
+      <strong>경계 근거:</strong> 현재가가 컨센서스 목표주가(232,276) 초과. 52주 최고 907,000 대비 하단권이나 집계 목표주가 상회 중. AI 데이터센터 북미 수주 지속으로 펀더멘털 우수 — 목표주가 업데이트 직접 확인 후 판단 권고.
+    </div>
+  </div>
+
+</div><!-- end grid -->
+
+<hr class="divider">
+
+<!-- ─── 방산·조선 ─── -->
+<div class="sec-title">🛡️ 방산·조선 — 관망 유지</div>
+<div class="grid">
+  <div class="scard">
+    <div class="sc-head">
+      <div>
+        <div class="sc-name">한화에어로스페이스 <span class="sc-code">012450</span></div>
+        <div style="margin-top:4px;"><span class="sig sig-watch">관망</span> <span class="tag">방산수출</span> <span class="tag">K9자주포</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div><span class="sc-price up num">1,139,000</span><span class="sc-chg up">▲ +1.52%</span></div>
+      </div>
+    </div>
+    <div class="sc-meta">
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">RSI (추정)</div>
+        <div class="sc-meta-val acc">~58</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 범위</div>
+        <div class="sc-meta-val num" style="font-size:11px;">760,000~1,655,000</div>
+      </div>
+      <div class="sc-meta-item">
+        <div class="sc-meta-label">52주 위치</div>
+        <div class="sc-meta-val acc">중간 42%</div>
+      </div>
+    </div>
+    <div class="sc-tp">
+      <div class="sc-tp-label">컨센서스 목표주가 (22명 매수, 0명 매도)</div>
+      <div style="font-size:14px;font-weight:700;font-family:'DM Mono',monospace;color:var(--up);">1,732,045원 <span style="font-size:12px;color:var(--up);">(+52% 상승여력)</span></div>
+    </div>
+    <div class="sc-insight">중동 재건 기대·K방산 수출 슈퍼사이클. 52주 중간권, RSI 중립. 대전공장 폭발 사고 리스크 완전 해소 여부 확인 후 적극 매수 전환 검토. 현재는 관망 유지.</div>
+  </div>
+  <div class="scard">
+    <div class="sc-head">
+      <div>
+        <div class="sc-name">대한조선 <span class="sc-code">439580</span></div>
+        <div style="margin-top:4px;"><span class="sig sig-watch">관망</span> <span class="tag">LNG</span> <span class="tag">방산함</span></div>
+      </div>
+      <div style="text-align:right;">
+        <div><span class="sc-price dn num">59,800</span><span class="sc-chg dn">▼ -1.32%</span></div>
+      </div>
+    </div>
+    <div class="sc-tp">
+      <div class="sc-tp-label">목표주가 (실시간 미확인)</div>
+      <div style="font-size:13px;font-weight:700;color:var(--warn);">직접 확인 필요</div>
+    </div>
+    <div class="sc-insight">이란 종전 후 중동 LNG 수요 재개. 호르무즈 통항 정상화로 해운·조선 중장기 수혜. 중립권 RSI. 목표주가 직접 확인 후 판단.</div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ─── 미국·ETF ─── -->
+<div id="tab-us" class="sec-wrap">
+<div class="sec-title">🇺🇸 미국 주식 (6/19 휴장 — 6/18 기준)</div>
+<div class="grid">
+  <div class="scard">
+    <div class="sc-head">
+      <div>
+        <div class="sc-name">IonQ <span class="sc-code">IONQ</span></div>
+        <div style="margin-top:4px;"><span class="sig sig-hold">보유</span> <span class="tag">양자컴퓨팅</span></div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--txt2);margin-bottom:6px;">6/19 Juneteenth 휴장 — 6/18 종가 기준</div>
+    <div class="sc-insight">6/23 마이크론 실적이 기술주 방향 결정. 양자컴퓨팅 섹터는 AI 인프라 투자 수혜 중장기 유효. 미 정부 양자컴퓨팅 투자 지속. 단기 변동성 높음 — 보유 유지, 추가 진입 신중.</div>
+  </div>
+  <div class="scard">
+    <div class="sc-head">
+      <div>
+        <div class="sc-name">Rigetti Computing <span class="sc-code">RGTI</span></div>
+        <div style="margin-top:4px;"><span class="sig sig-hold">보유</span> <span class="tag">양자컴퓨팅</span></div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--txt2);margin-bottom:6px;">6/19 휴장</div>
+    <div class="sc-insight">IonQ와 동일 테마. 스케일은 작지만 QPU 성능 개선 모멘텀. 변동성 극심 — 투기적 비중 유지. FOMC 매파 환경에서 고성장주 밸류에이션 압박 주의.</div>
+  </div>
+  <div class="scard">
+    <div class="sc-head">
+      <div>
+        <div class="sc-name">Planet Labs <span class="sc-code">PL</span></div>
+        <div style="margin-top:4px;"><span class="sig sig-hold">보유</span> <span class="tag">위성데이터</span></div>
+      </div>
+    </div>
+    <div style="font-size:12px;color:var(--txt2);margin-bottom:6px;">6/19 휴장</div>
+    <div class="sc-insight">SpaceX 상장 이후 우주 섹터 관심 확대. 위성 데이터 구독 모델 구조적 성장. SpaceX(SPCX) $185 수준 조정 중 — 우주 섹터 전반 방향성 점검 필요.</div>
+  </div>
+</div>
+
+<div class="sec-title">📦 미국 ETF (6/19 휴장)</div>
+<table class="sum-tbl">
+  <thead><tr><th>ETF</th><th>티커</th><th>특성</th><th>타이밍 신호</th><th>비고</th></tr></thead>
+  <tbody>
+    <tr><td><strong>VOO</strong></td><td class="num">S&P500 ETF</td><td>시장 전체 추종</td><td><span class="sig sig-hold">보유</span></td><td>FOMC 매파 후 조정. PCE(6/26) 결과 후 재진입 타이밍 평가</td></tr>
+    <tr><td><strong>QQQM</strong></td><td class="num">나스닥100 ETF</td><td>기술주 집중</td><td><span class="sig sig-caution">경계</span></td><td>마이크론(6/23) 실적이 방향 결정. 인텔·NVIDIA 강세로 단기 과열 경계</td></tr>
+    <tr><td><strong>SCHD</strong></td><td class="num">배당 ETF</td><td>고배당·우량주</td><td><span class="sig sig-buy">매수검토</span></td><td>FOMC 인상 리스크 속 방어적 배당주 ETF. 금리인상 시 가격 압박 있으나 배당수익 보상</td></tr>
+    <tr><td><strong>DGRO</strong></td><td class="num">배당성장 ETF</td><td>배당 증가주</td><td><span class="sig sig-buy">매수검토</span></td><td>장기 배당성장 전략. 고금리 환경에서 상대적 안정성. 분할매수 유효</td></tr>
+  </tbody>
+</table>
+</div>
+
+<!-- DISCLAIMER -->
+<div class="disclaimer">
+  ⚠️ <strong>면책 고지:</strong> 본 보고서의 RSI 수치는 실시간 API 미사용으로 <strong>추정치</strong>입니다. 실제 매매 결정 전 네이버금융·증권사 HTS에서 반드시 직접 확인하시기 바랍니다. SK텔레콤 목표주가는 과거 확인된 KB증권 150,000원·DB금융투자 110,000원 수치이며 현재 최신 리포트와 다를 수 있습니다. 본 보고서는 투자 참고용이며 투자 손실에 대한 책임은 투자자 본인에게 있습니다. | 기준일: 2026-06-22 오전
+</div>
+
+</div><!-- end tab-all -->
+
+</div><!-- main -->
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.fb').forEach(el => el.classList.remove('on'));
+  btn.classList.add('on');
+
+  const summary = document.getElementById('summary-section');
+
+  if (id === 'all') {
+    // 전체 탭: 요약 테이블 표시, 모든 카드 표시
+    summary.style.display = '';
+    document.querySelectorAll('.scard').forEach(c => c.style.display = '');
+  } else {
+    // 개별 탭: 요약 테이블 숨김, 해당 종목 카드만 표시
+    summary.style.display = 'none';
+    const sections = {
+      'kr-semi': ['삼성전자','SK하이닉스','HPSP'],
+      'kr-def': ['한화에어로스페이스','대한조선'],
+      'kr-auto': ['현대차','현대차 2우B'],
+      'kr-fin': ['KB금융','SK텔레콤'],
+      'kr-energy': ['두산에너빌리티','LS ELECTRIC','GNC에너지','한국카본','엘앤에프'],
+      'us': ['IonQ','Rigetti','Planet Labs','VOO','QQQM','SCHD','DGRO']
+    };
+    document.querySelectorAll('.scard').forEach(c => {
+      const name = c.querySelector('.sc-name');
+      if (!name) return;
+      const nm = name.textContent.trim().split(' ')[0];
+      const show = (sections[id] || []).some(s => nm.includes(s) || s.includes(nm));
+      c.style.display = show ? '' : 'none';
+    });
+  }
+}
+</script>
+</body>
+</html>
