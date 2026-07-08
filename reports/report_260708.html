@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>모닝 마켓 브리핑 - 2026.07.08</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap');
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0d1117; color:#e6edf3; font-family:'Noto Sans KR',sans-serif; line-height:1.6; padding-bottom:60px; }
+.num { font-family:'DM Mono',monospace; }
+header { padding:28px 20px 18px; border-bottom:1px solid #1f2733; }
+header h1 { font-weight:900; font-size:1.5rem; margin-bottom:4px; }
+header .date { color:#6b7a99; font-size:0.9rem; }
+.risk-banner { margin-top:14px; background:linear-gradient(90deg,#3a1220,#1a0e12); border:1px solid #FF4D6D55; border-radius:10px; padding:12px 16px; font-size:0.88rem; }
+.risk-banner b { color:#FF4D6D; }
+.tab-bar { position:sticky; top:0; z-index:50; display:flex; background:#11161f; border-bottom:1px solid #1f2733; overflow-x:auto; }
+.tab-btn { flex:1; min-width:120px; padding:14px 8px; background:none; border:none; color:#6b7a99; font-family:inherit; font-weight:700; font-size:0.88rem; cursor:pointer; border-bottom:3px solid transparent; }
+.tab-btn.active { color:#4C9AFF; border-bottom-color:#4C9AFF; }
+.tab-content { display:none; padding:20px 16px 10px; max-width:1200px; margin:0 auto; }
+.tab-content.active { display:block; }
+.section-title { font-size:1.05rem; font-weight:900; margin:26px 0 12px; padding-left:10px; border-left:4px solid #4C9AFF; }
+.section-title:first-child { margin-top:6px; }
+.grid4 { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.grid2 { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+@media (max-width:900px){ .grid4{grid-template-columns:repeat(2,1fr);} .grid3{grid-template-columns:repeat(2,1fr);} .grid2{grid-template-columns:1fr;} }
+@media (max-width:520px){ .grid4{grid-template-columns:1fr;} .grid3{grid-template-columns:1fr;} }
+.card { background:#151b26; border:1px solid #232b3a; border-radius:10px; padding:14px; }
+.card .label { color:#8b96a8; font-size:0.75rem; margin-bottom:6px; }
+.card .value { font-size:1.25rem; font-weight:700; }
+.up { color:#00C896; } .down { color:#FF4D6D; } .flat { color:#6b7a99; }
+.badge { display:inline-block; padding:2px 8px; border-radius:20px; font-size:0.7rem; font-weight:700; margin-left:6px; }
+.badge.high { background:#FF4D6D33; color:#FF4D6D; } .badge.mid { background:#F5A62333; color:#F5A623; } .badge.low { background:#00C89633; color:#00C896; }
+table { width:100%; border-collapse:collapse; font-size:0.85rem; margin-top:8px; }
+th,td { padding:8px 6px; border-bottom:1px solid #232b3a; text-align:left; }
+th { color:#8b96a8; font-weight:700; font-size:0.75rem; }
+.p-list { font-size:0.85rem; color:#c3cad6; margin-top:6px; padding-left:16px; }
+.p-list li { margin-bottom:4px; }
+.stock-card { background:#151b26; border:1px solid #232b3a; border-radius:12px; padding:16px; margin-bottom:16px; }
+.stock-head { display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+.stock-head .name { font-weight:900; font-size:1.05rem; }
+.stock-head .code { color:#6b7a99; font-size:0.78rem; margin-left:6px; }
+.stock-head .price { font-size:1.15rem; font-weight:700; }
+.pos-neg { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:8px; }
+@media (max-width:600px){ .pos-neg{grid-template-columns:1fr;} }
+.pos-neg h4 { font-size:0.8rem; margin-bottom:6px; }
+.pos-neg .good h4 { color:#00C896; } .pos-neg .bad h4 { color:#FF4D6D; }
+.pos-neg ul { padding-left:16px; font-size:0.82rem; color:#c3cad6; }
+.pos-neg li { margin-bottom:5px; }
+.sector-tag { display:inline-block; background:#4C9AFF22; color:#4C9AFF; font-size:0.72rem; padding:2px 8px; border-radius:6px; margin-bottom:8px; }
+footer { text-align:center; color:#4c5568; font-size:0.75rem; padding:30px 16px 10px; }
+.gauge { height:6px; background:#232b3a; border-radius:3px; overflow:hidden; margin-top:6px; }
+.gauge-fill { height:100%; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📊 모닝 마켓 브리핑</h1>
+  <div class="date">2026년 7월 8일(수) · 한국 오전장 / 미국 7월 7일(화) 마감 기준</div>
+  <div class="risk-banner">
+    ⚠️ <b>핵심 리스크</b> — ① 캐나다 60조 잠수함 사업, 獨 TKMS 우선협상대상자 선정으로 K-방산·조선 특수선 프리미엄 &lsquo;시험대&rsquo; (한화오션 -22%대, 대한조선 등 조선주 동반 약세) ② 코스피 반도체 대형주 차익실현 매물 + 외국인 순매도로 변동성 확대 지속 ③ SK하이닉스 7/10 나스닥 ADR 상장(290억달러) 임박, 원/달러는 국민연금 선물환 매도·24시간 외환거래 개시 영향으로 1,515원대까지 하락
+  </div>
+</header>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('macro')">🌐 글로벌 매크로</button>
+  <button class="tab-btn" onclick="switchTab('market')">📈 증시 시황</button>
+  <button class="tab-btn" onclick="switchTab('watch')">⭐ 워치리스트</button>
+</div>
+
+<!-- ===================== TAB 1: 글로벌 매크로 ===================== -->
+<div id="tab-macro" class="tab-content active">
+
+  <div class="section-title">M-1. 글로벌 매크로 지표</div>
+  <div class="grid4">
+    <div class="card"><div class="label">달러인덱스(DXY)</div><div class="value num down">101.13</div></div>
+    <div class="card"><div class="label">원/달러</div><div class="value num down">1,515.50</div></div>
+    <div class="card"><div class="label">WTI(7/7 종가)</div><div class="value num up">$70.44 <span style="font-size:0.6em">(+2.76%)</span></div></div>
+    <div class="card"><div class="label">브렌트유(7/7 종가)</div><div class="value num up">$74.16 <span style="font-size:0.6em">(+3.01%)</span></div></div>
+  </div>
+  <p class="p-list" style="margin-top:10px">
+    · 달러인덱스는 6월 비농업고용 쇼크(신규 고용 +5.7만명, 예상치 절반 수준)로 매파적이던 케빈 워시 연준 의장 체제의 금리 인상 기대가 꺾이며 101선 아래로 후퇴.<br>
+    · 원/달러는 ① 국민연금이 &lsquo;뉴프레임워크&rsquo;(환헤지 15%) 도입 후 처음으로 선물환 매도 재개, ② 7/6부터 원화 24시간 거래 개시로 수급 채널 다변화, ③ SK하이닉스 나스닥 ADR(45조원 규모) 상장에 따른 달러 유입 기대가 겹치며 하락.<br>
+    · 유가는 호르무즈 해협 인근 이란-미국 간 보복 공격 재발 우려로 반등(브렌트 74달러대), 다만 OPEC+ 증산 기조는 하방 압력 요인으로 병존.
+  </p>
+
+  <div class="section-title">M-2. 국가별 정책 및 지정학 <span class="badge high">HIGH</span></div>
+  <div class="grid2">
+    <div class="card">
+      <div class="label">🇰🇷 한국은행 (2.50% 동결)</div>
+      <p class="p-list" style="margin-top:4px">한은 기준금리 2.50% 유지 중(6/17 확인). 7월 16일 금통위에서는 <b>인하가 아닌 인상 가능성</b>이 높게 점쳐지는 상황 — 원화 변동성과 수도권 주택가격 상승 경계감이 배경.</p>
+    </div>
+    <div class="card">
+      <div class="label">🇺🇸 연준 (케빈 워시 의장)</div>
+      <p class="p-list" style="margin-top:4px">6월 FOMC 4연속 동결(3.50~3.75%). 초기엔 완화적으로 해석됐던 워시 의장 스탠스가 매파로 재평가됐다가, 6월 고용 쇼크로 다시 인하 기대가 살아나는 등 방향성 혼선 지속. 7/9 새벽 FOMC 의사록 공개 예정.</p>
+    </div>
+  </div>
+  <div class="card" style="margin-top:10px">
+    <div class="label">🌏 지정학 — 캐나다 잠수함(CPSP) 사업 &amp; 중동</div>
+    <p class="p-list" style="margin-top:4px">
+      · 60조원 규모 캐나다 차세대 잠수함 사업, 카니 총리가 獨 TKMS를 우선협상대상자로 최종 선정(7/6). 한화오션·HD현대중공업 원팀은 기술력에서 밀린 게 아니라 <b>NATO 상호운용성·정비체계(50% 배점) 및 산업협력 규모</b>에서 열세로 판정.<br>
+      · 협상 결렬 시 한화오션이 차순위 협상권 보유 — 완전한 종료는 아님. 본계약 2028년, 매출인식 2029년 이후라 단기 실적 영향은 제한적이라는 게 증권가 중론(한국투자증권 등).<br>
+      · 이란-미국 호르무즈 해협 인근 긴장 재발로 유가 변동성 확대, 국내 조선·방산 수출 프리미엄 밸류에이션 조정 압력.
+    </p>
+  </div>
+
+  <div class="section-title">M-3. 실물 경제 사이클</div>
+  <table>
+    <tr><th>지표</th><th>최신 동향</th></tr>
+    <tr><td>미국 비농업고용(6월)</td><td>+5.7만명(전월 대비 절반 수준, 고용 쇼크) / 실업률 4.2%</td></tr>
+    <tr><td>미국 ISM 서비스업 PMI</td><td>7/6 발표, 기준선 50 상회 지속 전망</td></tr>
+    <tr><td>한국 수출</td><td>반도체 중심 회복세, HBM 수요 견조</td></tr>
+  </table>
+
+  <div class="section-title">M-4. 산업 및 기술 트렌드</div>
+  <div class="grid4">
+    <div class="card"><div class="label">AI 반도체</div><p class="p-list">HBM 공급부족 지속, 삼성전자·SK하이닉스 밸류에이션 재평가 국면</p></div>
+    <div class="card"><div class="label">국내기업 美 ADR 상장</div><p class="p-list">SK하이닉스, 22년만의 대형 제조기업 나스닥行. 290억달러 사상 최대 외국기업 美증시 상장 예고</p></div>
+    <div class="card"><div class="label">양자컴퓨팅</div><p class="p-list">밸류에이션 과열 논쟁 지속, 공매도 비중 15~30%대로 높음</p></div>
+    <div class="card"><div class="label">K-방산</div><p class="p-list">캐나다 잠수함 실주로 단기 조정, 유럽·중동向 수출은 견조</p></div>
+  </div>
+
+  <div class="section-title">M-5. 경제 캘린더</div>
+  <table>
+    <tr><th>날짜</th><th>이벤트</th></tr>
+    <tr><td>7/9(목) 새벽</td><td>FOMC 6월 의사록 공개</td></tr>
+    <tr><td>7/9(목)</td><td>일본은행 사쿠라 보고서</td></tr>
+    <tr><td>7/10(금)</td><td><b>SK하이닉스 ADR 나스닥 상장</b> (공모가 9일 결정)</td></tr>
+    <tr><td>7/16(수)</td><td>한국은행 금통위 (인상 가능성 주시)</td></tr>
+  </table>
+
+</div>
+
+<!-- ===================== TAB 2: 증시 시황 ===================== -->
+<div id="tab-market" class="tab-content">
+
+  <div class="section-title">S-1. 한눈에 보기</div>
+  <div class="grid3">
+    <div class="card"><div class="label">다우존스 (7/7 마감)</div><div class="value num down">52,925.15</div></div>
+    <div class="card"><div class="label">나스닥100 (7/7 마감)</div><div class="value num down">29,173.02</div></div>
+    <div class="card"><div class="label">S&amp;P500 (7/7 마감)</div><div class="value num down">7,503.85</div></div>
+    <div class="card"><div class="label">코스피 (8일 오전)</div><div class="value num up">7,737.38</div></div>
+    <div class="card"><div class="label">코스닥 (8일 오전)</div><div class="value num down">819.87</div></div>
+    <div class="card"><div class="label">원/달러</div><div class="value num down">1,515.50</div></div>
+  </div>
+
+  <div class="section-title">S-2. 주요 이슈</div>
+  <p class="p-list">
+    · <b>[국내]</b> 캐나다 잠수함 사업 실주로 방산·조선 특수선 프리미엄 조정, 반도체 대형주 차익실현 지속<br>
+    · <b>[국내]</b> SK하이닉스 7/10 나스닥 ADR 상장 — 기관 수요예측 수배 초과, 마이크론 대비 저평가(PER 6.2배 vs 7배) 해소 기대<br>
+    · <b>[해외]</b> 미국 반도체주 급락 + 국제유가 급등이 겹치며 7/7 뉴욕증시 3대 지수 동반 하락
+  </p>
+
+  <div class="section-title">S-3. 미국 증시 — 시황 요약</div>
+  <div class="card">
+    <p class="p-list">
+      7일(현지시간) 뉴욕증시는 반도체주 급락과 국제유가 급등이 맞물리며 하락. 다우 -130.76p(-0.25%), S&amp;P500 -33.58p(-0.45%), 나스닥 -302.47p 하락. 호르무즈 해협 인근 지정학적 리스크 재부상이 유가를 끌어올리며 위험자산 회피 심리 자극.<br>
+      · 삼성전자 역대 최대 분기 실적(매출 171조·영업이익 89.4조) 발표에도 반도체 업황 사이클 부담 및 차익실현 우려로 관련주 변동성 확대<br>
+      · SK하이닉스 ADR 공모에 美·英 기관 3곳이 최대 70억달러 참여 검토 — 기업가치 재평가 기대감이 미국 반도체 밸류체인 전반에 영향
+    </p>
+  </div>
+
+  <div class="section-title">S-4. 한국 증시 — 시황 요약</div>
+  <div class="card">
+    <p class="p-list">
+      코스피는 반도체 대형주 차익실현 물량과 외국인 매도, 캐나다 잠수함 실주發 방산·조선 조정이 겹치며 변동성 장세. 최근 수 거래일 새 6번째 서킷브레이커가 발동될 만큼 반도체 쏠림에 따른 급등락이 반복되는 국면.<br>
+      · 한화오션 -22%대 급락, HD현대중공업 -5%대, 삼성중공업·STX엔진 등 조선기자재 테마 동반 약세<br>
+      · 개인은 급락 구간에서도 삼성전자·SK하이닉스를 저가 매수, 외국인·기관은 리노공업·KB금융·SK스퀘어 등으로 순환매
+    </p>
+  </div>
+
+  <div class="section-title">S-5. 섹터별 동향</div>
+  <div class="grid3">
+    <div class="card">
+      <div class="label">반도체 <span class="badge mid">변동성 확대</span></div>
+      <p class="p-list">삼성전자·SK하이닉스 실적 호조에도 차익실현·레버리지 ETF 청산 물량으로 급락락 반복. SK하이닉스 ADR 상장 임박이 단기 변수.</p>
+    </div>
+    <div class="card">
+      <div class="label">조선·방산 <span class="badge high">악재</span></div>
+      <p class="p-list">캐나다 잠수함 실주 직격탄. 한화오션·HD현대중공업 급락, 대한조선·삼현 등 중소형 조선주도 동반 약세.</p>
+    </div>
+    <div class="card">
+      <div class="label">전력설비·원자력 <span class="badge low">견조</span></div>
+      <p class="p-list">두산에너빌리티·LS ELECTRIC·LS 등은 데이터센터發 전력 인프라 수요, 원전 SMR 기대감으로 상대적 견조.</p>
+    </div>
+  </div>
+
+  <div class="section-title">S-6. 주요 종목 이슈 (요약)</div>
+  <table>
+    <tr><th>종목</th><th>이슈</th></tr>
+    <tr><td>삼성전자</td><td>역대 최대 분기 실적, 반도체 밸류에이션 조정 vs 중장기 긍정론 공존</td></tr>
+    <tr><td>SK하이닉스</td><td>7/10 나스닥 ADR 상장, 마이크론 대비 저평가 해소 기대</td></tr>
+    <tr><td>한화오션</td><td>캐나다 잠수함 실주, -22%대 급락</td></tr>
+    <tr><td>기아</td><td>보스턴다이내믹스 지분 17% 보유 — 로봇 밸류에이션 재평가 기대(미래에셋 목표가 상향)</td></tr>
+    <tr><td>KB금융</td><td>2분기 비이자이익 중심 실적 기대치 상회 전망</td></tr>
+  </table>
+
+  <div class="section-title">S-7. 기술적 분석</div>
+  <div class="grid2">
+    <div class="card"><div class="label">코스피</div><p class="p-list">지지 7,500~7,650(6월 급락 저점대) / 저항 8,000~8,200(6월 상단). 반도체 쏠림에 따른 변동성 국면 지속.</p></div>
+    <div class="card"><div class="label">S&amp;P500</div><p class="p-list">지지 7,400 / 저항 7,600대. 반도체 조정 + 유가 상승 겹치며 단기 숨고르기.</p></div>
+  </div>
+
+</div>
+
+<!-- ===================== TAB 3: 워치리스트 ===================== -->
+<div id="tab-watch" class="tab-content">
+  <p class="p-list" style="margin-bottom:16px">※ 가격·등락률은 사용자 제공 캡처 기준(7/8 오전) 및 검색 보완치. 호재·악재는 최근 뉴스 흐름 기반 요약이며 투자 권유가 아닙니다.</p>
+
+  <!-- 반도체 -->
+  <div class="section-title">반도체</div>
+
+  <div class="stock-card">
+    <div class="sector-tag">반도체</div>
+    <div class="stock-head"><div><span class="name">SK하이닉스</span><span class="code">000660</span></div><div class="price up">2,319,000 ▲5.36%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>7/10 나스닥 ADR 상장(290억달러, 외국기업 사상 최대 규모 美증시 상장)</li>
+        <li>美·英 기관 3곳(시추에이셔널 어웨어니스·베일리기포드·코튜) 최대 70억달러 투자 검토</li>
+        <li>HSBC "ADR 상장이 기업가치 최대 20% 끌어올릴 것" 분석</li>
+        <li>기관 수요예측 물량 대비 수배 초과 흥행, 약 1000개 기관 설명회 참석</li>
+        <li>마이크론 대비 저평가(PER 6.2배 vs 7배) 해소 기대, HBM 수요 견조</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>코스피 급락장에서 장중 -10%대까지 밀리는 등 변동성 극대화 이력</li>
+        <li>메모리 반도체 특유의 경기 사이클 리스크(수요 둔화 시 가격 급락)</li>
+        <li>ADR·본주 간 차익거래(전환 제한 여부 불확실) 리스크</li>
+        <li>단일종목 레버리지 ETF發 자동매도 물량이 주가 변동성 증폭</li>
+        <li>AI 반도체 수요 둔화설이 실적 발표 전후 시장에 반복 유포</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="sector-tag">반도체</div>
+    <div class="stock-head"><div><span class="name">삼성전자</span><span class="code">005930</span></div><div class="price down">295,500 ▼0.17%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>역대 최대 분기 실적(매출 171조원·영업이익 89.4조원) 잠정 발표</li>
+        <li>HBM4 양산 본격화, NAND 기술 경쟁력 회복 국면 평가</li>
+        <li>메모리 슈퍼사이클 지속에 따른 파운드리 체질 개선 기대</li>
+        <li>SK하이닉스 나스닥 상장에 따른 '코리아 디스카운트' 완화 기대 반사이익</li>
+        <li>외국인 자금이 국내 반도체 대형주로 재유입될 여지</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>실적 서프라이즈에도 '과열 조정' 해석 속 최근 장중 9%대 급락 이력</li>
+        <li>삼성전자 레버리지 ETF發 프로그램 매도가 주가 하방 압력 가중</li>
+        <li>노조 성과급 갈등 등 비용 고정화 우려</li>
+        <li>반도체 업황 조정 시 재고 부담 재현 가능성(과거 사이클 학습효과)</li>
+        <li>외국인 7일 연속 국내 반도체주 순매도 흐름 존재</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="sector-tag">반도체 소부장</div>
+    <div class="stock-head"><div><span class="name">HPSP</span><span class="code">403870</span></div><div class="price down">40,300 ▼2.89%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>삼성전자·SK하이닉스 설비투자 확대 기대감에 반도체 소부장 수혜주로 분류</li>
+        <li>고압수소어닐링(HPA) 장비 시장 경쟁 지위 유지</li>
+        <li>반도체 후공정 투자 확대 사이클 초입 국면 평가</li>
+        <li>국내 반도체 슈퍼사이클 국면에서 장비주 전반 재평가 기대</li>
+        <li>글로벌 파운드리 미세공정 전환 수요 확대 수혜</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>예스티와의 HPA 시장 특허 침해 소송 분쟁 지속</li>
+        <li>반도체 대형주 차익실현 국면에서 소부장 동반 조정</li>
+        <li>코스피 급락 시 중소형 반도체주 변동성이 대형주보다 크게 확대되는 경향</li>
+        <li>고밸류에이션 부담(반도체 업황 고점 논쟁과 연동)</li>
+        <li>특정 고객사(삼성·하이닉스) 의존도가 높아 설비투자 집행 시점 리스크</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- 원자력·전력 -->
+  <div class="section-title">원자력·전력</div>
+
+  <div class="stock-card">
+    <div class="sector-tag">원자력·전력</div>
+    <div class="stock-head"><div><span class="name">두산에너빌리티</span><span class="code">034020</span></div><div class="price down">78,900 ▼3.31%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>가스터빈·SMR(소형모듈원전)·해상풍력 등 신사업 확대 추진</li>
+        <li>전력설비·원자력발전 테마 상승 흐름에서 대표주로 분류</li>
+        <li>두산밥캣 등 자회사 실적 개선 기여</li>
+        <li>글로벌 원전·전력 인프라 투자 확대 수혜 기대</li>
+        <li>애널리스트 21명 전원 매수 의견, 목표주가 평균 13만9599원(현재가 대비 상승여력)</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>최근 5거래일간 79,600~90,800원 폭넓은 변동성, 단기 조정 압력</li>
+        <li>코스피 반도체 쏠림 장세에서 자금 이탈 우려</li>
+        <li>외국인 소진율 24%대로 낮아 수급 기반 상대적으로 약함</li>
+        <li>전력설비 밸류에이션 부담(연초 이후 급등에 따른 차익실현)</li>
+        <li>실적 발표(8/19) 전까지 뉴스 공백 구간 변동성</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="sector-tag">원자력·전력</div>
+    <div class="stock-head"><div><span class="name">LS ELECTRIC</span><span class="code">010120</span></div><div class="price down">194,800 ▼5.44%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>북미 데이터센터向 전력 인프라 수주 기대(계열 HD현대일렉트릭 등 업종 전반 훈풍)</li>
+        <li>전선·중전기 업종 밸류업 지수 편입 테마</li>
+        <li>AI 데이터센터 확산에 따른 전력기기 수요 구조적 증가</li>
+        <li>초고압 변압기 등 고부가 제품 수출 확대</li>
+        <li>정부 전력망 투자 확대 정책 수혜</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>최근 거래일 -7%대 낙폭 등 단기 급락 반복(고밸류 부담 — PER 100배 이상)</li>
+        <li>연초 이후 급등에 따른 차익실현 매물 출회</li>
+        <li>코스피 전반 변동성 확대 국면에서 고베타 종목 하방 압력 큼</li>
+        <li>원자재(구리 등) 가격 변동에 따른 원가 부담 우려</li>
+        <li>전력기기 수주 계약의 분기별 인식 시점 불확실성</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="sector-tag">원자력·전력</div>
+    <div class="stock-head"><div><span class="name">LS</span><span class="code">006260</span></div><div class="price down">334,000 ▼2.05%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>전력설비·전선 테마 상승 흐름 동반 수혜</li>
+        <li>2차전지 소재(LS MnM 등) 계열사 포트폴리오 다각화</li>
+        <li>해저케이블·초고압 전선 등 고부가 사업 확대</li>
+        <li>AI 데이터센터發 전력 인프라 투자 사이클 수혜 기대</li>
+        <li>지주사 밸류에이션 재평가 기대(자회사 가치 부각)</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>코스피 변동성 확대 국면에서 전력설비 테마 전반 차익실현</li>
+        <li>2차전지 소재 부문 업황 부진 시 실적 변동성</li>
+        <li>지주사 디스카운트 이슈 상존</li>
+        <li>구리 등 원자재가 변동에 따른 마진 압박 가능성</li>
+        <li>계열사 자금조달(유상증자 등) 이슈 발생 시 지주가 부담</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="sector-tag">원자력·전력</div>
+    <div class="stock-head"><div><span class="name">지엔씨에너지</span><span class="code">305090</span></div><div class="price down">27,800 ▼0.36%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>전력설비·비상발전기 테마 내 중소형 대표주로 거론</li>
+        <li>데이터센터 확산에 따른 비상전원(UPS·발전기) 수요 증가</li>
+        <li>전력망 투자 확대 정책 수혜 기대</li>
+        <li>친환경·신재생 전력 인프라 사업 확장 기대</li>
+        <li>중소형 전력테마 순환매 유입 가능성</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>코스닥 지수 자체 약세(819.87, 하락) 흐름에 동조</li>
+        <li>대형 전력주 대비 유동성·수급 기반 상대적으로 얇음</li>
+        <li>실적 모멘텀 관련 뉴스 플로우 제한적</li>
+        <li>테마성 매매 성격이 강해 변동성 확대 리스크</li>
+        <li>코스피 급락 국면에서 중소형주 전반 동반 약세 가능성</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- 조선 -->
+  <div class="section-title">조선</div>
+
+  <div class="stock-card">
+    <div class="sector-tag">조선</div>
+    <div class="stock-head"><div><span class="name">대한조선</span><span class="code">439580</span></div><div class="price down">50,200 ▼1.18%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>상반기 글로벌 선박 수주 증가 및 선가 회복 흐름은 여전히 견조(증권가 공통 평가)</li>
+        <li>탱커·특수선 등 고부가 선종 수주 잔고 확보</li>
+        <li>조선업황 자체는 캐나다 실주와 별개로 펀더멘털 훼손 크지 않다는 시각 우세</li>
+        <li>K-조선 전반의 글로벌 점유율 우위 지속</li>
+        <li>2분기 실적 시즌 및 마스가(MASGA)형 대미 조선 투자 기대감</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>캐나다 60조 잠수함 사업(CPSP) 우선협상대상자, 獨 TKMS로 최종 선정 — 조선·방산 테마 동반 약세 촉발</li>
+        <li>한화오션 -22%대, HD현대중공업 -5%대 등 대형 조선주 급락에 중소형 조선주도 동반 조정</li>
+        <li>특수선 수출 프리미엄에 대한 밸류에이션 재점검 압력</li>
+        <li>정적 변동성완화장치(VI) 발동 등 단기 수급 충격</li>
+        <li>연초 이후 조선주 고점 대비 큰 폭 하락(한화오션 5월 말 고점 대비 -33%대) — 업종 전반 투자심리 위축</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="sector-tag">조선</div>
+    <div class="stock-head"><div><span class="name">삼현</span><span class="code">437730</span></div><div class="price down">32,600 ▼1.81%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>조선 기자재 업황 회복 기대감 지속</li>
+        <li>과거 캐나다 잠수함 수주 기대감에 외국인 7일 연속 순매수 이력 존재(수급 저변 확인)</li>
+        <li>조선업 밸류업 테마 편입 종목으로 거론</li>
+        <li>선박 기자재 국산화·수출 확대 기조</li>
+        <li>조선 대형사 수주 잔고 확대에 따른 낙수효과 기대</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>캐나다 잠수함 사업 실주로 특수선 관련 기대감 되돌림</li>
+        <li>조선 대형주 급락에 기자재株 동반 약세</li>
+        <li>중소형주 특성상 변동성이 크고 유동성 상대적으로 낮음</li>
+        <li>단기 급등 이력 이후 차익실현 압력</li>
+        <li>코스피 전반 변동성 확대 국면에서 테마주 조정 폭 확대</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="sector-tag">조선(소재)</div>
+    <div class="stock-head"><div><span class="name">한국카본</span><span class="code">017960</span></div><div class="price up">25,100 ▲2.45%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>LNG선 보냉재(단열재) 국내 독점적 공급 지위</li>
+        <li>LNG선 발주 확대 사이클에 따른 수혜 기대</li>
+        <li>조선 대형주 약세 속에서도 상대적 강세(방산·잠수함 이슈와 직접 연관성 낮음)</li>
+        <li>친환경 선박(LNG추진선) 수요 증가 추세</li>
+        <li>탄소섬유 등 신소재 사업 다각화</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>조선업 전반 심리 위축 시 소재주도 동반 영향권</li>
+        <li>LNG선 발주 사이클 둔화 시 실적 변동성 노출</li>
+        <li>원자재가 변동에 따른 원가 부담</li>
+        <li>특정 대형 조선사向 매출 의존도 리스크</li>
+        <li>단기 급등 후 차익실현 매물 출회 가능성</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- 로봇·물류 -->
+  <div class="section-title">로봇·물류</div>
+
+  <div class="stock-card">
+    <div class="sector-tag">로봇·물류</div>
+    <div class="stock-head"><div><span class="name">현대무벡스</span><span class="code">319400</span></div><div class="price up">23,050 ▲1.54%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>물류 자동화·스마트팩토리 수요 확대 수혜</li>
+        <li>현대차그룹 계열 물류 인프라 투자 확대 연계 기대</li>
+        <li>로봇·자동화 테마 순환매 유입</li>
+        <li>기아 보스턴다이내믹스 지분 이슈로 그룹 內 로봇 밸류체인 재조명</li>
+        <li>국내 물류센터 자동화 설비투자 확대 사이클</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>코스닥 지수 약세(819.87)와 연동된 하방 압력</li>
+        <li>물류 설비투자 집행 시점의 분기별 실적 변동성</li>
+        <li>대형 로봇 테마주(레인보우로보틱스 등) 대비 상대적 주목도 낮음</li>
+        <li>건설·물류센터 경기 둔화 시 수주 위축 우려</li>
+        <li>테마성 매매 성격으로 변동성 확대 리스크</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- 배터리 -->
+  <div class="section-title">배터리</div>
+
+  <div class="stock-card">
+    <div class="sector-tag">배터리·소재</div>
+    <div class="stock-head"><div><span class="name">엘앤에프</span><span class="code">066970</span></div><div class="price down">95,800 ▼3.72%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>양극재 업황 회복 기대감 지속(최근 2차전지 테마 반등 흐름)</li>
+        <li>LG에너지솔루션 등 배터리 셀 메이커向 공급 확대 기대</li>
+        <li>전기차 수요 회복 사이클 초입 전망</li>
+        <li>차세대 양극재(하이니켈) 기술 경쟁력</li>
+        <li>2차전지 밸류업 프로그램 관련 정책 수혜 기대</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>전기차 수요 둔화 우려가 여전히 배터리 소재株 전반의 상단 제약 요인</li>
+        <li>메탈 가격(리튬·니켈) 변동에 따른 재고평가손익 리스크</li>
+        <li>반도체로 쏠린 수급 환경 속 2차전지株 상대적 소외</li>
+        <li>코스피 급락 국면에서 고베타 성장주 낙폭 확대</li>
+        <li>중국 배터리 업체와의 가격 경쟁 심화 우려</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- 통신 -->
+  <div class="section-title">통신</div>
+
+  <div class="stock-card">
+    <div class="sector-tag">통신</div>
+    <div class="stock-head"><div><span class="name">SK텔레콤</span><span class="code">017670</span></div><div class="price down">84,100 ▼1.29%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>SK하이닉스 나스닥 상장에 따른 SK그룹 지배구조 재평가 기대(SK스퀘어 연쇄 수혜와 유사 논리)</li>
+        <li>안정적 배당 매력(고배당주 성격) 부각 — 방어주 수요 유입 가능</li>
+        <li>AI 데이터센터·클라우드 사업 확장 추진</li>
+        <li>통신업종 계절적 안정성, 시장 변동성 확대 국면에서 상대적 매력 부각</li>
+        <li>5G·AI 융합 신사업 밸류에이션 재평가 여지</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>업종 평균 대비 고평가(PER 50배 vs 업종 평균 28배) 부담 지속 지적</li>
+        <li>최근 5거래일 연속 하락 추세(6/29 90,200원→7/7 85,200원)</li>
+        <li>통신 업종 지수 자체가 최근 하락세(코스피 시총상위 중 통신 -3%대 하락 기록 존재)</li>
+        <li>가입자 성장 둔화에 따른 본업 성장성 정체 우려</li>
+        <li>정부 통신비 인하 압박 등 규제 리스크 상존</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- 금융 -->
+  <div class="section-title">금융</div>
+
+  <div class="stock-card">
+    <div class="sector-tag">금융</div>
+    <div class="stock-head"><div><span class="name">KB금융</span><span class="code">105560</span></div><div class="price up">174,800 ▲0.92%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>2분기 비이자이익 중심 실적, 시장 예상치 상회 전망(알파경제 등 보도)</li>
+        <li>금융지주 상반기 합산 순익 16조원 돌파 기대 — 역대 최대 예고</li>
+        <li>애널리스트 20명 매수, 목표주가 평균 196,700원(상승여력 15%+)</li>
+        <li>코스피 급락 국면에서 기관 순매수 상위 종목으로 확인(반도체 대안 자금 유입)</li>
+        <li>자사주 매입·주주환원 정책 기대 지속</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>차기 회장 선임 이슈 등 지배구조 관련 불확실성(숏리스트 6인 확정 단계)</li>
+        <li>코스피 급락 국면에서 금융 업종 지수 자체도 동반 조정 이력(-3%대 하락 기록 존재)</li>
+        <li>기준금리 인상 가능성(7/16 금통위)이 대출 성장에는 부담 요인</li>
+        <li>가계부채 관리 강화 정책에 따른 여신 성장 제약</li>
+        <li>글로벌 금리 변동성 확대 시 채권 평가손 리스크</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- 방산 -->
+  <div class="section-title">방산</div>
+
+  <div class="stock-card">
+    <div class="sector-tag">방산</div>
+    <div class="stock-head"><div><span class="name">한화에어로스페이스</span><span class="code">012450</span></div><div class="price down">1,059,000 ▼5.61%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>K9 자주포·천무 등 유럽·중동向 수출 파이프라인은 캐나다 이슈와 무관하게 견조</li>
+        <li>GE에어로스페이스와 항공엔진 협력 강화(수리온·T/FA-50 엔진 공급 계약)</li>
+        <li>누리호 기술이전 계약 체결(항우연, 240억원 규모) — 우주발사체 사업 확장</li>
+        <li>글로벌 군비 증강 기조 속 유럽 방산 수출 확대 지속</li>
+        <li>12개월 목표주가 최고 173만5000원 등 증권가 여전히 긍정적</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>계열 한화오션의 캐나다 60조 잠수함 사업 실주 여파로 방산 섹터 전반 투자심리 위축</li>
+        <li>NATO 시장 진출이라는 상징적 성과가 이번엔 獨에 넘어감 — 해양방산 중장기 목표(2030년 매출 4조) 재점검 필요성 제기</li>
+        <li>연초 이후 급등에 따른 밸류에이션 부담(연초 대비 100%+ 상승 이력)</li>
+        <li>유상증자 관련 논란이 과거 주가에 부담 요인으로 작용한 이력</li>
+        <li>코스피 시총 상위주 전반 조정 국면에서 대형주 매물 출회</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- 자동차 -->
+  <div class="section-title">자동차</div>
+
+  <div class="stock-card">
+    <div class="sector-tag">자동차</div>
+    <div class="stock-head"><div><span class="name">현대차</span><span class="code">005380</span></div><div class="price up">480,500 ▲0.21%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>최근 거래일 기준 +10%대 급등 이력 등 반도체 조정 국면에서 대체 매수처로 부각</li>
+        <li>새만금 9조원 규모 'AI·로봇·수소' 미래 거점 투자 발표</li>
+        <li>보스턴다이내믹스 로봇 사업 재평가 기대(그룹 계열 시너지)</li>
+        <li>배당수익률 5.9% 등 주주환원 매력 부각</li>
+        <li>코스피 변동성 확대 국면에서 외국인·기관 순매수 상위 종목으로 확인</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>미국 관세 정책 불확실성 지속(자동차 관세 리스크 상존)</li>
+        <li>52주 최고가(783,000원) 대비 현재가는 낙폭 큰 상태(변동성 구간)</li>
+        <li>전기차 수요 둔화 국면에서 캐즘 우려 지속</li>
+        <li>원/달러 환율 하락 시 수출 채산성 부담(가격 경쟁력 약화)</li>
+        <li>코스피 급락장에서 시총 상위주로서 지수 프로그램 매매 영향 노출</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="sector-tag">자동차(우선주)</div>
+    <div class="stock-head"><div><span class="name">현대차2우B</span><span class="code">005387</span></div><div class="price up">224,000 ▲5.16%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>현대차 본주 강세에 우선주 프리미엄 동반 확대</li>
+        <li>고배당 매력으로 변동성 장세에서 방어적 수요 유입</li>
+        <li>보통주 대비 상대적 저평가 시 갭 메우기 기대</li>
+        <li>그룹 전반 로봇·미래차 밸류에이션 재평가 수혜 연계</li>
+        <li>배당 확대 정책 기조 지속 시 우선주 선호 강화</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>우선주 특성상 유동성이 보통주 대비 낮아 변동성 확대 가능</li>
+        <li>본주 조정 시 동반 하락 압력</li>
+        <li>보통주-우선주 괴리율 확대/축소에 따른 단기 수급 변동성</li>
+        <li>자동차 관세 등 업황 리스크는 본주와 동일하게 노출</li>
+        <li>급등 이후 차익실현 매물 출회 가능성</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="sector-tag">자동차</div>
+    <div class="stock-head"><div><span class="name">기아</span><span class="code">000270</span></div><div class="price up">161,500 ▲5.07%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>보스턴다이내믹스 지분 17% 보유 — 로봇 상장 시 지분가치 재평가 기대(미래에셋증권 목표가 20만원 상향, 상승여력 32%+ 제시)</li>
+        <li>2026년 영업이익 10.7조원(+17.3% YoY) 전망</li>
+        <li>글로벌 판매 호조 지속</li>
+        <li>반도체 조정 국면에서 자동차株로 자금 순환매 유입</li>
+        <li>주주환원 확대 기조(자사주 매입·소각)</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>미국 관세 정책 불확실성 및 대미 수출 마진 압박 우려</li>
+        <li>전기차 수요 둔화(캐즘) 국면 장기화 우려</li>
+        <li>원/달러 환율 하락 시 수출기업 채산성 저하</li>
+        <li>보스턴다이내믹스 관련 기대감이 실제 상장·가치 실현까지는 시일 소요</li>
+        <li>코스피 급락 국면에서 개별 종목 급등에 따른 단기 차익실현 리스크</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- 바이오 -->
+  <div class="section-title">바이오</div>
+
+  <div class="stock-card">
+    <div class="sector-tag">바이오</div>
+    <div class="stock-head"><div><span class="name">에이비엘바이오</span><span class="code">298380</span></div><div class="price down">86,800 ▼7.56%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>7/7 R&amp;D Day 개최 — 이중항체 파이프라인 개발 현황 공개(7월 국내 바이오 &lsquo;결과 확인의 달&rsquo; 이벤트 중 하나)</li>
+        <li>이중항체(그랩바디-B) 플랫폼 기술이전 수익모델 지속</li>
+        <li>미국 파트너사 컴패스 테라퓨틱스와 협력 지속(임상 진행)</li>
+        <li>애널리스트 5명 전원 매수, 12개월 목표주가 평균 209,200원(현재가 대비 상승여력 큼)</li>
+        <li>코스닥 승강제 프리미엄 등급 편입 가능 종목으로 거론</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>컴패스 테라퓨틱스 tovecimig 임상(COMPANION-002)에서 2차 평가변수 OS(전체생존기간) 통계적 유의성 미달 — 4월 이후 주가 낙폭 확대</li>
+        <li>최근 3개월 -38.95% 하락 등 바이오 섹터 내 낙폭 상위</li>
+        <li>바이오 ETF 패시브 자금의 동반 매도(삼천당제약 급락 등 여파)</li>
+        <li>반도체로 쏠린 수급 환경 속 바이오 섹터 전반 소외</li>
+        <li>임상 결과 해석을 둘러싼 시장 불확실성(크로스오버 왜곡 논쟁)</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="sector-tag">바이오</div>
+    <div class="stock-head"><div><span class="name">리가켐바이오</span><span class="code">141080</span></div><div class="price down">126,000 ▼7.49%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>7/8 R&amp;D Day 개최 예정 — 하반기 개발 일정·기술이전 기대감 부각 전망</li>
+        <li>ADC(항체약물접합체) 플랫폼 글로벌 경쟁력, 빅파마 BD 파이프라인과 접점</li>
+        <li>5000억원 규모 국민성장펀드 자금 유치 성사</li>
+        <li>코스닥 승강제 프리미엄 그룹 편입 가능성 높은 종목으로 거론(서울경제 등)</li>
+        <li>서울경제 리포트에서 7월 코스닥 최선호주 중 하나로 제시</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>최근 3개월 코스닥 제약지수 -25.96% 급락 등 업종 전반 약세, 리가켐바이오도 동조 조정</li>
+        <li>호재성 뉴스(펀드 유치 등)에도 불구 주가 상승으로 이어지지 못하는 &lsquo;호재에 박한&rsquo; 시장 반응 지속</li>
+        <li>3분기는 전통적으로 기술이전·학회 이벤트가 가장 적은 비수기</li>
+        <li>반도체 섹터로의 수급 쏠림 심화</li>
+        <li>R&amp;D Day 결과가 기대에 못 미칠 경우 단기 실망 매물 우려</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- VC -->
+  <div class="section-title">VC(벤처캐피탈)</div>
+
+  <div class="stock-card">
+    <div class="sector-tag">VC</div>
+    <div class="stock-head"><div><span class="name">미래에셋벤처투자</span><span class="code">100790</span></div><div class="price down">15,880 ▼4.80%</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재 (5)</h4><ul>
+        <li>비상장 유망기업 포트폴리오 가치 재평가 기대(AI·바이오 스타트업 투자 비중)</li>
+        <li>IPO 시장 활성화 시 보유 지분 회수(엑싯) 밸류 상승 기대</li>
+        <li>정부 벤처투자 활성화 정책 수혜 가능성</li>
+        <li>미래에셋그룹 계열 네트워크를 통한 딜소싱 경쟁력</li>
+        <li>중소형 성장주 반등 국면에서 VC株 순환매 유입 가능성</li>
+      </ul></div>
+      <div class="bad"><h4>악재 (5)</h4><ul>
+        <li>코스닥 지수 약세 및 성장주 전반 조정과 동조 하락</li>
+        <li>비상장 포트폴리오 평가가치 변동성에 따른 실적 불확실성</li>
+        <li>IPO 시장 위축 시 투자회수 지연 리스크</li>
+        <li>금리 인상 가능성(7/16 금통위)이 벤처투자 밸류에이션에 부담</li>
+        <li>바이오 등 특정 섹터 투자 비중이 높을 경우 해당 섹터 약세에 연동</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <!-- 한국 ETF -->
+  <div class="section-title">한국 ETF</div>
+  <div class="grid2">
+    <div class="stock-card">
+      <div class="stock-head"><div><span class="name">KODEX 코리아배당성장</span><span class="code">279530</span></div><div class="price up">29,660 ▲0.83%</div></div>
+      <p class="p-list">배당성장주 중심 구성으로 코스피 급락 국면에서 상대적 방어력. 금융·통신 등 고배당 대형주 비중이 반도체 변동성 대비 완충 역할.</p>
+    </div>
+    <div class="stock-card">
+      <div class="stock-head"><div><span class="name">TIGER 우량가치</span><span class="code">108490</span></div><div class="price up">20,380 ▲0.34%</div></div>
+      <p class="p-list">가치주 중심 구성으로 반도체 성장주 조정 국면에서 상대적 강세. 저PBR·고배당 종목 비중이 방어력의 배경.</p>
+    </div>
+  </div>
+
+  <!-- 미국 종목/ETF -->
+  <div class="section-title">미국 주식 &amp; ETF</div>
+
+  <div class="stock-card">
+    <div class="sector-tag">양자컴퓨팅</div>
+    <div class="stock-head"><div><span class="name">Rigetti Computing</span><span class="code">RGTI</span></div><div class="price">$16.55</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재</h4><ul>
+        <li>1분기 매출 전년比 193% 급증(440만달러), 예상치 상회</li>
+        <li>Cepheus-1-108Q 퀀텀 시스템 출시 등 기술 마일스톤 달성</li>
+        <li>美 상무부 CHIPS법 기반 양자컴퓨팅 기업 자금지원 대상 포함</li>
+      </ul></div>
+      <div class="bad"><h4>악재</h4><ul>
+        <li>공매도 비중 16%, PSR(주가매출비율) 1,000배 이상의 극단적 고밸류 논란</li>
+        <li>미즈호증권 등 목표주가 하향 조정(43→33달러)</li>
+        <li>DARPA 선정 탈락 등 정부 프로젝트 수주 불확실성, 최고점 대비 53% 하락 이력</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="stock-card">
+    <div class="sector-tag">양자컴퓨팅</div>
+    <div class="stock-head"><div><span class="name">IonQ</span><span class="code">IONQ</span></div><div class="price">$45.36</div></div>
+    <div class="pos-neg">
+      <div class="good"><h4>호재</h4><ul>
+        <li>순수 양자컴퓨팅 기업 중 최대 매출(연 2.68억달러 전망) 규모</li>
+        <li>구글·MS·아마존 등 빅테크의 양자컴퓨팅 투자 확대 수혜 기대</li>
+        <li>NVQLink 등 양자-고전 컴퓨팅 결합 기술 트렌드 수혜</li>
+      </ul></div>
+      <div class="bad"><h4>악재</h4><ul>
+        <li>PER 193배 등 극단적 고평가, 공매도 비중 24%로 업종 내 최고 수준</li>
+        <li>미즈호증권 목표주가 하향(80→61달러)</li>
+        <li>양자컴퓨팅 상업화 시점 불투명, 밸류에이션 재조정 우려 지속</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="grid3" style="margin-top:6px">
+    <div class="stock-card">
+      <div class="stock-head"><div class="name">SCHD</div><div class="price">$32.54</div></div>
+      <p class="p-list">고배당 가치주 ETF. 금리 인하 기대·변동성 확대 국면에서 방어적 자금 유입 가능. 반대로 금리 재상승 시 상대적 매력 약화.</p>
+    </div>
+    <div class="stock-card">
+      <div class="stock-head"><div class="name">QQQM</div><div class="price">$292.14</div></div>
+      <p class="p-list">나스닥100 추종. SK하이닉스 ADR의 향후 나스닥100 편입 가능성이 장기 재료. 반도체 조정 국면에서는 단기 변동성 노출.</p>
+    </div>
+    <div class="stock-card">
+      <div class="stock-head"><div class="name">VOO</div><div class="price">$687.08</div></div>
+      <p class="p-list">S&amp;P500 추종. 7/7 S&amp;P500 -0.45% 하락 반영. 반도체·유가발 변동성이 단기 부담이나 대형 우량주 분산효과로 방어력 상대적 우위.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  ※ 본 보고서는 실시간 시세 API가 아닌 웹 검색 기반으로 작성되었으며, 투자 판단의 참고자료일 뿐 투자 권유가 아닙니다.<br>
+  가격·등락률 일부는 사용자 제공 캡처 기준이며, 실제 장중 시세와 차이가 있을 수 있습니다. 출처: 이투데이, 서울경제, 아시아경제, 뉴데일리, 전자신문, Investing.com 등
+</footer>
+
+<script>
+function switchTab(name) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
+
+</body>
+</html>
