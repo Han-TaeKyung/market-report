@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>모닝 브리핑 2026-11-06</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0d1117;color:#e6edf3;font-family:'Noto Sans KR',sans-serif;line-height:1.55}
+.mono{font-family:'DM Mono',monospace}
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px 48px}
+header{padding:28px 16px 12px;max-width:1200px;margin:0 auto}
+header h1{margin:0;font-weight:900;font-size:1.9rem}
+header .asof{color:#8b98b0;margin-top:4px;font-size:.9rem}
+.banner{margin-top:14px;padding:12px 16px;border-left:4px solid #F5A623;background:#1a1f2b;border-radius:6px;font-size:.92rem}
+.tab-bar{position:sticky;top:0;z-index:10;background:#0d1117;display:flex;gap:8px;padding:10px 16px;border-bottom:1px solid #222a38}
+.tab-btn{flex:1;max-width:240px;padding:10px 12px;border:1px solid #2a3344;background:#151b26;color:#a9b4c9;border-radius:8px;cursor:pointer;font-size:.95rem;font-family:inherit}
+.tab-btn.active{background:#4C9AFF;color:#fff;border-color:#4C9AFF;font-weight:700}
+.tab-content{display:none}.tab-content.active{display:block}
+h2{font-size:1.2rem;margin:30px 0 12px;font-weight:900;border-bottom:1px solid #222a38;padding-bottom:6px}
+h3.sec-h{font-size:.98rem;color:#4C9AFF;margin:18px 0 8px}
+h4{margin:0 0 8px;font-size:.98rem}
+.grid{display:grid;gap:12px}
+.c4{grid-template-columns:repeat(4,1fr)}.c3{grid-template-columns:repeat(3,1fr)}.c2{grid-template-columns:repeat(2,1fr)}
+.wl{grid-template-columns:repeat(3,1fr)}
+.card,.panel{background:#151b26;border:1px solid #222a38;border-radius:10px;padding:14px}
+.panel{margin-bottom:12px}
+.panel.warn{border-color:#F5A623}
+.lbl{color:#8b98b0;font-size:.82rem}.code{color:#5d6a85;font-size:.75rem;margin-left:4px}
+.val{font-size:1.35rem;font-weight:700;margin-top:2px}
+.chg{font-size:.9rem;font-family:'DM Mono',monospace}
+.sub{color:#8b98b0;font-size:.78rem;margin-top:4px}
+.mute{color:#8b98b0;font-size:.85rem;font-weight:400}
+.badge{display:inline-block;padding:1px 8px;border-radius:10px;font-size:.75rem;font-weight:700}
+.badge.hi{background:#FF4D6D;color:#fff}.badge.mid{background:#2a3344;color:#cbd5e6}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid #222a38;vertical-align:top}
+th{color:#8b98b0;font-weight:500}
+ul,ol{margin:0;padding-left:20px}li{margin-bottom:6px}
+.newsbox{margin-top:8px}
+.news{font-size:.8rem;padding:6px 8px;border-radius:6px;background:#10151f;margin-top:4px}
+.tag{font-weight:700;margin-right:4px}
+.n-up .tag{color:#00C896}.n-dn .tag{color:#FF4D6D}.n-mid .tag{color:#6b7a99}.n-none{color:#8b98b0}
+footer{margin-top:36px;padding:16px;border-top:1px solid #222a38;color:#8b98b0;font-size:.8rem}
+@media (max-width:900px){.c4,.wl,.c3{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:480px){.grid,.c4,.c3,.c2,.wl{grid-template-columns:1fr !important}.card,.panel{width:100%}.tab-btn{font-size:.8rem;padding:8px 4px}}
+</style></head><body>
+<header>
+<h1>📊 모닝 브리핑 · 2026.11.06 (금)</h1>
+<div class="asof">미국 11/5(목) 마감 · 한국 11/6(금) 오전 · 수치는 12:51 KST 장중 캡처 기준</div>
+<div class="banner">⚠️ 핵심 리스크: ① 코스피 서킷브리커 발동(장 초반 -8.5%, 12:51 -5.12%) ② 미국 중간선거(11/3, 민주당 양원 석권) 이후 AI 데이터센터 규제 우려로 필라델피아 반도체지수 -12.25%</div>
+</header>
+<div class="tab-bar">
+<button class="tab-btn active" onclick="switchTab('macro')">🌐 글로벌 매크로</button>
+<button class="tab-btn" onclick="switchTab('market')">📈 증시 시황</button>
+<button class="tab-btn" onclick="switchTab('watchlist')">⭐ 워치리스트</button>
+</div>
+<div class="wrap">
+<div id="tab-macro" class="tab-content active">
+<h2>M-1 글로벌 매크로 지표</h2>
+<h3 class="sec-h">통화</h3>
+<div class="grid c4">
+<div class="card"><div class="lbl">달러인덱스 DXY</div><div class="val mono">정보없음</div></div>
+<div class="card"><div class="lbl">원/달러</div><div class="val mono">1,359.30</div><div class="chg" style="color:#00C896">▲ 2.30 (+0.17%)</div><div class="sub">캡처 기준 · 실시간</div></div>
+<div class="card"><div class="lbl">달러/엔</div><div class="val mono">정보없음</div></div>
+<div class="card"><div class="lbl">유로/달러</div><div class="val mono">정보없음</div></div>
+</div>
+<h3 class="sec-h">원자재</h3>
+<div class="grid c4">
+<div class="card"><div class="lbl">WTI</div><div class="val mono">$92.07</div><div class="chg" style="color:#00C896">▲ 1.55 (+1.71%)</div><div class="sub">캡처 · 10분 지연</div></div>
+<div class="card"><div class="lbl">구리</div><div class="val mono">정보없음</div><div class="sub">닥터코퍼(경기 선행 의미) — 미수집</div></div>
+<div class="card"><div class="lbl">천연가스</div><div class="val mono">정보없음</div></div>
+<div class="card"><div class="lbl">국제 금</div><div class="val mono">4,052.50</div><div class="chg" style="color:#FF4D6D">▼ 61.00 (-1.48%)</div><div class="sub">캡처 · 10분 지연</div></div>
+</div>
+<h3 class="sec-h">금리</h3>
+<div class="grid c4">
+<div class="card"><div class="lbl">미 국채 10년</div><div class="val mono">4.8450%</div><div class="chg" style="color:#00C896">▲ 0.0079 (+0.16%)</div><div class="sub">캡처 · 실시간</div></div>
+<div class="card"><div class="lbl">미 국채 2년</div><div class="val mono">정보없음</div></div>
+<div class="card"><div class="lbl">장단기 금리차</div><div class="val mono">정보없음</div><div class="sub">2년물 미수집으로 산출 불가</div></div>
+<div class="card"><div class="lbl">한국 국채 10년</div><div class="val mono">3.8720%</div><div class="chg" style="color:#FF4D6D">▼ 0.0200 (-0.51%)</div><div class="sub">캡처 기준</div></div>
+</div>
+
+<h2>M-2 국가별 정책 및 정치</h2>
+<div class="grid c2">
+<div class="panel"><h4>통화정책</h4>
+<ul>
+<li><b>Fed</b>: 10/28 기준금리 3.75~4.00% 동결(10-2 표결). 의장 케빈 워시. 12월 인상 가능성이 높게 거론됨 (확률 수치는 미확인).</li>
+<li><b>한국은행</b>: 기준금리 3.00%. 다음 금통위 11/26.</li>
+<li><b>ECB·BOJ</b>: 정보없음 (미수집).</li>
+</ul></div>
+<div class="panel"><h4>재정·통상정책</h4>
+<ul>
+<li>트럼프 대통령, 미국 내 공장을 짓지 않는 외국 기업에 최대 300% 관세 경고. 대상 품목·발효일은 미언급, 과장성 압박 발언일 수 있다는 평가 (한국경제 11/6).</li>
+<li>트럼프는 11/5 백악관에서 "앞으로 1~2주 동안 많은 조치를 보게 될 것"이라고 언급.</li>
+<li>민주당 11/3 중간선거에서 상·하원 석권. 트럼프 대통령은 거부권 보유.</li>
+</ul></div>
+</div>
+<div class="panel"><h4>지정학 <span class="badge hi">HIGH</span></h4>
+<ul>
+<li><b>이란·호르무즈</b>: 이란이 카타르를 통해 핵협상 재개 제안서 전달. 미국이 항구 봉쇄 해제·원유 제재 면제 등 7개 요구를 먼저 이행하면 호르무즈 해협을 열겠다는 구상. 트럼프는 앞서 이란의 7단계 계획을 거부했고 카타르는 "아직 돌파구 없다"는 입장 (한국경제 11/6). WTI $92대 유지.</li>
+<li>공급망·미중 이슈: 정보없음 (이번 회차 미수집).</li>
+</ul></div>
+
+<h2>M-3 실물 경제 사이클</h2>
+<div class="panel"><table>
+<tr><th>구분</th><th>지표</th><th>상태</th></tr>
+<tr><td>물가</td><td>미국 CPI·PPI</td><td>정보없음</td></tr>
+<tr><td>고용</td><td>미국 10월 고용·실업률</td><td>정보없음 (컨센서스 미확인)</td></tr>
+<tr><td>생산·소비</td><td>PMI·소매판매·중국 산업생산</td><td>정보없음</td></tr>
+</table></div>
+
+<h2>M-4 산업 및 기술 트렌드</h2>
+<div class="grid c4">
+<div class="panel"><h4>AI 실물경제 파급</h4><p>중간선거 이후 AI 데이터센터 규제 강화 우려가 시장을 지배. 텍사스 신규 데이터센터 인허가 중단 예고 및 메타 경영진의 "미국 신규 건설 훨씬 어려워질 것" 전망이 보도됨 (한국경제 11/6). 상세는 탭2 S-10 참조.</p></div>
+<div class="panel"><h4>반도체 공급망</h4><p>필라델피아 반도체지수 9,011.14 (-12.25%, 캡처). 개별 공급망 뉴스는 정보없음.</p></div>
+<div class="panel"><h4>에너지 전환</h4><p>민주당 의회 구도에서 전력·재생에너지 정책 기대가 거론됨 (JP모건, 한국경제 11/2 보도). 당일 가격 반영은 확인되지 않음.</p></div>
+<div class="panel"><h4>부동산·신용</h4><p>정보없음</p></div>
+</div>
+
+<h2>M-5 경제 캘린더</h2>
+<div class="panel"><table>
+<tr><th>날짜</th><th>국가</th><th>이벤트</th><th>중요도</th></tr>
+<tr><td>11/26(목)</td><td>한국</td><td>한국은행 금융통화위원회 (기준금리 3.00%)</td><td>⭐⭐⭐</td></tr>
+<tr><td>12월</td><td>미국</td><td>FOMC (정확한 일정 미확인, 인상 가능성 거론)</td><td>⭐⭐⭐</td></tr>
+<tr><td>~11/20경</td><td>미국</td><td>트럼프 "1~2주 내 다수 조치" 예고 (관세·AI 관련 여부 불명확)</td><td>⭐⭐</td></tr>
+<tr><td>2027/1/19</td><td>미국(텍사스)</td><td>지나 히노호사 주지사 취임, 1월 주의회 데이터센터 법안 논의 예정</td><td>⭐⭐</td></tr>
+<tr><td colspan="4" class="mute">이번 주 지표(GDP·CPI 등)와 OPEC+·G7 일정: 정보없음</td></tr>
+</table></div>
+</div>
+<div id="tab-market" class="tab-content">
+<h2>S-1 한눈에 보기 <span class="mute">(오전 12:51 KST 장중 캡처 기준)</span></h2>
+<div class="grid c4">
+<div class="card"><div class="lbl">코스피</div><div class="val mono">5,108.08</div><div class="chg" style="color:#FF4D6D">▼ 275.72 (-5.12%)</div></div>
+<div class="card"><div class="lbl">코스닥</div><div class="val mono">650.76</div><div class="chg" style="color:#FF4D6D">▼ 27.65 (-4.08%)</div></div>
+<div class="card"><div class="lbl">S&P 500</div><div class="val mono">7,353.73</div><div class="chg" style="color:#FF4D6D">▼ 334.89 (-4.36%)</div></div>
+<div class="card"><div class="lbl">나스닥 종합</div><div class="val mono">24,315.00</div><div class="chg" style="color:#FF4D6D">▼ 1,421.52 (-5.52%)</div></div>
+<div class="card"><div class="lbl">다우존스</div><div class="val mono">51,523.06</div><div class="chg" style="color:#FF4D6D">▼ 1,833.06 (-3.44%)</div></div>
+<div class="card"><div class="lbl">필라델피아 반도체</div><div class="val mono">9,011.14</div><div class="chg" style="color:#FF4D6D">▼ 1,257.52 (-12.25%)</div></div>
+<div class="card"><div class="lbl">원/달러</div><div class="val mono">1,359.30</div><div class="chg" style="color:#00C896">▲ 2.30 (+0.17%)</div></div>
+<div class="card"><div class="lbl">VIX</div><div class="val mono">28.18</div><div class="chg" style="color:#FF4D6D">▲ 11.57 (+69.66%)</div><div class="sub"><span class="badge mid">⚪ 중립</span> 공포지수 — 시장 변동성 심리 지표 (정상 변동성 범위 15~40)</div></div>
+</div>
+
+<h2>S-2 주요 이슈</h2>
+<div class="grid c2">
+<div class="panel"><h4>규제</h4><p>민주당 중간선거 석권 후 AI 데이터센터 규제 우려 확산. 텍사스 신규 승인 유예 예고가 촉매로 거론됨.</p></div>
+<div class="panel"><h4>통상·지정학</h4><p>트럼프 300% 관세 경고, 이란 핵협상 교착. WTI $92.07 (+1.71%).</p></div>
+<div class="panel"><h4>실적</h4><p>Fortinet: 3분기 호실적에도 급락. 보안·소프트웨어 전반 위험회피로 해석하는 보도 존재 (The Cerbat Gem 인용).</p></div>
+<div class="panel"><h4>통화정책</h4><p>Fed 3.75~4.00% 동결, 12월 인상 우려. 미 10년물 4.845%로 높은 수준.</p></div>
+</div>
+
+<h2>S-3 미국 증시</h2>
+<div class="panel"><ul>
+<li>11/5(미국) 3대 지수 급락: 나스닥 -5.52%, S&P500 -4.36%, 다우 -3.44% (캡처 기준).</li>
+<li>필라델피아 반도체지수 -12.25%로 낙폭 최대. VIX 28.18 (+69.66%).</li>
+<li>11/4에는 민주당 승리 직후 안도 랠리가 있었던 것으로 확인했으나, 11/5 규제 충격으로 반전.</li>
+<li>개별 종목 시황: 정보없음 (워치리스트 탭 참조).</li>
+</ul></div>
+
+<h2>S-4 한국 증시</h2>
+<div class="panel"><ul>
+<li>코스피 장 초반 -8.5%로 서킷브리커 발동, 12:51 기준 5,108.08 (-5.12%)까지 낙폭 축소.</li>
+<li>코스닥 650.76 (-4.08%). 원/달러 1,359.30 (+0.17%).</li>
+<li>한국 국채 10년 3.8720% (-0.51%): 위험회피 국면.</li>
+<li>외국인·기관 수급, 거래대금 상위: 정보없음 (미수집).</li>
+</ul></div>
+
+<h2>S-5 섹터별 동향 <span class="mute">(워치리스트 캡처 종목 기준, 외국인 수급 정보없음)</span></h2>
+<div class="grid c3">
+<div class="panel"><h4>반도체</h4><p>국내: 삼성전자 -5.81%, SK하이닉스 -8.23%, HPSP -8.23%<br>미국: SOX -12.25%<br>수급: 정보없음</p></div>
+<div class="panel"><h4>2차전지</h4><p>엘앤에프 -12.14%, 한중엔시에스 -11.03% (캡처)<br>수급: 정보없음</p></div>
+<div class="panel"><h4>자동차</h4><p>현대차 -3.92%, 현대차2우B -3.19%, LG전자 -2.94%<br>수급: 정보없음</p></div>
+<div class="panel"><h4>금융</h4><p>KB금융 -4.14%<br>수급: 정보없음</p></div>
+<div class="panel"><h4>방산·조선</h4><p>한화에어로스페이스 -3.53%, 한화오션 -2.44%, LS -8.62%<br>수급: 정보없음</p></div>
+<div class="panel"><h4>바이오</h4><p>리가켐바이오 -7.52%, 에이비엘바이오 -5.82%<br>JP모건은 선거 전 "제약 매도" 의견을 제시한 바 있음(한국경제 11/2)</p></div>
+</div>
+
+<h2>S-6 주요 종목 분석</h2>
+<div class="panel"><p>국내·미국 상승/하락/거래대금 TOP10: <b>수집 실패</b> (이번 회차 미수집). 워치리스트 내 최대 등락: 상승 지엔씨에너지 +15.73%, 하락 IREN -16.95%(미국), 엘앤에프 -12.14%(국내).</p></div>
+
+<h2>S-7 미국 빅테크 16종목</h2>
+<div class="grid c4"><div class="card"><div class="lbl">NVIDIA</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div><div class="card"><div class="lbl">Micron</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div><div class="card"><div class="lbl">AMD</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div><div class="card"><div class="lbl">Broadcom</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div><div class="card"><div class="lbl">Applied Materials</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div><div class="card"><div class="lbl">Lam Research</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div><div class="card"><div class="lbl">ASML</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div><div class="card"><div class="lbl">Microsoft</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div><div class="card"><div class="lbl">Amazon</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div><div class="card"><div class="lbl">SanDisk</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div><div class="card"><div class="lbl">Meta</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">메타: 경영진이 미국 신규 데이터센터 건설이 훨씬 어려워질 것으로 전망(한국경제 11/6 보도). 주가 수치는 미확인</div></div><div class="card"><div class="lbl">Tesla</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div><div class="card"><div class="lbl">Moderna</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div><div class="card"><div class="lbl">Pfizer</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div><div class="card"><div class="lbl">SpaceX</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div><div class="card"><div class="lbl">Rocket Lab</div><div class="val mono" style="font-size:1rem">정보없음</div><div class="sub">수집 실패</div></div></div>
+
+<h2>S-8 수급 분석</h2>
+<div class="panel"><p>국내 외국인·기관 순매수/순매도, 미국 기관 포지션: <b>정보없음</b> (미수집).</p></div>
+
+<h2>S-9 기술적 분석</h2>
+<div class="panel"><p>지지·저항 레벨, RSI·이동평균: <b>실시간 확인 불가</b>. 현재 레벨만 표기 — 코스피 5,108.08 / 코스닥 650.76 / S&amp;P500 7,353.73 / 나스닥 24,315.00. 정밀 분석은 technical-signal-analyzer 스킬 연계 권장.</p></div>
+
+<h2>S-10 심층분석: AI 규제 충격, 일시적인가 남은 임기 악재인가</h2>
+<div class="panel warn"><h4>정정: 11/3은 미국 대선이 아니라 중간선거</h4>
+<p>11/3에 열린 것은 중간선거이며 민주당이 상·하원을 모두 가져갔습니다. 트럼프 대통령 임기는 계속되므로 연방 차원 법안은 거부권 변수가 있습니다.</p></div>
+
+<h3 class="sec-h">인과 경로</h3>
+<div class="panel"><ol>
+<li>11/3 민주당 중간선거 석권 → 11/4 안도 랠리</li>
+<li>11/5 AI 데이터센터 규제 우려 부각: 지나 히노호사 텍사스 주지사 당선인이 신규 데이터센터 환경 인허가·전력망 연결 승인을 법안 마련 시까지 유예하겠다고 발언. 데이터센터 세제 혜택 폐지도 거론. 용수 사용 제한, 전기요금 전가 금지 등이 법안에 포함될 전망 (한국경제 11/6)</li>
+<li>필라델피아 반도체지수 -12.25%, 나스닥 -5.52%</li>
+<li>11/6 코스피 서킷브리커 → 12:51 -5.12%</li>
+</ol>
+<p class="mute">핵심 포인트: 선거 전 월가 전망은 "연방 입법은 트럼프 거부권으로 제한적"이라는 논리가 중심이었습니다. 11/5 충격의 촉매는 연방이 아닌 <b>주 단위 인허가 유예</b>이므로, 거부권 논리로는 막히지 않는 경로라는 점이 차이입니다. (텍사스는 미국 계획 데이터센터 용량의 약 25%, 로이터 인용)</p></div>
+
+<h3 class="sec-h">전문가 시각 비교</h3>
+<div class="panel"><table>
+<tr><th>전문가</th><th>요지</th><th>성격</th><th>출처·시점</th></tr>
+<tr><td><b>Dan Ives</b><br><span class='mute'>Wedbush</span></td><td>추가 10~12% 하락 가능</td><td>남은 악재 가능성</td><td class='mute'>Benzinga 검색 스니펫 기준(원문 열람 실패, 2차 인용)</td></tr><tr><td><b>Tom Lee</b><br><span class='mute'>Fundstrat</span></td><td>시장 과민반응, 기술주 약 +20% 반등 여지</td><td>일시적</td><td class='mute'>Benzinga 검색 스니펫 기준(원문 열람 실패, 2차 인용)</td></tr><tr><td><b>JP모건 데스크</b><br><span class='mute'>JPMorgan</span></td><td>AI 규제 우려는 과장. 트럼프가 서명하지 않고 민주당은 거부권 무력화 의석이 없음. 단, AI 테마 내 매도 가능성은 경고. 민주당 강세 시 단기 변동성 확대지만 매수 기회로 판단</td><td>일시적(연방 입법 기준)</td><td class='mute'>선거 전 전망(investinglive, 한국경제 11/2). 11/5 주 단위 규제 충격 이후의 입장은 미확인</td></tr><tr><td><b>Ariana Salvatore</b><br><span class='mute'>Morgan Stanley</span></td><td>중간선거는 즉각적 연방 규제보다 2029년 입법 토대 마련의 의미. AI capex 서사는 유효</td><td>혼재 (장기 입법 리스크)</td><td class='mute'>선거 전 전망(Reuters·Axios 인용). 당일 충격 이후 입장 미확인</td></tr><tr><td><b>Matt Gertken</b><br><span class='mute'>BCA Research</span></td><td>AI 규제법은 통과될 수 있으나 capex·건설에 브레이크를 걸 가능성은 낮음</td><td>일시적(연방 기준)</td><td class='mute'>선거 전 전망(Reuters 인용)</td></tr><tr><td><b>Goldman Sachs 전략가</b><br><span class='mute'>Goldman Sachs</span></td><td>민주당 의회가 데이터센터 세제 혜택을 축소할 수 있으나 전국 단위 모라토리엄 가능성은 낮음</td><td>혼재</td><td class='mute'>선거 전 전망(IBTimes 인용)</td></tr><tr><td><b>Michael Hartnett</b><br><span class='mute'>Bank of America</span></td><td>민주당 완승 시 큰 매도 촉발 가능성을 이전에 경고</td><td>남은 악재 가능성</td><td class='mute'>선거 전 경고(iTiger/Deep News 인용)</td></tr><tr><td><b>Brian Gardner</b><br><span class='mute'>Stifel</span></td><td>청문회·조사가 이어지며 부정적 헤드라인 위험 존재</td><td>남은 악재 가능성</td><td class='mute'>선거 전 전망(Reuters 인용)</td></tr>
+</table>
+<p class="mute">※ 국내 애널리스트(리서치센터장)의 11/6 당일 실명 발언은 확인하지 못했습니다. 한국경제 리서치센터장 기사는 본문 접근 한계로 개별 의견 확인 실패. 위 월가 인용은 대부분 선거 전 시점으로, 11/5 충격 이후 입장 변화는 미확인입니다.</p></div>
+
+<h3 class="sec-h">종합 (조건부 판단)</h3>
+<div class="grid c2">
+<div class="panel"><h4 style="color:#00C896">일시적으로 볼 근거</h4><ul>
+<li>연방 차원 규제는 거부권과 의석 구조상 제한적이라는 JP모건·BCA 시각</li>
+<li>MS 시각: AI capex 서사 유효, 규제 영향은 장기(2029) 입법 토대</li>
+<li>Tom Lee 시각: 과민반응, 기술주 반등 여지</li>
+</ul></div>
+<div class="panel"><h4 style="color:#FF4D6D">남은 악재 가능성</h4><ul>
+<li>주 단위 인허가 유예·세제 혜택 폐지는 연방 거부권과 무관하게 진행 가능</li>
+<li>Dan Ives: 추가 10~12% 하락 가능 (2차 인용)</li>
+<li>청문회·조사로 인한 헤드라인 리스크 (Stifel), 12월 Fed 인상 우려와 중첩</li>
+<li>트럼프 300% 관세·이란 변수 동시 존재</li>
+</ul></div>
+</div>
+<div class="panel"><p><b>결론</b>: 단정하기 어렵습니다. 연방 법안 경로의 충격은 일시적일 가능성이 높다는 시각이 우세하나, 주 단위 유예가 다른 주로 확산되는지, 텍사스 1월 입법 내용, 12월 Fed 결과가 지속 여부를 가를 관전 포인트입니다. 이는 투자 권유가 아닌 정보 정리입니다.</p></div>
+
+<h3 class="sec-h">민주당 승리 수혜 후보</h3>
+<div class="panel"><table>
+<tr><th>분류</th><th>근거</th><th>워치리스트 내 해당 종목 (당일 등락)</th></tr>
+<tr><td>전력·전력망</td><td>JP모건: 민주당 양원 장악 시 전력주 매수 의견 (한국경제 11/2)</td><td>LS ELECTRIC -9.78%, 두산에너빌리티 -8.01%, LS -8.62% — 당일 수혜 반영 안 됨</td></tr>
+<tr><td>원자력</td><td>전력 수요 급증으로 민주당도 원전 확대 지지 성향 (Deep News 인용, 2차)</td><td>두산에너빌리티 (위와 동일)</td></tr>
+<tr><td>제약·헬스케어</td><td>JP모건은 오히려 <b>제약 매도</b> 의견 → 수혜 후보로 보기 어려움</td><td>에이비엘바이오 -5.82%, 리가켐바이오 -7.52%</td></tr>
+<tr><td>재생에너지·ESS</td><td>개별 근거 확인 실패</td><td>정보없음</td></tr>
+</table>
+<p class="mute">※ "수혜 후보"는 정책 방향성 분류이며, 11/6 장중 가격에는 반영되지 않았습니다.</p></div>
+
+<h2>한국경제 주요뉴스 10선</h2>
+<div class="panel"><table>
+<tr><th>#</th><th>헤드라인 요지</th><th>출처</th><th>핵심</th></tr>
+<tr><td class='mono'>1</td><td>코스피 서킷브리커 발동 (장 초반 -8.5%) → 오전 12:51 기준 -5.12%로 낙폭 축소</td><td class='mute'>한국경제 11/6, 캡처</td><td>코스피 5,108.08 (-5.12%), 코스닥 650.76 (-4.08%)</td></tr><tr><td class='mono'>2</td><td>미 AI 데이터센터 규제 충격, 필라델피아 반도체지수 -12.25%</td><td class='mute'>캡처 및 한국경제 11/6</td><td>나스닥 -5.52%, S&P500 -4.36%, 다우 -3.44%</td></tr><tr><td class='mono'>3</td><td>텍사스 신규 데이터센터 인허가 중단 예고 (히노호사 주지사 당선인)</td><td class='mute'>한국경제 11/6</td><td>2027/1/19 취임, 1월 주의회 법안까지 유예. 가동·건설 중 시설은 제외. 텍사스는 미국 계획 데이터센터 용량의 약 25% (로이터 인용)</td></tr><tr><td class='mono'>4</td><td>국내 증권사 리서치센터장 전망 기사</td><td class='mute'>한국경제 11/6</td><td>개별 실명·요지 확인 실패 — 본문 접근 불가</td></tr><tr><td class='mono'>5</td><td>트럼프, 미국에 공장 안 짓는 외국 기업에 최대 300% 관세 경고</td><td class='mute'>한국경제 11/6</td><td>대상 품목·발효일 미언급. 압박성 발언 해석</td></tr><tr><td class='mono'>6</td><td>이란, 카타르 통해 핵협상 제안서 전달 — 미국 선조치 시 호르무즈 개방</td><td class='mute'>한국경제 11/6</td><td>트럼프는 기존 7단계안 거부, 카타르 '돌파구 아직 없다'</td></tr><tr><td class='mono'>7</td><td>메타 경영진 "미국 신규 데이터센터 건설 훨씬 어려워질 것"</td><td class='mute'>한국경제 11/6 (관련 보도 인용)</td><td>빅테크 capex 경로 불확실성</td></tr><tr><td class='mono'>8</td><td>"민주당 양원 장악 시 전력주 매수, 제약주 매도" — JP모건</td><td class='mute'>한국경제 11/2</td><td>선거 전 보도. 민주당 강세 시 단기 변동성은 매수 기회로 판단</td></tr><tr><td class='mono'>9</td><td>민주당, 중간선거 상·하원 석권 (11/3)</td><td class='mute'>복수 매체</td><td>한국경제 개별 기사 링크는 이번 회차 미확인</td></tr><tr><td class='mono'>10</td><td>연준 10/28 금리 동결(10-2), 12월 인상 가능성 거론</td><td class='mute'>한국경제 외 매체</td><td>한국은행 11/26 금통위(3.00%) 대기</td></tr>
+</table>
+<p class="mute">※ 한국경제 개별 기사로 직접 확인한 것은 1~7번(11/6 기사 3건 + 캡처 및 관련 보도). 8번은 한국경제 11/2, 9~10번은 타 매체 보강입니다.</p></div>
+</div>
+<div id="tab-watchlist" class="tab-content">
+<h2>W-1 워치리스트 종목 현황 <span class="mute">(캡처 기준, 총 40종목)</span></h2>
+<div class="panel"><p>종목 구성 변경 없음: 캡처의 30개(한국) + 10개(미국)가 확정 리스트와 일치합니다. 시세는 11/6 12:51 KST 기준 캡처값이며, 뉴스는 확인된 것만 표기하고 미확인은 "내용없음"으로 둡니다.</p></div>
+<h3 class="sec-h">반도체</h3><div class="grid wl"><div class="card"><div class="lbl">삼성전자 <span class="code">005930</span></div><div class="val mono">189,800</div><div class="chg" style="color:#FF4D6D">▼ 11,700 (-5.81%)</div><div class="newsbox"><div class="news n-dn"><span class="tag">▼ 악재</span> 미 필라델피아 반도체지수 -12.25%(캡처) 및 코스피 서킷브리커 국면과 동반 급락 — 개별 종목 이슈는 미확인</div></div></div><div class="card"><div class="lbl">삼성전자우 <span class="code">005935</span></div><div class="val mono">152,400</div><div class="chg" style="color:#FF4D6D">▼ 8,000 (-4.99%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">SK하이닉스 <span class="code">000660</span></div><div class="val mono">1,160,000</div><div class="chg" style="color:#FF4D6D">▼ 104,000 (-8.23%)</div><div class="newsbox"><div class="news n-dn"><span class="tag">▼ 악재</span> 미 필라델피아 반도체지수 -12.25%(캡처) 및 코스피 서킷브리커 국면과 동반 급락 — 개별 종목 이슈는 미확인</div></div></div><div class="card"><div class="lbl">HPSP <span class="code">403870</span></div><div class="val mono">33,450</div><div class="chg" style="color:#FF4D6D">▼ 3,000 (-8.23%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">GST <span class="code">083450</span></div><div class="val mono">34,500</div><div class="chg" style="color:#FF4D6D">▼ 2,100 (-5.74%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div></div><h3 class="sec-h">원자력·전력·건설</h3><div class="grid wl"><div class="card"><div class="lbl">두산에너빌리티 <span class="code">034020</span></div><div class="val mono">45,350</div><div class="chg" style="color:#FF4D6D">▼ 3,950 (-8.01%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">LS ELECTRIC <span class="code">010120</span></div><div class="val mono">117,100</div><div class="chg" style="color:#FF4D6D">▼ 12,700 (-9.78%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">지엔씨에너지 <span class="code">119850</span></div><div class="val mono">36,050</div><div class="chg" style="color:#00C896">▲ 4,900 (+15.73%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 급등 사유 미확인 (+15.73%)</div></div></div><div class="card"><div class="lbl">현대건설 <span class="code">000720</span></div><div class="val mono">77,400</div><div class="chg" style="color:#FF4D6D">▼ 5,900 (-7.08%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div></div><h3 class="sec-h">조선</h3><div class="grid wl"><div class="card"><div class="lbl">LS <span class="code">006260</span></div><div class="val mono">173,800</div><div class="chg" style="color:#FF4D6D">▼ 16,400 (-8.62%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">한국카본 <span class="code">017960</span></div><div class="val mono">14,540</div><div class="chg" style="color:#FF4D6D">▼ 780 (-5.09%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">대한조선 <span class="code">439260</span></div><div class="val mono">33,950</div><div class="chg" style="color:#FF4D6D">▼ 1,850 (-5.17%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">한화오션 <span class="code">042660</span></div><div class="val mono">48,050</div><div class="chg" style="color:#FF4D6D">▼ 1,200 (-2.44%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음</div></div></div></div><h3 class="sec-h">로봇·물류</h3><div class="grid wl"><div class="card"><div class="lbl">삼현 <span class="code">437730</span></div><div class="val mono">37,700</div><div class="chg" style="color:#00C896">▲ 50 (+0.13%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음</div></div></div><div class="card"><div class="lbl">현대무벡스 <span class="code">319400</span></div><div class="val mono">15,670</div><div class="chg" style="color:#FF4D6D">▼ 310 (-1.94%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음</div></div></div></div><h3 class="sec-h">배터리</h3><div class="grid wl"><div class="card"><div class="lbl">엘앤에프 <span class="code">066970</span></div><div class="val mono">75,300</div><div class="chg" style="color:#FF4D6D">▼ 10,400 (-12.14%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">한중엔시에스 <span class="code">107640</span></div><div class="val mono">42,350</div><div class="chg" style="color:#FF4D6D">▼ 5,250 (-11.03%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div></div><h3 class="sec-h">통신·RF·통신부품</h3><div class="grid wl"><div class="card"><div class="lbl">SK텔레콤 <span class="code">017670</span></div><div class="val mono">76,000</div><div class="chg" style="color:#FF4D6D">▼ 1,500 (-1.94%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음</div></div></div><div class="card"><div class="lbl">성호전자 <span class="code">043260</span></div><div class="val mono">19,100</div><div class="chg" style="color:#FF4D6D">▼ 1,100 (-5.45%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">RF머트리얼즈 <span class="code">327260</span></div><div class="val mono">22,100</div><div class="chg" style="color:#FF4D6D">▼ 1,950 (-8.11%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">RFHIC <span class="code">218410</span></div><div class="val mono">38,050</div><div class="chg" style="color:#FF4D6D">▼ 2,050 (-5.11%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div></div><h3 class="sec-h">금융</h3><div class="grid wl"><div class="card"><div class="lbl">KB금융 <span class="code">105560</span></div><div class="val mono">150,500</div><div class="chg" style="color:#FF4D6D">▼ 6,500 (-4.14%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div></div><h3 class="sec-h">방산</h3><div class="grid wl"><div class="card"><div class="lbl">한화에어로스페이스 <span class="code">012450</span></div><div class="val mono">656,000</div><div class="chg" style="color:#FF4D6D">▼ 24,000 (-3.53%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div></div><h3 class="sec-h">자동차·가전</h3><div class="grid wl"><div class="card"><div class="lbl">현대차 <span class="code">005380</span></div><div class="val mono">282,000</div><div class="chg" style="color:#FF4D6D">▼ 11,500 (-3.92%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">현대차2우B <span class="code">005387</span></div><div class="val mono">148,900</div><div class="chg" style="color:#FF4D6D">▼ 4,900 (-3.19%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">LG전자 <span class="code">066570</span></div><div class="val mono">138,600</div><div class="chg" style="color:#FF4D6D">▼ 4,200 (-2.94%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음</div></div></div></div><h3 class="sec-h">바이오</h3><div class="grid wl"><div class="card"><div class="lbl">에이비엘바이오 <span class="code">298380</span></div><div class="val mono">37,200</div><div class="chg" style="color:#FF4D6D">▼ 2,300 (-5.82%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">리가켐바이오 <span class="code">141080</span></div><div class="val mono">59,000</div><div class="chg" style="color:#FF4D6D">▼ 4,800 (-7.52%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div></div><h3 class="sec-h">한국 ETF</h3><div class="grid wl"><div class="card"><div class="lbl">KODEX 코리아배당성장 <span class="code">211900</span></div><div class="val mono">24,765</div><div class="chg" style="color:#FF4D6D">▼ 630 (-2.48%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음</div></div></div><div class="card"><div class="lbl">TIGER 코리아밸류업 <span class="code">496080</span></div><div class="val mono">24,340</div><div class="chg" style="color:#FF4D6D">▼ 1,275 (-4.98%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div></div><h3 class="sec-h">미국 주식</h3><div class="grid wl"><div class="card"><div class="lbl">IonQ <span class="code">IONQ</span></div><div class="val mono">$26.43</div><div class="chg" style="color:#FF4D6D">▼ $3.11 (-10.53%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 11/5 3분기 실적 발표 일정만 확인, 실적 내용·주가 반응은 미확인 (급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">Rigetti <span class="code">RGTI</span></div><div class="val mono">$9.85</div><div class="chg" style="color:#FF4D6D">▼ $1.36 (-12.13%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">IREN <span class="code">IREN</span></div><div class="val mono">$18.03</div><div class="chg" style="color:#FF4D6D">▼ $3.68 (-16.95%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">MP Materials <span class="code">MP</span></div><div class="val mono">$33.74</div><div class="chg" style="color:#FF4D6D">▼ $2.17 (-6.04%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">Planet Labs PBC <span class="code">PL</span></div><div class="val mono">$11.37</div><div class="chg" style="color:#FF4D6D">▼ $1.28 (-10.12%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">Palo Alto Networks <span class="code">PANW</span></div><div class="val mono">$314.67</div><div class="chg" style="color:#FF4D6D">▼ $33.37 (-9.59%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">Fortinet <span class="code">FTNT</span></div><div class="val mono">$122.51</div><div class="chg" style="color:#FF4D6D">▼ $6.88 (-5.32%)</div><div class="newsbox"><div class="news n-dn"><span class="tag">▼ 악재</span> 3분기 EPS·매출 컨센서스 상회에도 10/28 시간외 급락. 매체별 낙폭 -10%~-27%로 상이 (연합인포맥스·Benzinga·Trefis). 밸류에이션·성장 둔화 우려 해석</div></div></div></div><h3 class="sec-h">미국 ETF</h3><div class="grid wl"><div class="card"><div class="lbl">VOO <span class="code">VOO</span></div><div class="val mono">$673.97</div><div class="chg" style="color:#FF4D6D">▼ $30.81 (-4.37%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">QQQM <span class="code">QQQM</span></div><div class="val mono">$266.85</div><div class="chg" style="color:#FF4D6D">▼ $18.07 (-6.34%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음 (급등/급락 사유 미확인)</div></div></div><div class="card"><div class="lbl">SCHD <span class="code">SCHD</span></div><div class="val mono">$35.42</div><div class="chg" style="color:#FF4D6D">▼ $0.79 (-2.18%)</div><div class="newsbox"><div class="news n-none"><span class="tag">내용없음</span> 내용없음</div></div></div></div>
+</div>
+<footer>출처: 사용자 제공 캡처(지수·워치리스트 시세), 한국경제(11/2, 11/6), Reuters·Axios·investinglive·IBTimes 등 인용 보도, Benzinga·Yonhap Infomax(Fortinet). 실시간 API가 아닌 웹 검색 기반이며 장중 수치는 계속 변동됩니다. 투자 권유가 아니며 최종 판단과 책임은 투자자 본인에게 있습니다.</footer>
+</div>
+<script>
+function switchTab(name){
+  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+</script>
+</body></html>
